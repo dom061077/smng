@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { RestUserDataSource } from './model/rest.user.datasource';
 
 @Component({
   selector: 'app-root',
@@ -7,4 +8,12 @@ import { Component } from '@angular/core';
 })
 export class AppComponent {
   title = 'smng';
+  constructor(private dsuser:RestUserDataSource){
+
+  }
+
+  login(){
+      console.log('Iniciando logueo');
+      this.dsuser.login("user1","user1");
+  }
 }

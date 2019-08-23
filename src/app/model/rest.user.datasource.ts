@@ -7,11 +7,19 @@ import { User } from "./user.model";
 
 @Injectable()
 export class RestUserDataSource extends RestDataSource {
-   constructor( public http: HttpClient,REST_URL) { 
-            super(http,REST_URL);
+   constructor( public http: HttpClient,@Inject(REST_URL) public url: string) { 
+            super(http,url);
     }
     
     getData():Observable<User[]>{
-        return this.sendRequest<User>("GET",this.url);
+        return this.sendRequest<User[]>("GET",this.url);
+    }
+
+    login(username,password){
+        console.log('Ingresando a login RestUserDataSource');
+
+        return this.sendRequest("POST",this.url+"/login",{"username": username,"password": password}).subscribe(p=>{
+            console.log('Resultado: '+p);
+        });
     }
 }
