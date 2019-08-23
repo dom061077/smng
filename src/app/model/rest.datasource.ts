@@ -8,10 +8,10 @@ export const REST_URL = new InjectionToken("rest_url");
 
 @Injectable()
 export  class RestDataSource{
-    constructor(private http: HttpClient,
-        @Inject(REST_URL) private url: string) { }
+    constructor(public http: HttpClient,
+        @Inject(REST_URL) public url: string) { }
     
-        private sendRequest<T>(verb: string, url: string, body?: T) : Observable<T> {
+        public sendRequest<T>(verb: string, url: string, body?: T) : Observable<T> {
 
         let myHeaders = new HttpHeaders();
         myHeaders = myHeaders.set("Access-Key", "<secret>");
