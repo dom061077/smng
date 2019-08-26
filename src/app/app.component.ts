@@ -14,6 +14,8 @@ export class AppComponent {
 
   login(){
       console.log('Iniciando logueo');
+      localStorage.setItem('localStorageItem','Probando localStorage');
+      console.log('Local storage item: '+localStorage.getItem('localStorageItem'));
       this.dsuser.login("user1","user1");
   }
 }
