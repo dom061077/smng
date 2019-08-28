@@ -4,19 +4,19 @@ import { RouterModule } from '@angular/router';
 import { HomeComponent } from './home.component';
 
 import { SharedModule } from '../shared'; 
-import { LoginComponent } from '../security/login/login.component';
+import { LoginComponent } from './login.component';
 
 
 
 
 const homeRouting: ModuleWithProviders = RouterModule.forChild([
   {
-    path: 'prueba',
+    path: 'login',
     component: LoginComponent
   },
   {
     path: '',
-    component: LoginComponent
+    component: HomeComponent
   }
 
 ]);
