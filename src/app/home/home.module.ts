@@ -5,6 +5,9 @@ import { HomeComponent } from './home.component';
 
 import { SharedModule } from '../shared'; 
 import { LoginComponent } from './login.component';
+import {ButtonModule} from 'primeng/button';
+import {PasswordModule} from 'primeng/password';
+import {CardModule} from 'primeng/card';
 
 
 
@@ -23,6 +26,9 @@ const homeRouting: ModuleWithProviders = RouterModule.forChild([
 
 @NgModule({
   imports: [
+    ButtonModule,
+    PasswordModule,
+    CardModule,
     homeRouting,
     SharedModule
     

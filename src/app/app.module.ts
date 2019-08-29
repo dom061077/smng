@@ -15,6 +15,9 @@ import {
 
  } from "./shared";
 
+ import {ButtonModule} from 'primeng/button';
+ //import {PasswordModule} from 'primeng/button';
+
  const rootRouting: ModuleWithProviders = RouterModule.forRoot([], { useHash: true });
 
 @NgModule({
@@ -22,15 +25,19 @@ import {
     AppComponent,
     FooterComponent,
     HeaderComponent
+    
   ],
   imports: [
     BrowserModule,
+    ButtonModule,
     //AppRoutingModule,
     ModelModule,
 
     HomeModule,
     rootRouting,
     SharedModule
+    //,
+    //PasswordModule
 
   ],
   providers: [],
