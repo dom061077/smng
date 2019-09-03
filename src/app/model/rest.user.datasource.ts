@@ -4,6 +4,7 @@ import { HttpClient } from "@angular/common/http";
 import { Observable, throwError} from "rxjs";
 import { catchError } from "rxjs/operators";
 import { User } from "./user.model";
+import { AuthenticatedUser } from "./authenticated.user.model";
 
 @Injectable()
 export class RestUserDataSource extends RestDataSource {
@@ -19,7 +20,11 @@ export class RestUserDataSource extends RestDataSource {
         console.log('Ingresando a login RestUserDataSource');
 
         return this.sendRequest("POST",this.url+"/login",{"username": username,"password": password}).subscribe(p=>{
-            console.log('Resultado: '+p);
+            console.log('UserName: '+p.username);
+            //console.log('Roles: '+p.roles);
+            //console.log('access_token: '+p.access_token);
+            //console.log('expires_in: '+p.expires_in);
+
         });
     }
 }

@@ -1,10 +1,10 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
-import { LoginComponent } from './home/login.component';
+//import { LoginComponent } from './home/login.component';
 import { logging } from 'protractor';
 
 const routes: Routes = [
-    {path:"",component:LoginComponent}
+   // {path:"",component:LoginComponent}
 
 ];
 

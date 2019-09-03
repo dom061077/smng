@@ -1,9 +1,9 @@
 import { NgModule } from "@angular/core";
-//import { LoginComponent } from '../home/login.component';
+import { LoginComponent } from './login.component';
 
 @NgModule({
     declarations:[
-        //LoginComponent
+        LoginComponent
     ]
 })
 
