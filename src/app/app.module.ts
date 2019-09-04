@@ -3,14 +3,18 @@ import { ModuleWithProviders, NgModule } from '@angular/core';
 import { RouterModule } from "@angular/router";
 
 import { ModelModule } from "./model/model.module";
+import { SecurityModule } from "./security/security.module";
 
 //import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 
 import { HomeModule } from "./home/home.module";
-import { SecurityModule } from "./security/security.module";
 import { HomeComponent } from "./home/home.component";
-import { LoginComponent } from "./login/login.component";
+import { HTTP_INTERCEPTORS } from "@angular/common/http";
+//import { LoginComponent } from "./security/login.component";
+
+
+
 import {
   FooterComponent,
   HeaderComponent,
@@ -19,12 +23,13 @@ import {
 } from "./shared";
 
 import { ButtonModule } from 'primeng/button';
+import { JwtInterceptor } from './security/jwt.interceptor';
 //import {PasswordModule} from 'primeng/button';
 
 const rootRouting: ModuleWithProviders =
   RouterModule.forRoot([
      {
-       path:"login",component:LoginComponent
+       path:"login",loadChildren:"./security/security.module#SecurityModule"
      },
     {
       path: "home", component: HomeComponent
@@ -35,11 +40,12 @@ const rootRouting: ModuleWithProviders =
   ], { useHash: true });
 
 @NgModule({
+  
   declarations: [
     AppComponent,
     FooterComponent,
-    HeaderComponent,
-    LoginComponent
+    HeaderComponent
+    
     
 
   ],
@@ -50,13 +56,17 @@ const rootRouting: ModuleWithProviders =
     ModelModule,
 
     HomeModule,
+    SecurityModule,
     rootRouting,
-    SharedModule
+    SharedModule,
+    
     //,
     //PasswordModule
 
   ],
-  providers: [],
+  providers: [
+      {provide : HTTP_INTERCEPTORS,useClass: JwtInterceptor, multi:true}
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

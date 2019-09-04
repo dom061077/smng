@@ -27,6 +27,7 @@
     
   </form>
 </p-card-->
+<form #form="ngForm">
  
 <div class="container">
 	<div class="d-flex justify-content-center h-100">
@@ -41,20 +42,20 @@
 						<div class="input-group-prepend">
 							<span class="input-group-text"><i class="fa fa-user"></i></span>
 						</div>
-						<input type="text" class="form-control" placeholder="username">
+						<input type="text" class="form-control" name="username" placeholder="username" [(ngModel)]="username">
 						
 					</div>
 					<div class="input-group form-group">
 						<div class="input-group-prepend">
 							<span class="input-group-text"><i class="fa fa-key"></i></span>
 						</div>
-						<input type="password" class="form-control" placeholder="password">
+						<input type="password" class="form-control" name="password" placeholder="password" [(ngModel)]="password">
 					</div>
 					<div class="row align-items-center remember">
 						<input type="checkbox">Recordarme
 					</div>
 					<div class="form-group col text-center">
-						<button pButton type="button" label="Ingresar" class="ui-button-rounded ui-button-success"></button>
+						<button pButton type="button" (click)="login()" label="Ingresar" class="ui-button-rounded ui-button-success"></button>
 					</div>
 				</form>
 			</div>
@@ -67,5 +68,5 @@
 		</div>
 	</div>
 </div>
-    
+</form>    
 

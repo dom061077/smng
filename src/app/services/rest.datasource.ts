@@ -12,18 +12,19 @@ export  class RestDataSource{
     constructor(public http: HttpClient,
         @Inject(REST_URL) public url: string) { }
     
-        public sendRequest<T>(verb: string, url: string, body?: T) : Observable<T> {
+        public sendRequest<T>(verb: string, url: string, bodyParm?: any) : Observable<any> {
 
             console.log('Ingresando a sendRequest');
             console.log('verb: '+verb);
             console.log('url: '+url);
-            this.myHeaders = this.myHeaders.set("Access-Key", "<secret>");
-            this.myHeaders = this.myHeaders.set("Application-Names", ["exampleApp", "proAngular"]);
+            console.log('body: '+JSON.stringify(bodyParm));
+            //this.myHeaders = this.myHeaders.set("Access-Key", "<secret>");
+            //this.myHeaders = this.myHeaders.set("Application-Names", ["exampleApp", "proAngular"]);
 
-            return this.http.request<T>(verb, url, {
-                body: body,
+            return this.http.request<any>(verb, url, {
+                body:JSON.stringify(bodyParm),
                 headers: this.myHeaders
-            }).pipe(catchError((error: Response) => 
-                throwError(`Network Error: ${error.statusText} (${error.status})`)));
+            });//.pipe(catchError((error: Response) => 
+               // throwError(`Network Error: ${error.statusText} (${error.status})`)));
         }        
 }

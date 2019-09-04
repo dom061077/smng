@@ -1,9 +1,9 @@
-import { RestDataSource,REST_URL } from "./rest.datasource";
+import { RestDataSource,REST_URL } from "../services/rest.datasource";
 import { Injectable, Inject, InjectionToken } from "@angular/core";
 import { HttpClient } from "@angular/common/http";
 import { Observable, throwError} from "rxjs";
 import { catchError } from "rxjs/operators";
-import { User } from "./user.model";
+import { User } from "./security/user.model";
 import { AuthenticatedUser } from "./authenticated.user.model";
 
 @Injectable()
