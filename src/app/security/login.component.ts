@@ -35,5 +35,11 @@ export class LoginComponent{
 
             );
     }
+
+    public showmsg(){
+        // let item = JSON.parse(localStorage.getItem('currentUser'));
+        // console.log('Token: '+item.access_token);
+        // console.log('Actual usuario: '+localStorage.getItem('currentUser'));
+    }
 }
 
