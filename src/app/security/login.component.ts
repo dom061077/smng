@@ -1,5 +1,6 @@
 import {Component} from '@angular/core'
 import { AuthenticationService } from "./authentication.service";
+
 import { NgForm } from "@angular/forms";
 
 
@@ -27,7 +28,7 @@ export class LoginComponent{
             .subscribe(
                 data =>{
                     console.log("Aplicación logueada ");
-                    
+                    this.getUserInformation();
                 },
                 error => {
                     console.log("Error json: "+error.status);
@@ -36,7 +37,13 @@ export class LoginComponent{
             );
     }
 
+    private getUserInformation(){
+        this.authService.getUserInformation("user1");
+        console.log('User information: '+localStorage.getItem('userInformation'));
+    }
+
     public showmsg(){
+        console.log('Dato de usuario: ');
         // let item = JSON.parse(localStorage.getItem('currentUser'));
         // console.log('Token: '+item.access_token);
         // console.log('Actual usuario: '+localStorage.getItem('currentUser'));

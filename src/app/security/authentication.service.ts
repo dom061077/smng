@@ -18,6 +18,7 @@ export class AuthenticationService extends RestDataSource {
         super(http,url);
         this.currentUserSubject = new BehaviorSubject<User>(JSON.parse(localStorage.getItem('currentUser')));
         this.currentUser = this.currentUserSubject.asObservable();
+        
     }
 
     public get currentUserValue(): User {
@@ -32,15 +33,26 @@ export class AuthenticationService extends RestDataSource {
             .pipe(map(user => {
                 if (user && user.access_token){
                     localStorage.setItem('currentUser',JSON.stringify(user));
+
                     this.currentUserSubject.next(user);
                 }
+                console.log('User Information: '+localStorage.getItem('userInformation'));
+
                 return user;
             })
-
             );
 
         
     }    
+
+    getUserInformation(username:string){
+
+        return this.sendRequest<any>("GET",this.url+"/showuser?userName="+username)
+            .subscribe(data=>{
+                localStorage.setItem('userInformation',JSON.stringify(data));
+                
+            });
+    }
 
     /*login(username: string, password: string) {
         return this.http.post<any>(`${this.url}/users/authenticate`, { username, password })

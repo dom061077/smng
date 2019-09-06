@@ -12,7 +12,7 @@ import { HomeModule } from "./home/home.module";
 import { HomeComponent } from "./home/home.component";
 import { HTTP_INTERCEPTORS } from "@angular/common/http";
 //import { LoginComponent } from "./security/login.component";
-
+import { AuthenticationService } from "./security/authentication.service";
 
 
 import {
@@ -54,7 +54,6 @@ const rootRouting: ModuleWithProviders =
     ButtonModule,
     //AppRoutingModule,
     ModelModule,
-
     HomeModule,
     SecurityModule,
     rootRouting,
@@ -65,7 +64,11 @@ const rootRouting: ModuleWithProviders =
 
   ],
   providers: [
-      {provide : HTTP_INTERCEPTORS,useClass: JwtInterceptor, multi:true}
+      {provide : HTTP_INTERCEPTORS,useClass: JwtInterceptor, multi:true
+        
+      },
+      ,AuthenticationService
+      
   ],
   bootstrap: [AppComponent]
 })
