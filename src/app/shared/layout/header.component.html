@@ -28,7 +28,10 @@
         </li>
 
         <li>
-           Usuario: {{username$ | async}}
+           Usuario: {{(currentUser | async)?.username}}
+           Apellido: {{(currentUser | async)?.apellido}}
+           Nombre: {{(currentUser | async)?.nombre}}
+           Id: {{(currentUser | async)?.id}}
         </li>  
 
         <!--li class="nav-item">

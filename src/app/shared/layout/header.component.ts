@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { AuthenticationService } from "../../security/authentication.service";
 import {MenuItem} from 'primeng/api';
+import { User } from "../../model/security/user.model";
 
 @Component({
   selector: 'layout-header',
@@ -12,9 +13,13 @@ export class HeaderComponent {
 
   }
 
-  username$ = this.authService.currentUser;
+  public get currentUser(){
+        return this.authService.currentUserObservableValue;
+  }
   
     ngOnInit() {
+
+        
         this.items = [
             {
                 label: 'Alumnos',

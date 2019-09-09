@@ -28,8 +28,9 @@ export class LoginComponent{
             .subscribe(
                 data =>{
                     console.log("Aplicación logueada ");
+                    console.log("currentUserValue: "+this.authService.currentUserValue.username);
+                    this.getUserInformation(this.authService.currentUserValue.username);
                     
-                    //this.getUserInformation();
                 },
                 error => {
                     console.log("Error json: "+error.message);
@@ -38,9 +39,17 @@ export class LoginComponent{
             );
     }
 
-    private getUserInformation(){
-        this.authService.getUserInformation("user1");
-        console.log('User information: '+localStorage.getItem('userInformation'));
+    private getUserInformation(username:string){
+        this.authService.getUserInformation(username)
+            .subscribe(
+                data => {
+                    console.log("Subscribe getUserInformation");
+                },
+                error=>{
+                    console.log("Subscribe getUserInformation ERROR");
+                }
+            );
+        
     }
 
     public showmsg(){

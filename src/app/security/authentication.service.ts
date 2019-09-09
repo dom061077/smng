@@ -22,7 +22,9 @@ export class AuthenticationService extends RestDataSource {
     }
 
     public get currentUserObservableValue(){
+        
         return this.currentUser;
+    
     }
 
     public get currentUserValue(): User {
@@ -52,10 +54,13 @@ export class AuthenticationService extends RestDataSource {
     getUserInformation(username:string){
 
         return this.sendRequest<any>("GET",this.url+"/showuser?userName="+username)
-            .subscribe(data=>{
-                localStorage.setItem('userInformation',JSON.stringify(data));
-                
-            });
+            .pipe(map(data=>{
+               let user = this.currentUserValue; 
+               user.id = data.id               
+               user.apellido = data.apellido
+               user.nombre = data.nombre
+               this.currentUserSubject.next(user);
+            }));
     }
 
     /*login(username: string, password: string) {
