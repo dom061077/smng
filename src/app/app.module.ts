@@ -9,10 +9,16 @@ import { SecurityModule } from "./security/security.module";
 import { AppComponent } from './app.component';
 
 import { HomeModule } from "./home/home.module";
+import { AlumnoModule } from "./alumno/alumno.module";
 import { HomeComponent } from "./home/home.component";
 import { HTTP_INTERCEPTORS } from "@angular/common/http";
 //import { LoginComponent } from "./security/login.component";
 import { AuthenticationService } from "./security/authentication.service";
+import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
+
+import {SidebarModule} from 'primeng/sidebar';
+import {PanelMenuModule} from 'primeng/panelmenu';
+import {MenuItem} from 'primeng/api';
 
 
 import {
@@ -51,13 +57,18 @@ const rootRouting: ModuleWithProviders =
   ],
   imports: [
     BrowserModule,
+    BrowserAnimationsModule,
     ButtonModule,
     //AppRoutingModule,
     ModelModule,
     HomeModule,
     SecurityModule,
+    AlumnoModule,
     rootRouting,
     SharedModule,
+    SidebarModule,
+    PanelMenuModule,
+
     
     //,
     //PasswordModule

@@ -21,6 +21,10 @@ export class AuthenticationService extends RestDataSource {
         
     }
 
+    public get currentUserObservableValue(){
+        return this.currentUser;
+    }
+
     public get currentUserValue(): User {
         return this.currentUserSubject.value;
     }

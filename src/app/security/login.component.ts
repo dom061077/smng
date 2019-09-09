@@ -28,10 +28,11 @@ export class LoginComponent{
             .subscribe(
                 data =>{
                     console.log("Aplicación logueada ");
-                    this.getUserInformation();
+                    
+                    //this.getUserInformation();
                 },
                 error => {
-                    console.log("Error json: "+error.status);
+                    console.log("Error json: "+error.message);
                 }
 
             );
