@@ -9,6 +9,7 @@ import { User } from "../../model/security/user.model";
 })
 export class HeaderComponent {
    items: MenuItem[];
+   //display:boolean;
   constructor(public authService:AuthenticationService) {
 
   }
@@ -24,9 +25,10 @@ export class HeaderComponent {
             {
                 label: 'Alumnos',
                 icon: 'fa fa-graduation-cap',
-                routerLink : ['/newalumno'],
+                
                 items: [
-                    {label: 'Nuevo', icon: 'fa fa-newspaper-o'},
+                    {label: 'Nuevo', icon: 'fa fa-newspaper-o',routerLink : ['/newalumno'],},
+                    
                     {label: 'Refresh', icon: 'pi pi-fw pi-refresh'}
                 ]
             },
@@ -77,6 +79,12 @@ export class HeaderComponent {
                         ]
                     }
                 ]
+            },
+            {
+                label:'Salir',
+                icon:'fa fa-sign-out',
+                routerLink : ['/login']
+                
             }
         ];
     }  

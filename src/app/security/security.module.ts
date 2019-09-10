@@ -9,7 +9,8 @@ import { AuthenticationService  } from "./authentication.service";
 import { JwtInterceptor  } from "./jwt.interceptor";
 
 let routing = RouterModule.forChild([
-    {path:"login",component: LoginComponent}
+    {path:"login",component: LoginComponent},
+    {path:"logout",component: LoginComponent}
 ]);
 
 @NgModule({

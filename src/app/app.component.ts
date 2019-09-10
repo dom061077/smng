@@ -1,21 +1,24 @@
 import { Component } from '@angular/core';
 import { RestUserDataSource } from './model/rest.user.datasource';
+import {MessageService} from 'primeng/api';
+
+
 
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css']
+  ,providers:[MessageService]
 })
 export class AppComponent {
   title = 'smng';
-  constructor(private dsuser:RestUserDataSource){
+  
+  constructor(private dsuser:RestUserDataSource,private messageService:MessageService){
 
   }
 
-  login(){
-      console.log('Iniciando logueo');
-      localStorage.setItem('localStorageItem','Probando localStorage');
-      console.log('Local storage item: '+localStorage.getItem('localStorageItem'));
-      this.dsuser.login("user1","user1");
-  }
+  public login() {
+    this.messageService.add({severity:'error', summary:'Mensaje', detail:'prueba de toast'});
+}  
+
 }

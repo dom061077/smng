@@ -3,6 +3,8 @@ import { AuthenticationService } from "./authentication.service";
 
 import { NgForm } from "@angular/forms";
 
+import {MessageService} from 'primeng/api';
+import {Router} from "@angular/router";
 
 //import {InputTextModule} from 'primeng/inputtext';
 //import {PasswordModule} from 'primeng/password';
@@ -11,13 +13,16 @@ import { NgForm } from "@angular/forms";
 @Component({
     //selector: 'login-page',
     templateUrl: './login.component.html'
+    
 })
 
 export class LoginComponent{
+    
     username:string;
     password:string='';
     
-    constructor( private authService:AuthenticationService){
+    constructor( private authService:AuthenticationService,private msgService:MessageService
+                    ,private router:Router){
 
     }
 
@@ -30,9 +35,14 @@ export class LoginComponent{
                     console.log("Aplicación logueada ");
                     console.log("currentUserValue: "+this.authService.currentUserValue.username);
                     this.getUserInformation(this.authService.currentUserValue.username);
+                    this.router.navigateByUrl("/");
                     
                 },
                 error => {
+                    this.msgService.clear;
+                    this.msgService.add({severity:'error', summary:'Mensaje', detail:error.message});
+                    
+
                     console.log("Error json: "+error.message);
                 }
 
@@ -52,8 +62,12 @@ export class LoginComponent{
         
     }
 
+    public ngOnInit() {
+        this.authService.logout();
+    }
+
     public showmsg(){
-        console.log('Dato de usuario: ');
+        this.msgService.add({severity:'error', summary:'Mensaje', detail:'PROBANDO DE NUEVO'});
         // let item = JSON.parse(localStorage.getItem('currentUser'));
         // console.log('Token: '+item.access_token);
         // console.log('Actual usuario: '+localStorage.getItem('currentUser'));

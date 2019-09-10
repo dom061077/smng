@@ -13,13 +13,15 @@ import { AlumnoModule } from "./alumno/alumno.module";
 import { HomeComponent } from "./home/home.component";
 import { HTTP_INTERCEPTORS } from "@angular/common/http";
 //import { LoginComponent } from "./security/login.component";
-import { AuthenticationService } from "./security/authentication.service";
+//import { AuthenticationService } from "./security/authentication.service";
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 
 import {SidebarModule} from 'primeng/sidebar';
+import { SlideMenuModule } from "primeng/slidemenu";
 import {PanelMenuModule} from 'primeng/panelmenu';
-import {MenuItem} from 'primeng/api';
 
+import {ToastModule} from 'primeng/toast';
+import {OverlayPanelModule} from 'primeng/overlaypanel';
 
 import {
   FooterComponent,
@@ -30,6 +32,7 @@ import {
 
 import { ButtonModule } from 'primeng/button';
 import { JwtInterceptor } from './security/jwt.interceptor';
+import { MessageService } from 'primeng/api';
 //import {PasswordModule} from 'primeng/button';
 
 const rootRouting: ModuleWithProviders =
@@ -68,7 +71,10 @@ const rootRouting: ModuleWithProviders =
     SharedModule,
     SidebarModule,
     PanelMenuModule,
-
+    SlideMenuModule,
+    ToastModule,
+    OverlayPanelModule
+    
     
     //,
     //PasswordModule
@@ -78,7 +84,8 @@ const rootRouting: ModuleWithProviders =
       {provide : HTTP_INTERCEPTORS,useClass: JwtInterceptor, multi:true
         
       },
-      ,AuthenticationService
+      //,AuthenticationService
+      ,MessageService
       
   ],
   bootstrap: [AppComponent]

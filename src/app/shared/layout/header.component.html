@@ -1,38 +1,37 @@
-<p-sidebar [(visible)]="display">
+<!--p-sidebar [(visible)]="display">
     <p-panelMenu [model]="items" ></p-panelMenu>
-</p-sidebar>
+</p-sidebar-->
+<div *ngIf="currentUser | async"> 
+  <p-slideMenu #menu [model]="items" [popup]="true" [viewportHeight]="250"></p-slideMenu>
 
-<button type="text" (click)="display = true" 
-  pButton icon="fa fa-bars" label="Menu"></button>      
+  <button type="text" (click)="menu.toggle($event)" 
+    pButton icon="fa fa-bars" label="Menu"></button>      
+</div>
 
 <nav class="navbar navbar-light">
   
     <div class="container">
 
-      <a class="navbar-brand" routerLink="/">Escuela</a>
+      <a class="navbar-brand" routerLink="/">Escuela Pedro de Mendoza</a>
   
       <ul class="nav navbar-nav pull-xs-right">
   
-        <li class="nav-item">
-          <a class="nav-link"
-            routerLink="/">
-            Inicio
-          </a>
-        </li>
-  
+        
         <li class="nav-item">
           <a class="nav-link"
             routerLink="/login">
             Ingreso al Sistema
           </a>
         </li>
+        <li *ngIf="currentUser | async;then ingreso else yo"></li>  
+        
 
-        <li>
+        <!--li>
            Usuario: {{(currentUser | async)?.username}}
            Apellido: {{(currentUser | async)?.apellido}}
            Nombre: {{(currentUser | async)?.nombre}}
            Id: {{(currentUser | async)?.id}}
-        </li>  
+        </li -->  
 
         <!--li class="nav-item">
           <a class="nav-link">
@@ -44,3 +43,5 @@
   
     </div>
   </nav>
+  
+  
