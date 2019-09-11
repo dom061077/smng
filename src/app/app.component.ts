@@ -14,7 +14,7 @@ export class AppComponent {
   title = 'smng';
   
   constructor(private dsuser:RestUserDataSource,private messageService:MessageService){
-
+      console.log("constructor AppComponent XXXXXX");
   }
 
   public login() {

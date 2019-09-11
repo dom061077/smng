@@ -19,6 +19,7 @@ import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {SidebarModule} from 'primeng/sidebar';
 import { SlideMenuModule } from "primeng/slidemenu";
 import {PanelMenuModule} from 'primeng/panelmenu';
+import { PanelModule } from 'primeng/panel';
 
 import {ToastModule} from 'primeng/toast';
 import {OverlayPanelModule} from 'primeng/overlaypanel';
@@ -39,6 +40,12 @@ const rootRouting: ModuleWithProviders =
   RouterModule.forRoot([
      {
        path:"login",loadChildren:"./security/security.module#SecurityModule"
+     },
+     {
+       path:"logout",loadChildren:"./security/security.module#SecurityModule"
+     },
+     {
+       path:"changepass",loadChildren:"./security/security.module#SecurityModule  "
      },
     {
       path: "home", component: HomeComponent
@@ -73,7 +80,8 @@ const rootRouting: ModuleWithProviders =
     PanelMenuModule,
     SlideMenuModule,
     ToastModule,
-    OverlayPanelModule
+    OverlayPanelModule,
+    PanelModule
     
     
     //,

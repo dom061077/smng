@@ -1,45 +1,90 @@
 <!--p-sidebar [(visible)]="display">
     <p-panelMenu [model]="items" ></p-panelMenu>
 </p-sidebar-->
-<div *ngIf="currentUser | async"> 
-  <p-slideMenu #menu [model]="items" [popup]="true" [viewportHeight]="250"></p-slideMenu>
+<div class="ui-g" > 
+    <div class="ui-g-4" *ngIf="currentUser | async">
+      <p-slideMenu #menu [model]="items" [popup]="true" [viewportHeight]="250"></p-slideMenu>
 
-  <button type="text" (click)="menu.toggle($event)" 
-    pButton icon="fa fa-bars" label="Menu"></button>      
+      <button type="text" (click)="menu.toggle($event)" 
+        pButton icon="fa fa-bars" label="Menu"></button>      
+    </div>
+    <div class="ui-g-4">
+      <a class="navbar-brand" routerLink="/">Escuela Pedro de Mendoza</a>
+    </div>      
+    <div class="ui-g-2">
+        <ul class="nav navbar-nav pull-xs-right">      
+          <li *ngIf="(currentUser | async)?.id>0;then yo else ingreso"></li>  
+          <ng-template #ingreso>
+              <a class="nav-link"
+                routerLink="/login">
+                Ingreso al Sistema
+              </a>          
+          </ng-template>
+          <ng-template #yo>
+              <span><a class="nav-link" routerLink="" (click)="overlay_yo.toggle($event)" > <i class="fa fa-user fa-2x"></i> yo</a></span>
+              
+              <p-overlayPanel #overlay_yo [showCloseIcon]="true">
+                  <ul class="nav navbar-nav pull-xs-right"> 
+                    <li>
+                        <a class="nav-link">
+                            Usuario: {{(currentUser | async)?.username}}
+                        </a>    
+                    </li>
+                    <li>
+                        <a class="nav-link">
+                            Apellido: {{(currentUser | async)?.apellido}}
+                        </a>                              
+                    </li>                      
+                    <li>   
+                        <a class="nav-link">
+                            Nombre: {{(currentUser | async)?.nombre}}
+                        </a>    
+                    </li> 
+                    <li>  
+                        <a class="nav-link" routerLink="/changepass">
+                            <i class="fa fa-key"></i>
+                          Cambiar Contraseña
+                        </a>
+                      </li>                           
+                    <li>       
+                        <a class="nav-link" routerLink="/logout">        
+                          <i class="fa fa-sign-out"></i>       
+                          Cerrar Sesión
+                        </a>  
+                      </li>                                      
+                  </ul>
+              </p-overlayPanel>              
+
+          </ng-template>
+
+          <!--li>
+            Usuario: {{(currentUser | async)?.username}}
+            Apellido: {{(currentUser | async)?.apellido}}
+            Nombre: {{(currentUser | async)?.nombre}}
+            Id: {{(currentUser | async)?.id}}
+          </li -->  
+
+          <!--li class="nav-item">
+            <a class="nav-link">
+              Sign up
+            </a>
+          </li-->
+    
+        </ul>      
+    </div>
 </div>
+
 
 <nav class="navbar navbar-light">
   
     <div class="container">
 
-      <a class="navbar-brand" routerLink="/">Escuela Pedro de Mendoza</a>
+      
   
-      <ul class="nav navbar-nav pull-xs-right">
-  
-        
-        <li class="nav-item">
-          <a class="nav-link"
-            routerLink="/login">
-            Ingreso al Sistema
-          </a>
-        </li>
-        <li *ngIf="currentUser | async;then ingreso else yo"></li>  
-        
 
-        <!--li>
-           Usuario: {{(currentUser | async)?.username}}
-           Apellido: {{(currentUser | async)?.apellido}}
-           Nombre: {{(currentUser | async)?.nombre}}
-           Id: {{(currentUser | async)?.id}}
-        </li -->  
-
-        <!--li class="nav-item">
-          <a class="nav-link">
-            Sign up
-          </a>
-        </li-->
   
-      </ul>
+
+
   
     </div>
   </nav>

@@ -79,12 +79,6 @@ export class HeaderComponent {
                         ]
                     }
                 ]
-            },
-            {
-                label:'Salir',
-                icon:'fa fa-sign-out',
-                routerLink : ['/login']
-                
             }
         ];
     }  

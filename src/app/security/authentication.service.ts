@@ -18,6 +18,7 @@ export class AuthenticationService extends RestDataSource {
         super(http,url);
         this.currentUserSubject = new BehaviorSubject<User>(JSON.parse(localStorage.getItem('currentUser')));
         this.currentUser = this.currentUserSubject.asObservable();
+        console.log('Constructor de authentication XXXXXXX');
         
     }
 
@@ -60,6 +61,7 @@ export class AuthenticationService extends RestDataSource {
                user.apellido = data.apellido
                user.nombre = data.nombre
                this.currentUserSubject.next(user);
+               localStorage.setItem('currentUser',JSON.stringify(user));
             }));
     }
 
