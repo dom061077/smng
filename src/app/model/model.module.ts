@@ -8,6 +8,6 @@ import { RestUserDataSource } from './rest.user.datasource';
 @NgModule({
     imports: [HttpClientModule],
     providers: [/*Model,*/ RestDataSource,RestUserDataSource,
-        { provide: REST_URL, useValue: `http://134.14.1.3:8080/api` }]
+        { provide: REST_URL, useValue: `http://localhost:8080/smr/api` }]
 })
 export class ModelModule { }

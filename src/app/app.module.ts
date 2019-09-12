@@ -45,7 +45,7 @@ const rootRouting: ModuleWithProviders =
        path:"logout",loadChildren:"./security/security.module#SecurityModule"
      },
      {
-       path:"changepass",loadChildren:"./security/security.module#SecurityModule  "
+       path:"changepass",loadChildren:"./security/security.module#SecurityModule"
      },
     {
       path: "home", component: HomeComponent
@@ -91,7 +91,7 @@ const rootRouting: ModuleWithProviders =
   providers: [
       {provide : HTTP_INTERCEPTORS,useClass: JwtInterceptor, multi:true
         
-      },
+      }
       //,AuthenticationService
       ,MessageService
       
