@@ -65,6 +65,14 @@ export class AuthenticationService extends RestDataSource {
             }));
     }
 
+    changePassword(id:number,newPassword:string){
+        return this.sendRequest<any>("PUT",this.url+"/changepassword"
+            ,{"id":id,"newPassword":newPassword})
+            .pipe(map(data=>{
+                console.log("Response: "+data);
+            }));
+    }
+
     /*login(username: string, password: string) {
         return this.http.post<any>(`${this.url}/users/authenticate`, { username, password })
             .pipe(map(user => {
