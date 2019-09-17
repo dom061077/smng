@@ -1,4 +1,5 @@
 import { ValidationErrors, ValidatorFn, AbstractControl } from '@angular/forms';
+import { AuthenticationService  } from '../security/authentication.service';
 
 export class CustomValidators {
   static patternValidator(regex: RegExp, error: ValidationErrors): ValidatorFn {
@@ -26,4 +27,12 @@ export class CustomValidators {
       control.get('confirmPassword').setErrors({ NoPassswordMatch: true });
     }
   }
+
+  static validateOldPassword(authService:AuthenticationService){
+      return (control:AbstractControl) =>{
+          return authService.validateOldPassword()
+      };
+  }
+
+  
 }

@@ -65,6 +65,16 @@ export class AuthenticationService extends RestDataSource {
             }));
     }
 
+    validateOldPassword(username:string,oldPassword:string){
+        return this.sendRequest<any>("POST",this.url+"validateoldpassword"
+            ,{"username":username,"oldPassword":oldPassword})
+            .pipe(map(data=>{
+                return data.success
+            }));
+            ;
+    }
+
+
     changePassword(id:number,newPassword:string){
         return this.sendRequest<any>("PUT",this.url+"/changepassword"
             ,{"id":id,"newPassword":newPassword})
@@ -73,23 +83,12 @@ export class AuthenticationService extends RestDataSource {
             }));
     }
 
-    /*login(username: string, password: string) {
-        return this.http.post<any>(`${this.url}/users/authenticate`, { username, password })
-            .pipe(map(user => {
-                // login successful if there's a jwt token in the response
-                if (user && user.token) {
-                    // store user details and jwt token in local storage to keep user logged in between page refreshes
-                    localStorage.setItem('currentUser', JSON.stringify(user));
-                    this.currentUserSubject.next(user);
-                }
-
-                return user;
-            }));
-    }*/
 
     logout() {
         // remove user from local storage to log user out
         localStorage.removeItem('currentUser');
         this.currentUserSubject.next(null);
     }
+
+
 }
