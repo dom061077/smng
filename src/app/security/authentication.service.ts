@@ -65,19 +65,20 @@ export class AuthenticationService extends RestDataSource {
             }));
     }
 
-    validateOldPassword(username:string,oldPassword:string){
-        return this.sendRequest<any>("POST",this.url+"validateoldpassword"
-            ,{"username":username,"oldPassword":oldPassword})
+    validateOldPassword(oldPassword:string){
+        return this.sendRequest<any>("POST",this.url+"/validateoldpassword"
+            ,{"oldPassword":oldPassword})
             .pipe(map(data=>{
-                return data.success
-            }));
-            ;
+                return data.success ? null : { wrongOldPassword:true}
+            }
+                 
+            ));
     }
 
 
-    changePassword(id:number,newPassword:string){
+    changePassword(oldPassword:string,newPassword:string){
         return this.sendRequest<any>("PUT",this.url+"/changepassword"
-            ,{"id":id,"newPassword":newPassword})
+            ,{"oldPassword":oldPassword,"newPassword":newPassword})
             .pipe(map(data=>{
                 console.log("Response: "+data);
             }));

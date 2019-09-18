@@ -14,10 +14,10 @@ export  class RestDataSource{
     
         public sendRequest<T>(verb: string, url: string, bodyParm?: any) : Observable<any> {
 
-            console.log('Ingresando a sendRequest');
+            /*console.log('Ingresando a sendRequest');
             console.log('verb: '+verb);
             console.log('url: '+url);
-            console.log('body: '+JSON.stringify(bodyParm));
+            console.log('body: '+JSON.stringify(bodyParm));*/
             //this.myHeaders = this.myHeaders.set("Access-Key", "<secret>");
             //this.myHeaders = this.myHeaders.set("Application-Names", ["exampleApp", "proAngular"]);
 

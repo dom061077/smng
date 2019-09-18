@@ -3,6 +3,9 @@ import { HttpInterceptor, HttpRequest, HttpHandler, HttpEvent } from '@angular/c
 import { Observable } from 'rxjs';
 
 import { AuthenticationService } from './authentication.service';
+import { catchError } from 'rxjs/operators';
+import { throw } from 'rxjs/observable/throw';
+
 @Injectable({
   providedIn: 'root'
 })
@@ -19,6 +22,12 @@ export class JwtInterceptor implements HttpInterceptor {
           });
       }
 
-      return next.handle(request);
+      return next.handle(request)
+        .pipe(
+            catchError(error =>{
+                return _throw (error);
+            })
+            
+        );
   }
 }

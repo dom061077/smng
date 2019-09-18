@@ -29,9 +29,15 @@ export class CustomValidators {
   }
 
   static validateOldPassword(authService:AuthenticationService){
+      
       return (control:AbstractControl) =>{
-          return authService.validateOldPassword()
-      };
+                return authService.validateOldPassword(control.value);
+
+            };
+            
+          
+
+        
   }
 
   

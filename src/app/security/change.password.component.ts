@@ -21,7 +21,9 @@ export class ChangePasswordComponent  implements OnInit{
     }
     ngOnInit() {
         this.changePassForm = this.fb.group({
-            passwordAnterior: new FormControl('', Validators.required),
+            passwordAnterior: //new FormControl('', [Validators.required],CustomValidators.validateOldPassword(this.authService)),
+                    ['',[Validators.required],CustomValidators.validateOldPassword(this.authService)],
+            //
             password: new FormControl('',Validators.required),
             confirmPassword: 
                 new FormControl('',[Validators.required])
@@ -39,10 +41,14 @@ export class ChangePasswordComponent  implements OnInit{
         this.genders.push({label:'Male', value:'Male'});
         this.genders.push({label:'Female', value:'Female'});*/
     }
-    onSubmit(value: string) {
+    onSubmit(value: any) {
         this.submitted = true;
-        //this.authService.changePassword();
-        this.messageService.add({severity:'info', summary:'Success', detail:'Form Submitted'});
+        this.authService.changePassword(value.passwordAnterior,value.password).subscribe(data=>{
+            this.messageService.add({severity:'info',summary:'Correcto',detail:'Contraseña modificada'});
+        });
+
+        //this.authService.changePassword()
+        //this.messageService.add({severity:'info', summary:'Success', detail:'Form Submitted'});
     }    
 
 
