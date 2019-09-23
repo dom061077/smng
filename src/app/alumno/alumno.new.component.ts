@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import {Validators,ValidationErrors,ValidatorFn,AbstractControl,FormControl,FormGroup,FormBuilder} from '@angular/forms';
 import {MessageService} from 'primeng/api';
+import {MenuItem} from 'primeng/api';
 
 
 @Component({
@@ -10,6 +11,7 @@ import {MessageService} from 'primeng/api';
 })
 export class AlumnoNew implements OnInit {
   alumnoForm : FormGroup;
+  items: MenuItem[];
   
   constructor(private fb:FormBuilder) {}
 
@@ -20,6 +22,11 @@ export class AlumnoNew implements OnInit {
         nombre: ['',[Validators.required]]
 
     });
+    this.items = [
+      {label: 'Step 1'},
+      {label: 'Step 2'},
+      {label: 'Step 3'}
+    ];    
 
   }
 

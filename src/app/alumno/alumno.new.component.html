@@ -1,9 +1,12 @@
 <form [formGroup]="alumnoForm" (ngSubmit)="onSubmit(alumnoForm.value)">
-    <p-panel header="Alta de Alumno">                  
+    <p-panel header="Alta de Alumno" >    
+            <p-steps [model]="items">
+                
+                
         <div class="ui-grid ui-grid-responsive ui-grid-pad ui-fluid" style="margin: 10px 0px">
             <div class="ui-grid-row">
                 <div class="ui-grid-col-2">
-                    D.N.I *::
+                    D.N.I *:
                 </div>
             </div>
             <div class="ui-grid-row">    
@@ -19,7 +22,7 @@
          <div class="ui-grid ui-grid-responsive ui-grid-pad ui-fluid" style="margin: 10px 0px">   
             <div class="ui-grid-row">
                 <div class="ui-grid-col-2">
-                    Apellido *::
+                    Apellido *:
                 </div>
             </div>
             <div class="ui-grid-row">    
@@ -34,6 +37,8 @@
 
         
         </div>  
+    </p-steps>
+    <p-steps [model]="items">
 
          <div class="ui-grid ui-grid-responsive ui-grid-pad ui-fluid" style="margin: 10px 0px">   
             <div class="ui-grid-row">
@@ -55,15 +60,16 @@
         </div>  
 
 
-        <div class="ui-grid ui-grid-responsive ui-grid-pad ui-fluid" style="margin: 10px 0px">
+        <div class="ui-grid ui-grid-responsive ui-grid-pad ui-fluid"  style="margin: 10px 0px">
             <div class="ui-grid-row">        
-                <div class="ui-grid-col-2"></div>
+
                 <div class="ui-grid-col-4">
-                     <button pButton style="width:100%" type="submit" label="Confirmar" [disabled]="!alumnoForm.valid"></button>
+                     <button pButton style="width:100%"  type="submit" label="Confirmar" [disabled]="!alumnoForm.valid"></button>
                 </div>
                 <div class="ui-grid-col-4"></div>
             </div>    
         </div>  
+    </p-steps>
                 
     </p-panel>    
                          
