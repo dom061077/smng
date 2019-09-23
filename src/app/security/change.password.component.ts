@@ -43,9 +43,15 @@ export class ChangePasswordComponent  implements OnInit{
     }
     onSubmit(value: any) {
         this.submitted = true;
-        this.authService.changePassword(value.passwordAnterior,value.password).subscribe(data=>{
+        this.authService.changePassword(value.passwordAnterior,value.password)
+        .subscribe(data=>{
             this.messageService.add({severity:'info',summary:'Correcto',detail:'Contraseña modificada'});
-        });
+            },
+            error=>{
+                this.messageService.add({severity:'error',summary:'Error',detail:'ERROR EN HTTP'});
+                
+            }
+        );
 
         //this.authService.changePassword()
         //this.messageService.add({severity:'info', summary:'Success', detail:'Form Submitted'});
