@@ -37,14 +37,14 @@ export class LoginComponent{
                     this.getUserInformation(this.authService.currentUserValue.username);
                     this.router.navigateByUrl("/");
                     
-                },
+                }/*,
                 error => {
                     this.msgService.clear;
                     this.msgService.add({severity:'error', summary:'Mensaje', detail:error.message});
                     
 
                     console.log("Error json: "+error.message);
-                }
+                }*/
 
             );
     }

@@ -11,6 +11,8 @@ import { User } from '../model/security/user.model';
 export class AuthenticationService extends RestDataSource {
     private currentUserSubject: BehaviorSubject<User>;
     public currentUser: Observable<User>;
+    private currentRestError: BehaviorSubject<any>;
+    
 
 
     
@@ -18,6 +20,7 @@ export class AuthenticationService extends RestDataSource {
         super(http,url);
         this.currentUserSubject = new BehaviorSubject<User>(JSON.parse(localStorage.getItem('currentUser')));
         this.currentUser = this.currentUserSubject.asObservable();
+        this.currentRestError = new BehaviorSubject<any>(null);
         console.log('Constructor de authentication XXXXXXX');
         
     }
@@ -26,6 +29,10 @@ export class AuthenticationService extends RestDataSource {
         
         return this.currentUser;
     
+    }
+
+    public get currentRestSubError(){
+        return this.currentRestError;
     }
 
     public get currentUserValue(): User {
