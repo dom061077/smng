@@ -9,7 +9,9 @@ import {ButtonModule} from 'primeng/button';
 import {MessagesModule} from 'primeng/messages';
 import {MessageModule} from 'primeng/message';
 import {KeyFilterModule} from 'primeng/keyfilter';
-import {StepsModule} from 'primeng/steps';
+import {TabViewModule} from 'primeng/tabview';
+import {AutoCompleteModule} from 'primeng/autocomplete';
+
 
 
 
@@ -22,8 +24,9 @@ let routing=RouterModule.forChild([
         CommonModule,routing,InputMaskModule,FormsModule
         ,ReactiveFormsModule,PanelModule,PanelModule
         ,MessagesModule,MessageModule,InputMaskModule
-        ,ButtonModule,KeyFilterModule
-        ,StepsModule
+        ,ButtonModule,KeyFilterModule,TabViewModule
+        ,AutoCompleteModule
+        
     ],
     declarations: [
         AlumnoNew
