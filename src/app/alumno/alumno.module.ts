@@ -11,6 +11,7 @@ import {MessageModule} from 'primeng/message';
 import {KeyFilterModule} from 'primeng/keyfilter';
 import {TabViewModule} from 'primeng/tabview';
 import {AutoCompleteModule} from 'primeng/autocomplete';
+import { AlumnoService } from './alumno.service';
 
 
 
@@ -28,6 +29,7 @@ let routing=RouterModule.forChild([
         ,AutoCompleteModule
         
     ],
+    providers: [AlumnoService],
     declarations: [
         AlumnoNew
     ]

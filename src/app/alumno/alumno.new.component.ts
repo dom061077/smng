@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import {Validators,ValidationErrors,ValidatorFn,AbstractControl,FormControl,FormGroup,FormBuilder} from '@angular/forms';
 import {MessageService} from 'primeng/api';
-
+import { AlumnoService  } from './alumno.service';
 
 
 @Component({
@@ -11,9 +11,9 @@ import {MessageService} from 'primeng/api';
 })
 export class AlumnoNew implements OnInit {
   alumnoForm : FormGroup;
-  filteredProvince:any[]  ;
+  filteredProvinces:any[]  ;
   
-  constructor(private fb:FormBuilder) {}
+  constructor(private fb:FormBuilder, private alumnoService:AlumnoService) {}
 
   ngOnInit(){
     this.alumnoForm = this.fb.group({
@@ -27,7 +27,9 @@ export class AlumnoNew implements OnInit {
   }
 
   filterProvince(event){
-      
+     this.alumnoService.getProvincias(event.query).subscribe(data=>{
+        this.filteredProvinces = data;
+     });
   }  
 
 }
