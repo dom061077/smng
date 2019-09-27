@@ -26,10 +26,19 @@ export class AlumnoNew implements OnInit {
 
   }
 
+  onSubmit(valuesForm){
+    console.log('Formulario: '+valuesForm);
+
+  }
+
   filterProvince(event){
      this.alumnoService.getProvincias(event.query).subscribe(data=>{
         this.filteredProvinces = data;
      });
   }  
+
+  filterLocalidad(event){
+    
+  }
 
 }

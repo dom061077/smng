@@ -10,10 +10,18 @@ export class AlumnoService extends RestDataSource{
     }
 
     getProvincias(search:string){
-        return this.sendRequest<any>("GET",this.url+"/autocprov")
+        return this.sendRequest<any>("GET",this.url+"/autocprov?search="+search)
             .pipe(map(data=>{
                 return data.provincias;
             }));          
+    }
+
+    getLocalidades(provinciaId:number,search:string){
+        return this.sendRequest<any>("GET",this.url+"/autocloc?search"+search
+            +"&provincia="+provinciaId)
+            .pipe(map(data=>{
+                return data.localidades;
+            }));
     }
 
 }
