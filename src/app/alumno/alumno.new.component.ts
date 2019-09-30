@@ -12,6 +12,10 @@ import { AlumnoService  } from './alumno.service';
 export class AlumnoNew implements OnInit {
   alumnoForm : FormGroup;
   filteredProvinces:any[]  ;
+  filteredLocalidades:any[];
+  cc: string; 
+  //KeyFilter.DEFAULT_MASKS['currencyRegex'] =  /^-?(?:0|[1-9]\d{0,2}(?:,?\d{3})*)(?:\.\d+)?$/;
+  noSpecial: RegExp = /^[^<>1234567890!"#%&/$()=?¡[._*{}!]+$/;
   
   constructor(private fb:FormBuilder, private alumnoService:AlumnoService) {}
 
@@ -20,10 +24,12 @@ export class AlumnoNew implements OnInit {
         dni:['',[Validators.required]],
         apellido:['',[Validators.required]],
         nombre: ['',[Validators.required]],
-        provincia: ['',[Validators.required]]
+        provincia: ['',[Validators.required]],
+        localidad:['',[Validators.required]],
+        direccion:['',[Validators.required]]
 
-    });
-
+    },{validator:this.provinceEntryRequired}
+    );
   }
 
   onSubmit(valuesForm){
@@ -38,7 +44,20 @@ export class AlumnoNew implements OnInit {
   }  
 
   filterLocalidad(event){
-    
+    console.log('Provincia id: '+this.alumnoForm.get('provincia').value.id);
+    console.log('Provincia nombre: '+this.alumnoForm.get('provincia').value.nombre);
+    this.alumnoService.getLocalidades(this.alumnoForm.get('provincia').value.id
+        ,event.query).subscribe(data=>{
+            this.filteredLocalidades = data;
+        });
   }
+
+  provinceEntryRequired(control:AbstractControl){
+      if(!control.get('provincia').value.id){
+        control.get('provincia').setErrors({NoProvince:true});
+      }
+  }
+
+  
 
 }

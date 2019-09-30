@@ -17,7 +17,7 @@ export class AlumnoService extends RestDataSource{
     }
 
     getLocalidades(provinciaId:number,search:string){
-        return this.sendRequest<any>("GET",this.url+"/autocloc?search"+search
+        return this.sendRequest<any>("GET",this.url+"/autocloc?search="+search
             +"&provincia="+provinciaId)
             .pipe(map(data=>{
                 return data.localidades;

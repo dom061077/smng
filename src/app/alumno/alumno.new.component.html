@@ -27,7 +27,7 @@
                     </div>
                     <div class="ui-grid-row">    
                         <div class="ui-grid-col-4">
-                                <input  type="text" style="width:100%"  pKeyFilter="alpha" formControlName="apellido" />
+                                <input  style="width:100%" type="text"  formControlName="apellido" pInputText [pKeyFilter]="noSpecial" [pValidateOnly]="false" >                                
                         </div>
                         <div class="ui-grid-col-4">
                             <p-message severity="error" text="Ingrese apellido del alumno" 
@@ -48,13 +48,15 @@
                     </div>
                     <div class="ui-grid-row">    
                         <div class="ui-grid-col-4">
-                                <input  type="text" style="width:100%"  pKeyFilter="alpha" formControlName="nombre" />
+                                <!--input  type="text" style="width:100%" pInputText   [pKeyFilter]="blockSpecial" [pValidateOnly]="false" formControlName="nombre" /-->
+                                <input  style="width:100%" type="text"  formControlName="nombre" pInputText [pKeyFilter]="noSpecial" [pValidateOnly]="false" >                                
                         </div>
                         <div class="ui-grid-col-4">
-                            <p-message severity="error" text="Ingrese apellido del alumno" 
-                                *ngIf="alumnoForm.get('apellido').dirty && alumnoForm.get('apellido').errors && alumnoForm.get('apellido').errors.required"></p-message>
+                            <p-message severity="error" text="Ingrese nombre del alumno" 
+                                *ngIf="alumnoForm.get('nombre').dirty && alumnoForm.get('nombre').errors && alumnoForm.get('nombre').errors.required"></p-message>
                         </div>
                     </div>
+                    
 
                 
                 </div>  
@@ -68,13 +70,15 @@
                     <div class="ui-grid-row">    
                         <div class="ui-grid-col-4">
                                 <p-autoComplete formControlName="provincia" [suggestions]="filteredProvinces" 
-                                    (completeMethod)="filterProvince($event)" field="nombre" [size]="30"
+                                    (completeMethod)="filterProvince($event)"
+                                    (onSelect)="alumnoForm.get('localidad').setValue(null)"
+                                     field="nombre" [size]="30"
                                     placeholder="Provincias" [minLength]="1" [dropdown]="true"></p-autoComplete>
             
                         </div>
                         <div class="ui-grid-col-4">
-                            <p-message severity="error" text="Ingrese apellido del alumno" 
-                                *ngIf="alumnoForm.get('apellido').dirty && alumnoForm.get('apellido').errors && alumnoForm.get('apellido').errors.required"></p-message>
+                            <p-message severity="error" text="Ingrese provincia" 
+                                *ngIf="alumnoForm.get('provincia').dirty && alumnoForm.get('provincia').errors && alumnoForm.get('provincia').errors.required"></p-message>
                         </div>
                     </div>
 
@@ -91,8 +95,29 @@
                         <div class="ui-grid-col-4">
                                 <p-autoComplete formControlName="localidad" [suggestions]="filteredLocalidades" 
                                     (completeMethod)="filterLocalidad($event)" field="nombre" [size]="30"
-                                    placeholder="Localidades" [minLength]="1" [dropdown]="true"></p-autoComplete>
+                                    placeholder="Localidades" [minLength]="1" [dropdown]="true"
+                                    [disabled]="(alumnoForm.get('provincia').errors)"></p-autoComplete>
             
+                        </div>
+                        <div class="ui-grid-col-4">
+                            <p-message severity="error" text="Ingrese localidad" 
+                                *ngIf="alumnoForm.get('localidad').dirty && alumnoForm.get('localidad').errors && alumnoForm.get('localidad').errors.required"></p-message>
+                        </div>
+                    </div>
+
+                
+                </div>  
+                
+
+                <div class="ui-grid ui-grid-responsive ui-grid-pad ui-fluid" style="margin: 10px 0px">   
+                    <div class="ui-grid-row">
+                        <div class="ui-grid-col-2">
+                            Dircción *:
+                        </div>
+                    </div>
+                    <div class="ui-grid-row">    
+                        <div class="ui-grid-col-4">
+                                <input  style="width:100%" type="text"  formControlName="apellido" pInputText [pKeyFilter]="noSpecial" [pValidateOnly]="false" >                                
                         </div>
                         <div class="ui-grid-col-4">
                             <p-message severity="error" text="Ingrese apellido del alumno" 
@@ -102,7 +127,8 @@
 
                 
                 </div>  
-                
+
+
 
         </p-tabPanel>        
     
