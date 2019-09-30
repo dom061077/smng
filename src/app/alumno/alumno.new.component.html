@@ -19,6 +19,7 @@
                         </div>
                     </div>
                 </div>   
+
                 <div class="ui-grid ui-grid-responsive ui-grid-pad ui-fluid" style="margin: 10px 0px">   
                     <div class="ui-grid-row">
                         <div class="ui-grid-col-2">
@@ -117,18 +118,109 @@
                     </div>
                     <div class="ui-grid-row">    
                         <div class="ui-grid-col-4">
-                                <input  style="width:100%" type="text"  formControlName="apellido" pInputText [pKeyFilter]="noSpecial" [pValidateOnly]="false" >                                
+                                <input  style="width:100%" type="text"  formControlName="direccion" pInputText >                                
                         </div>
                         <div class="ui-grid-col-4">
-                            <p-message severity="error" text="Ingrese apellido del alumno" 
-                                *ngIf="alumnoForm.get('apellido').dirty && alumnoForm.get('apellido').errors && alumnoForm.get('apellido').errors.required"></p-message>
+                            <p-message severity="error" text="Ingrese una dirección del alumno" 
+                                *ngIf="alumnoForm.get('apellido').dirty && alumnoForm.get('direccion').errors && alumnoForm.get('direccion').errors.required"></p-message>
                         </div>
                     </div>
-
                 
                 </div>  
 
+                <div class="ui-grid ui-grid-responsive ui-grid-pad ui-fluid" style="margin: 10px 0px">
+                    <div class="ui-grid-row">
+                        <div class="ui-grid-col-2">
+                            C.U.I.L *:
+                        </div>
+                    </div>
+                    <div class="ui-grid-row">    
+                        <div class="ui-grid-col-4">
+                                <p-inputMask mask="99-99.999.999-9" formControlName="cuil" placeholder="99-99.999.999-9"></p-inputMask>
+                        </div>
+                        <div class="ui-grid-col-4">
+                            <p-message severity="error" text="Ingrese un C.U.I.L válido" 
+                                *ngIf="alumnoForm.get('cuil').dirty && alumnoForm.get('cuil').errors && alumnoForm.get('cuil').errors.required"></p-message>
+                        </div>
+                    </div>
+                </div>                   
+        </p-tabPanel>        
 
+        <p-tabPanel header="Datos del Tutor">
+
+                <div class="ui-grid ui-grid-responsive ui-grid-pad ui-fluid" style="margin: 10px 0px">
+                        <div class="ui-grid-row">
+                            <div class="ui-grid-col-2">
+                                D.N.I *:
+                            </div>
+                        </div>
+                        <div class="ui-grid-row">    
+                            <div class="ui-grid-col-4">
+                                    <p-inputMask mask="99.999.999" formControlName="dniTutor" placeholder="99.999.999"></p-inputMask>
+                            </div>
+                            <div class="ui-grid-col-4">
+                                <p-message severity="error" text="Ingrese un D.N.I válido" 
+                                    *ngIf="alumnoForm.get('dniTutor').dirty && alumnoForm.get('dni').errors && alumnoForm.get('dniTutor').errors.required"></p-message>
+                            </div>
+                        </div>
+                    </div>   
+                    
+                    <div class="ui-grid ui-grid-responsive ui-grid-pad ui-fluid" style="margin: 10px 0px">   
+                        <div class="ui-grid-row">
+                            <div class="ui-grid-col-2">
+                                Apellido *:
+                            </div>
+                        </div>
+                        <div class="ui-grid-row">    
+                            <div class="ui-grid-col-4">
+                                    <input  style="width:100%" type="text"  formControlName="apellidoTutor" pInputText [pKeyFilter]="noSpecial" [pValidateOnly]="false" >                                
+                            </div>
+                            <div class="ui-grid-col-4">
+                                <p-message severity="error" text="Ingrese apellido del tutor" 
+                                    *ngIf="alumnoForm.get('apellidoTutor').dirty && alumnoForm.get('apellido').errors && alumnoForm.get('apellidoTutor').errors.required"></p-message>
+                            </div>
+                        </div>
+    
+                    
+                    </div>  
+                
+                
+    
+                    <div class="ui-grid ui-grid-responsive ui-grid-pad ui-fluid" style="margin: 10px 0px">   
+                        <div class="ui-grid-row">
+                            <div class="ui-grid-col-2">
+                                Nombre *:
+                            </div>
+                        </div>
+                        <div class="ui-grid-row">    
+                            <div class="ui-grid-col-4">
+                                    <!--input  type="text" style="width:100%" pInputText   [pKeyFilter]="blockSpecial" [pValidateOnly]="false" formControlName="nombre" /-->
+                                    <input  style="width:100%" type="text"  formControlName="nombreTutor" pInputText [pKeyFilter]="noSpecial" [pValidateOnly]="false" >                                
+                            </div>
+                            <div class="ui-grid-col-4">
+                                <p-message severity="error" text="Ingrese nombre del tutor" 
+                                    *ngIf="alumnoForm.get('nombreTutor').dirty && alumnoForm.get('nombreTutor').errors && alumnoForm.get('nombreTutor').errors.required"></p-message>
+                            </div>
+                        </div>
+                    </div>  
+
+                    <div class="ui-grid ui-grid-responsive ui-grid-pad ui-fluid" style="margin: 10px 0px">
+                            <div class="ui-grid-row">
+                                <div class="ui-grid-col-2">
+                                    C.U.I.L *:
+                                </div>
+                            </div>
+                            <div class="ui-grid-row">    
+                                <div class="ui-grid-col-4">
+                                        <p-inputMask mask="99-99.999.999-9" formControlName="cuilTutor" placeholder="99-99.999.999-9"></p-inputMask>
+                                </div>
+                                <div class="ui-grid-col-4">
+                                    <p-message severity="error" text="Ingrese un C.U.I.L válido" 
+                                        *ngIf="alumnoForm.get('cuilTutor').dirty && alumnoForm.get('cuil').errors && alumnoForm.get('cuilTutor').errors.required"></p-message>
+                                </div>
+                            </div>
+                        </div>                      
+    
 
         </p-tabPanel>        
     

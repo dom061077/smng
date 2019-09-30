@@ -26,7 +26,13 @@ export class AlumnoNew implements OnInit {
         nombre: ['',[Validators.required]],
         provincia: ['',[Validators.required]],
         localidad:['',[Validators.required]],
-        direccion:['',[Validators.required]]
+        direccion:['',[Validators.required]],
+        cuil: ['',[Validators.required]],
+        dniTutor: ['',[Validators.required]],
+        apellidoTutor: ['',[Validators.required]],
+        nombreTutor: ['',[Validators.required]],
+        cuilTutor: ['',[Validators.required]],
+        parentescoTutor: ['',[Validators.required]]
 
     },{validator:this.provinceEntryRequired}
     );
