@@ -24,4 +24,19 @@ export class AlumnoService extends RestDataSource{
             }));
     }
 
+    getParentesco(){
+        return this.sendRequest<any>("GET",this.url+"/autocparentesco")
+            .pipe(map(data=>{
+                return data.parentescos;
+            }));
+    }
+
+    saveAlumno(alumno){
+        return this.sendRequest<any>("POST",this.url+"/savealumno"
+        ,alumno).pipe(map(data=>{
+            return data.success;    
+        }));
+        
+    }
+
 }

@@ -11,7 +11,7 @@
                     </div>
                     <div class="ui-grid-row">    
                         <div class="ui-grid-col-4">
-                                <p-inputMask mask="99.999.999" formControlName="dni" placeholder="99.999.999"></p-inputMask>
+                                <p-inputMask mask="99.999.999" formControlName="dni" ></p-inputMask>
                         </div>
                         <div class="ui-grid-col-4">
                             <p-message severity="error" text="Ingrese un D.N.I válido" 
@@ -65,6 +65,28 @@
                 <div class="ui-grid ui-grid-responsive ui-grid-pad ui-fluid" style="margin: 10px 0px">   
                     <div class="ui-grid-row">
                         <div class="ui-grid-col-2">
+                            Fecha Nacimiento *:
+                        </div>
+                    </div>
+                    <div class="ui-grid-row">    
+                        <div class="ui-grid-col-4">
+                                <!--input  type="text" style="width:100%" pInputText   [pKeyFilter]="blockSpecial" [pValidateOnly]="false" formControlName="nombre" /-->
+                                <p-calendar formControlName="fechaNacimiento" [locale]="es"  [monthNavigator]="true" [yearNavigator]="true" yearRange="1990:2030" dateFormat="dd/mm/yy" formControlName="fechaNacimiento" [showIcon]="true"></p-calendar>
+                        </div>
+                        <div class="ui-grid-col-4">
+                            <p-message severity="error" text="Ingrese una fecha de nacimiento" 
+                                *ngIf="alumnoForm.get('fechaNacimiento').dirty && alumnoForm.get('fechaNacimiento').errors && alumnoForm.get('fechaNacimiento').errors.required"></p-message>
+                        </div>
+                    </div>
+                    
+
+                
+                </div>  
+
+
+                <div class="ui-grid ui-grid-responsive ui-grid-pad ui-fluid" style="margin: 10px 0px">   
+                    <div class="ui-grid-row">
+                        <div class="ui-grid-col-2">
                             Provincia *:
                         </div>
                     </div>
@@ -74,7 +96,7 @@
                                     (completeMethod)="filterProvince($event)"
                                     (onSelect)="alumnoForm.get('localidad').setValue(null)"
                                      field="nombre" [size]="30"
-                                    placeholder="Provincias" [minLength]="1" [dropdown]="true"></p-autoComplete>
+                                     [minLength]="1" [dropdown]="true"></p-autoComplete>
             
                         </div>
                         <div class="ui-grid-col-4">
@@ -96,7 +118,7 @@
                         <div class="ui-grid-col-4">
                                 <p-autoComplete formControlName="localidad" [suggestions]="filteredLocalidades" 
                                     (completeMethod)="filterLocalidad($event)" field="nombre" [size]="30"
-                                    placeholder="Localidades" [minLength]="1" [dropdown]="true"
+                                     [minLength]="1" [dropdown]="true"
                                     [disabled]="(alumnoForm.get('provincia').errors)"></p-autoComplete>
             
                         </div>
@@ -136,7 +158,7 @@
                     </div>
                     <div class="ui-grid-row">    
                         <div class="ui-grid-col-4">
-                                <p-inputMask mask="99-99.999.999-9" formControlName="cuil" placeholder="99-99.999.999-9"></p-inputMask>
+                                <p-inputMask mask="99-99.999.999-9" formControlName="cuil" ></p-inputMask>
                         </div>
                         <div class="ui-grid-col-4">
                             <p-message severity="error" text="Ingrese un C.U.I.L válido" 
@@ -156,7 +178,7 @@
                         </div>
                         <div class="ui-grid-row">    
                             <div class="ui-grid-col-4">
-                                    <p-inputMask mask="99.999.999" formControlName="dniTutor" placeholder="99.999.999"></p-inputMask>
+                                    <p-inputMask mask="99.999.999" formControlName="dniTutor" ></p-inputMask>
                             </div>
                             <div class="ui-grid-col-4">
                                 <p-message severity="error" text="Ingrese un D.N.I válido" 
@@ -212,19 +234,146 @@
                             </div>
                             <div class="ui-grid-row">    
                                 <div class="ui-grid-col-4">
-                                        <p-inputMask mask="99-99.999.999-9" formControlName="cuilTutor" placeholder="99-99.999.999-9"></p-inputMask>
+                                        <p-inputMask mask="99-99.999.999-9" formControlName="cuilTutor" ></p-inputMask>
                                 </div>
                                 <div class="ui-grid-col-4">
                                     <p-message severity="error" text="Ingrese un C.U.I.L válido" 
-                                        *ngIf="alumnoForm.get('cuilTutor').dirty && alumnoForm.get('cuil').errors && alumnoForm.get('cuilTutor').errors.required"></p-message>
+                                        *ngIf="alumnoForm.get('cuilTutor').dirty && alumnoForm.get('cuilTutor').errors && alumnoForm.get('cuilTutor').errors.required"></p-message>
                                 </div>
                             </div>
-                        </div>                      
+                    </div>                      
+
+                    <div class="ui-grid ui-grid-responsive ui-grid-pad ui-fluid" style="margin: 10px 0px">
+                            <div class="ui-grid-row">
+                                <div class="ui-grid-col-2">
+                                    Parentesco *:
+                                </div>
+                            </div>
+                            <div class="ui-grid-row">    
+                                <div class="ui-grid-col-4">
+                                <p-autoComplete formControlName="parentescoTutor" [suggestions]="filteredParentesco" 
+                                    (completeMethod)="filterParentesco($event)" field="descripcion" [size]="30"
+                                    [minLength]="1" [dropdown]="true"></p-autoComplete>
+
+                                </div>
+                                <div class="ui-grid-col-4">
+                                    <p-message severity="error" text="Ingrese parentesco" 
+                                        *ngIf="alumnoForm.get('parentescoTutor').dirty && alumnoForm.get('parentescoTutor').errors && alumnoForm.get('parentescoTutor').errors.required"></p-message>
+                                </div>
+                            </div>
+                    </div>                      
     
+                    <div class="ui-grid ui-grid-responsive ui-grid-pad ui-fluid" style="margin: 10px 0px">
+                            <div class="ui-grid-row">
+                                <div class="ui-grid-col-2">
+                                    Telefono 1 *:
+                                </div>
+                            </div>
+                            <div class="ui-grid-row">    
+                                <div class="ui-grid-col-4">
+                                        <p-inputMask mask="9999-9999999" formControlName="telefono1" ></p-inputMask>
+                                </div>
+                                <div class="ui-grid-col-4">
+                                    <p-message severity="error" text="Ingrese un teléfono válido" 
+                                        *ngIf="alumnoForm.get('telefono1').dirty && alumnoForm.get('telefono1').errors && alumnoForm.get('telefono1').errors.required"></p-message>
+                                </div>
+                            </div>
+                    </div>                      
+
+                    <div class="ui-grid ui-grid-responsive ui-grid-pad ui-fluid" style="margin: 10px 0px">
+                            <div class="ui-grid-row">
+                                <div class="ui-grid-col-2">
+                                    Telefono 2:
+                                </div>
+                            </div>
+                            <div class="ui-grid-row">    
+                                <div class="ui-grid-col-4">
+                                        <p-inputMask mask="9999-9999999" formControlName="telefono2" ></p-inputMask>
+                                </div>
+
+                            </div>
+                    </div>                      
+
 
         </p-tabPanel>        
     
-                
+        <p-tabPanel header="Documentación">
+            <div class="ui-grid ui-grid-responsive ui-grid-pad ui-fluid" style="margin: 10px 0px">                
+                <div class="ui-grid-col-2">
+                    <p-checkbox formControlName="fotoDni" label="Fotocopia D.N.I" binary="true"></p-checkbox>
+                </div>
+                <div class="ui-grid-col-2">    
+                    <p-checkbox formControlName="constanciaCuil" label="Constancia de C.U.I.L" binary="true"></p-checkbox>
+                </div>    
+            </div>    
+
+            <div class="ui-grid ui-grid-responsive ui-grid-pad ui-fluid" style="margin: 10px 0px">                
+                <div class="ui-grid-col-2">
+                    <p-checkbox formControlName="constancia6grado" label="Constancia 6to. grado" binary="true"></p-checkbox>
+                </div>
+                <div class="ui-grid-col-2">    
+                    <p-checkbox formControlName="actaNacimiento" label="Acta de nacimiento" binary="true"></p-checkbox>
+                </div>    
+            </div>    
+            
+            <div class="ui-grid ui-grid-responsive ui-grid-pad ui-fluid" style="margin: 10px 0px">                
+                <div class="ui-grid-col-2">
+                    <p-checkbox formControlName="constaciaRegular" label="Constancia alumno regular" binary="true"></p-checkbox>
+                </div>
+                <div class="ui-grid-col-2">    
+                    <p-checkbox formControlName="foto4x4" label="Foto 4x4" binary="true"></p-checkbox>
+                </div>    
+            </div>       
+
+            <div class="ui-grid ui-grid-responsive ui-grid-pad ui-fluid" style="margin: 10px 0px">                
+                <div class="ui-grid-col-2">
+                    <p-checkbox formControlName="fotoCarnetVac" label="Fotocopia carnet de vacunas" binary="true"></p-checkbox>
+                </div>
+                <div class="ui-grid-col-2">    
+                    <p-checkbox formControlName="fichaMedica" label="Ficha médica" binary="true"></p-checkbox>
+                </div>    
+            </div>                    
+            <div class="ui-grid ui-grid-responsive ui-grid-pad ui-fluid" style="margin: 10px 0px">                
+                <div class="ui-grid-col-2">
+                    <p-checkbox formControlName="aptitudFisica" label="Aptitud física" binary="true"></p-checkbox>
+                </div>
+                <div class="ui-grid-col-2">    
+                    <p-checkbox formControlName="grupoSanguineo" label="Grupo sanguíneo" binary="true"></p-checkbox>
+                </div>    
+            </div>                    
+            
+            <div class="ui-grid ui-grid-responsive ui-grid-pad ui-fluid" style="margin: 10px 0px">                
+                <div class="ui-grid-col-2">
+                    <p-checkbox formControlName="fichaInscripcion" label="Ficha inscripción" binary="true"></p-checkbox>
+                </div>
+                <div class="ui-grid-col-2">    
+                    <p-checkbox formControlName="libreta6grado" label="Libreta 6 grado" binary="true"></p-checkbox>
+                </div>    
+            </div>               
+            <div class="ui-grid ui-grid-responsive ui-grid-pad ui-fluid" style="margin: 10px 0px">                
+                <div class="ui-grid-col-2">
+                    <p-checkbox formControlName="fotocopiaLibroMatriz" label="Fotocopia libro matriz" binary="true"></p-checkbox>
+                </div>
+                <div class="ui-grid-col-2">    
+                    <p-checkbox formControlName="fotocopiaDniTutor" label="Fotocopia D.N.I tutor" binary="true"></p-checkbox>
+                </div>    
+            </div>               
+
+            <div class="ui-grid ui-grid-responsive ui-grid-pad ui-fluid" style="margin: 10px 0px">                
+                <div class="ui-grid-col-2">
+                    <p-checkbox formControlName="fotocopiaLibroMatriz" label="Fotocopia libro matriz" binary="true"></p-checkbox>
+                </div>
+                <div class="ui-grid-col-2">    
+                    <p-checkbox formControlName="fotocopiaDniTutor" label="Fotocopia D.N.I tutor" binary="true"></p-checkbox>
+                </div>    
+            </div>               
+
+            <div class="ui-grid ui-grid-responsive ui-grid-pad ui-fluid" style="margin: 10px 0px">                
+                <div class="ui-grid-col-2">
+                    <p-checkbox formControlName="constanciaCuilTutor" label="Constancia C.U.I.L tutor" binary="true"></p-checkbox>
+                </div>
+            </div>            
+        </p-tabPanel>                
 
 </p-tabView>                         
         <div class="ui-grid ui-grid-responsive ui-grid-pad ui-fluid"  style="margin: 10px 0px">

@@ -13,18 +13,31 @@ export class AlumnoNew implements OnInit {
   alumnoForm : FormGroup;
   filteredProvinces:any[]  ;
   filteredLocalidades:any[];
-  cc: string; 
+  filteredParentesco:any[];
   //KeyFilter.DEFAULT_MASKS['currencyRegex'] =  /^-?(?:0|[1-9]\d{0,2}(?:,?\d{3})*)(?:\.\d+)?$/;
   noSpecial: RegExp = /^[^<>1234567890!"#%&/$()=?¡[._*{}!]+$/;
+  es: any;
   
   constructor(private fb:FormBuilder, private alumnoService:AlumnoService) {}
 
   ngOnInit(){
+        this.es = {
+            firstDayOfWeek: 0,
+            dayNames: ["Domingo", "Lunes", "Martes", "Miércoles", "Jueves", "Viernes", "Sábado"],
+            dayNamesShort: ["Dom", "Lun", "Mar", "Mie", "Jue", "Vie", "Sab"],
+            dayNamesMin: ["Do","Lu","Ma","Mi","Ju","Vi","Sa"],
+            monthNames: [ "Enero","Febrero","Marzo","Abril","Mayo","Junio","Julio","Agosto","Septiembre","Octubre","Noviembre","Diciembre" ],
+            monthNamesShort: [ "Ene", "Feb", "Mar", "Abr", "May", "Jun","Jul", "Ago", "Sep", "Oct", "Nov", "Dic" ],
+            today: 'Hoy',
+            clear: 'Limpiar',
+            dateFormat: 'dd/mm/yy',
+            weekHeader: 'Semana'
+        };    
     this.alumnoForm = this.fb.group({
         dni:['',[Validators.required]],
         apellido:['',[Validators.required]],
         nombre: ['',[Validators.required]],
-        provincia: ['',[Validators.required]],
+        provincia: [{id:24,nombre:'TUCUMAN'},[Validators.required]],
         localidad:['',[Validators.required]],
         direccion:['',[Validators.required]],
         cuil: ['',[Validators.required]],
@@ -32,14 +45,38 @@ export class AlumnoNew implements OnInit {
         apellidoTutor: ['',[Validators.required]],
         nombreTutor: ['',[Validators.required]],
         cuilTutor: ['',[Validators.required]],
-        parentescoTutor: ['',[Validators.required]]
+        parentescoTutor: ['',[Validators.required]],
+        telefono1:['',[Validators.required]],
+        telefono2:['',[]],
+        fotoDni:[false,[]],
+        constanciaCuil:[false,[]],
+        constancia6grado:[false,[]],
+        actaNacimiento:[false,[]],
+        constaciaRegular:[false,[]],
+        foto4x4:[false,[]],
+        fotoCarnetVac:[false,[]],
+        fichaMedica:[false,[]],
+        aptitudFisica:[false,[]],
+        grupoSanguineo:[false,[]],
+        fichaInscripcion:[false,[]],
+        libreta6grado:[false,[]],
+        fotocopiaLibroMatriz:[false,[]],
+        fotocopiaDniTutor:[false,[]],
+        constanciaCuilTutor:[false,[]],
+        fechaNacimiento:['',[Validators.required]]
 
     },{validator:this.provinceEntryRequired}
     );
+    console.log('Provinica: '+this.alumnoForm.get('provincia').value);
+    //this.alumnoForm.get('provincia').value.id=24;
+
   }
 
   onSubmit(valuesForm){
-    console.log('Formulario: '+valuesForm);
+    console.log('ValuesForm: '+valuesForm);
+    this.alumnoService.saveAlumno(valuesForm).subscribe(data=>{
+        console.log("Resultado: "+data);   
+    });
 
   }
 
@@ -47,6 +84,12 @@ export class AlumnoNew implements OnInit {
      this.alumnoService.getProvincias(event.query).subscribe(data=>{
         this.filteredProvinces = data;
      });
+  }
+
+  filterParentesco(event){
+    this.alumnoService.getParentesco().subscribe(data=>{
+        this.filteredParentesco = data;
+    });
   }  
 
   filterLocalidad(event){

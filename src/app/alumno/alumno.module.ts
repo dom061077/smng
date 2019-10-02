@@ -11,7 +11,9 @@ import {MessageModule} from 'primeng/message';
 import {KeyFilterModule} from 'primeng/keyfilter';
 import {TabViewModule} from 'primeng/tabview';
 import {AutoCompleteModule} from 'primeng/autocomplete';
+import {CheckboxModule} from 'primeng/checkbox';
 import { AlumnoService } from './alumno.service';
+import {CalendarModule} from 'primeng/calendar';
 
 
 
@@ -26,7 +28,9 @@ let routing=RouterModule.forChild([
         ,ReactiveFormsModule,PanelModule,PanelModule
         ,MessagesModule,MessageModule,InputMaskModule
         ,ButtonModule,KeyFilterModule,TabViewModule
-        ,AutoCompleteModule
+        ,AutoCompleteModule,CheckboxModule
+        ,CalendarModule
+        
         
     ],
     providers: [AlumnoService],
