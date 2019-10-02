@@ -63,12 +63,14 @@ export class AlumnoNew implements OnInit {
         fotocopiaLibroMatriz:[false,[]],
         fotocopiaDniTutor:[false,[]],
         constanciaCuilTutor:[false,[]],
-        fechaNacimiento:['',[Validators.required]]
+        fechaNacimientoUnbinding:['',[Validators.required]]
 
     },{validator:this.provinceEntryRequired}
     );
+  
     console.log('Provinica: '+this.alumnoForm.get('provincia').value);
     //this.alumnoForm.get('provincia').value.id=24;
+
 
   }
 
