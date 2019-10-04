@@ -74,3 +74,23 @@ export class LoginComponent{
     }
 }
 
+/* PARA HACER REFRESH TOKEN
+    if (jwtHelper.isTokenExpired(ariaAccessJWT)) {
+      // A promise of a JWT id_token
+      return $http({
+        url: 'http://localhost:8080/oauth/access_token',
+        skipAuthorization: true,
+        method: 'POST',
+        data: {
+            grant_type: 'refresh_token',
+            refresh_token: ariaRefreshJWT
+        }
+      }).then(function(response) {
+        var ariaAccessJWT = response.data.access_token;
+        localStorage.setItem('ARIA_access_jwt', ariaAccessJWT);
+        return ariaAccessJWT;
+      });
+    } 
+
+
+*/

@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import {Validators,ValidationErrors,ValidatorFn,AbstractControl,FormControl,FormGroup,FormBuilder} from '@angular/forms';
 import {MessageService} from 'primeng/api';
 import { AlumnoService  } from './alumno.service';
+import {Router} from "@angular/router";
 
 
 @Component({
@@ -18,7 +19,8 @@ export class AlumnoNew implements OnInit {
   noSpecial: RegExp = /^[^<>1234567890!"#%&/$()=?¡[._*{}!]+$/;
   es: any;
   
-  constructor(private fb:FormBuilder, private alumnoService:AlumnoService) {}
+  constructor(private fb:FormBuilder, private alumnoService:AlumnoService
+        , private messageService:MessageService,private router:Router) {}
 
   ngOnInit(){
         this.es = {
@@ -78,6 +80,11 @@ export class AlumnoNew implements OnInit {
     console.log('ValuesForm: '+valuesForm);
     this.alumnoService.saveAlumno(valuesForm).subscribe(data=>{
         console.log("Resultado: "+data);   
+        if(data){
+          this.messageService.add({severity:'info',summary:'Mensaje',detail:'Los datos fueron registrados correctamente'});
+          this.router.navigateByUrl("/listalumno");
+        }else
+          this.messageService.add({severity:'error',summary:'Error',detail:'Error al registrar la información'});          
     });
 
   }

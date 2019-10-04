@@ -2,6 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable, Inject } from '@angular/core';
 import { RestDataSource,REST_URL } from "../services/rest.datasource";
 import { map } from 'rxjs/operators';
+import { Alumno } from './alumno.interface';
 
 @Injectable()
 export class AlumnoService extends RestDataSource{

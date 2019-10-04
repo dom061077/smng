@@ -15,7 +15,6 @@ import {AutoCompleteModule} from 'primeng/autocomplete';
 import {CheckboxModule} from 'primeng/checkbox';
 import { AlumnoService } from './alumno.service';
 import {CalendarModule} from 'primeng/calendar';
-import {VirtualScrollerModule} from 'primeng/virtualscroller';
 
 
 
