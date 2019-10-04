@@ -27,9 +27,9 @@ export class HeaderComponent {
                 icon: 'fa fa-graduation-cap',
                 
                 items: [
-                    {label: 'Nuevo', icon: 'fa fa-newspaper-o',routerLink : ['/newalumno'],},
+                    {label: 'Nuevo', icon: 'fa fa-plus',routerLink : ['/newalumno']},
                     
-                    {label: 'Refresh', icon: 'pi pi-fw pi-refresh'}
+                    {label: 'Listado', icon: 'fa fa-list',routerLink:['/listalumno']}
                 ]
             },
             {
