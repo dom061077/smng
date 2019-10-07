@@ -41,10 +41,15 @@ export class AlumnoService extends RestDataSource{
     }
 
     getAlumnos(filter:string){
-        return this.sendRequest<any>("GET",this.url+"/listalumnos?filter="+filter)
+        return this.sendRequest<any>("GET",this.url+"/getalumnos?filter="+filter)
+                .toPromise().then(data=>{
+                    console.log("Data: "+data);
+                    return data
+                });
+        /*return this.sendRequest<any>("GET",this.url+"/listalumnos?filter="+filter)
         .pipe(map(data=>{
             return data;
-        }));
+        }));*/
 
     }
 
