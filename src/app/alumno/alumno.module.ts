@@ -15,7 +15,7 @@ import {AutoCompleteModule} from 'primeng/autocomplete';
 import {CheckboxModule} from 'primeng/checkbox';
 import { AlumnoService } from './alumno.service';
 import {CalendarModule} from 'primeng/calendar';
-
+import {VirtualScrollerModule} from 'primeng/virtualscroller';
 
 
 
@@ -31,7 +31,7 @@ let routing=RouterModule.forChild([
         ,MessagesModule,MessageModule,InputMaskModule
         ,ButtonModule,KeyFilterModule,TabViewModule
         ,AutoCompleteModule,CheckboxModule
-        ,CalendarModule
+        ,CalendarModule, VirtualScrollerModule
         
         
     ],

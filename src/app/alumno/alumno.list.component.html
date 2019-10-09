@@ -1,1 +1,20 @@
-LISTADO DE ALUMOS
+<p-virtualScroller [value]="alumnos" scrollHeight="500px" [itemSize]="150" [rows]="10" [cache]="false" 
+    [lazy]="true" (onLazyLoad)="loadData($event)" [totalRecords]="totalLazyAlumnoLength">
+        <ng-template let-alumno pTemplate="item">
+            <div class="ui-g-12 ui-md-8">
+                <div class="ui-g">
+                    <div class="ui-g-2 ui-sm-6">id: </div>
+                    <div class="ui-g-10 ui-sm-6">{{alumno?.id}}</div>
+        
+                    <div class="ui-g-2 ui-sm-6">dni: </div>
+                    <div class="ui-g-10 ui-sm-6">{{alumno?.dni}}</div>
+        
+                    <div class="ui-g-2 ui-sm-6">cuil: </div>
+                    <div class="ui-g-10 ui-sm-6">{{alumno?.cuil}}</div>
+        
+                    <div class="ui-g-2 ui-sm-6">apellido: </div>
+                    <div class="ui-g-10 ui-sm-6">{{alumno?.apellido}}</div>
+                </div>
+            </div>
+        </ng-template>     
+</p-virtualScroller>        

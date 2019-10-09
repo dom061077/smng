@@ -40,11 +40,22 @@ export class AlumnoService extends RestDataSource{
         
     }
 
-    getAlumnos(filter:string){
-        return this.sendRequest<any>("GET",this.url+"/getalumnos?filter="+filter)
+    getCantidad(){
+        return this.sendRequest<any>("GET",this.url+"/alumnocount")
+        .pipe(map(data=>{
+            return data.count;
+        }));
+
+    }
+    
+
+    getAlumnos(filter:string,start:number,limit:number){
+        return this.sendRequest<any>("GET"
+                ,this.url+"/getalumnos?filter="+filter
+                    +"&start="+start+"&limit="+limit)
                 .toPromise().then(data=>{
-                    console.log("Data: "+data);
-                    return data
+                    
+                    return data.alumnos;
                 });
         /*return this.sendRequest<any>("GET",this.url+"/listalumnos?filter="+filter)
         .pipe(map(data=>{
@@ -52,5 +63,6 @@ export class AlumnoService extends RestDataSource{
         }));*/
 
     }
+
 
 }
