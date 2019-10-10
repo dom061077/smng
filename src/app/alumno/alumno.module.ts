@@ -1,4 +1,5 @@
 import {NgModule} from "@angular/core";
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { CommonModule } from "@angular/common";
 import { FormsModule,ReactiveFormsModule  } from "@angular/forms";
 import { AlumnoNew } from "./alumno.new.component";
@@ -32,6 +33,7 @@ let routing=RouterModule.forChild([
         ,ButtonModule,KeyFilterModule,TabViewModule
         ,AutoCompleteModule,CheckboxModule
         ,CalendarModule, VirtualScrollerModule
+        ,BrowserAnimationsModule
         
         
     ],

@@ -5,7 +5,53 @@ import { AlumnoService } from './alumno.service';
 
 @Component({
     //selector: 'ggg',
-    templateUrl: './alumno.list.component.html'
+    templateUrl: './alumno.list.component.html',
+    styles: [`
+        .car-item .ui-md-3 {
+            text-align: center;
+        }
+        
+        .car-item .ui-g-10 {
+            font-weight: bold;
+        }
+
+        .empty-car-item-index {
+            background-color: #f1f1f1;
+            width: 60px;
+            height: 60px;
+            margin: 36px auto 0 auto;
+            animation: pulse 1s infinite ease-in-out;
+        }
+
+        .empty-car-item-image {
+            background-color: #f1f1f1;
+            width: 120px;
+            height: 120px;
+            animation: pulse 1s infinite ease-in-out;
+        }
+
+        .empty-car-item-text {
+            background-color: #f1f1f1;
+            height: 18px;
+            animation: pulse 1s infinite ease-in-out;
+        }
+
+        .title-container {
+            padding: 1em;
+            text-align: right;
+        }
+
+        .sort-container {
+            text-align: left;
+        }
+
+        @media (max-width: 40em) {
+            .car-item {
+                text-align: center;
+            }
+        }
+    `]
+    
 
 })
 export class AlumnoList implements OnInit{ 
@@ -22,13 +68,14 @@ export class AlumnoList implements OnInit{
             console.log("Cantidad de alumnos");
             this.totalLazyAlumnoLength = data;
         });
-        this.alumnoService.getAlumnos('').then(data=>
+        /*this.alumnoService.getAlumnos('',0
+                ,20).then(data=>
             {   this.alumnos=data;
                 console.log("Probando");
                 console.log("Alumnos:  "+this.alumnos.length);
 
 
-            });
+            });*/
         
     }
 

@@ -1,4 +1,4 @@
-<p-virtualScroller [value]="alumnos" scrollHeight="500px" [itemSize]="150" [rows]="10" [cache]="false" 
+<p-virtualScroller [value]="alumnos" scrollHeight="500px" [itemSize]="150" [rows]="20" [cache]="false" 
     [lazy]="true" (onLazyLoad)="loadData($event)" [totalRecords]="totalLazyAlumnoLength">
         <ng-template let-alumno pTemplate="item">
             <div class="ui-g-12 ui-md-8">
@@ -17,4 +17,16 @@
                 </div>
             </div>
         </ng-template>     
+    <ng-template let-alumno pTemplate="loadingItem">
+        
+            <div class="ui-g-12 ui-md-8">
+                <div class="ui-g">
+                    <div class="ui-g-12"><div class="empty-car-item-text"></div></div>
+                    <div class="ui-g-12"><div class="empty-car-item-text"></div></div>
+                    <div class="ui-g-12"><div class="empty-car-item-text"></div></div>
+                    <div class="ui-g-12"><div class="empty-car-item-text"></div></div>
+                </div>
+            </div>
+        
+    </ng-template>        
 </p-virtualScroller>        
