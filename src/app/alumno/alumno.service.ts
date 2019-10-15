@@ -2,7 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable, Inject } from '@angular/core';
 import { RestDataSource,REST_URL } from "../services/rest.datasource";
 import { map } from 'rxjs/operators';
-import { Alumno } from './alumno.interface';
+import { Alumno } from './alumno.model';
 
 @Injectable()
 export class AlumnoService extends RestDataSource{
@@ -64,5 +64,11 @@ export class AlumnoService extends RestDataSource{
 
     }
 
-
+    getAlumno(id:number){
+        return this.sendRequest<any>("GET"
+                ,this.url+"/getalumno/"+id
+            ).toPromise().then(data=>{
+                return data;
+            });
+    }
 }

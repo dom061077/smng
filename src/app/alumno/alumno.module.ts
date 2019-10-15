@@ -21,8 +21,11 @@ import {VirtualScrollerModule} from 'primeng/virtualscroller';
 
 
 let routing=RouterModule.forChild([
-    {path:"newalumno",component: AlumnoNew}//,
-    ,{path:"listalumno",component: AlumnoList}
+    {path:"alumno/:mode/:id",component: AlumnoNew},
+    
+    {path:"alumno",component:AlumnoNew},
+    
+    {path:"listalumno",component: AlumnoList}
 ]);
 
 @NgModule({

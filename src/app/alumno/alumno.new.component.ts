@@ -2,7 +2,9 @@ import { Component, OnInit } from '@angular/core';
 import {Validators,ValidationErrors,ValidatorFn,AbstractControl,FormControl,FormGroup,FormBuilder} from '@angular/forms';
 import {MessageService} from 'primeng/api';
 import { AlumnoService  } from './alumno.service';
-import {Router} from "@angular/router";
+import {Router,ActivatedRoute} from "@angular/router";
+import { CrudCodes } from "../util/crud.enum";
+
 
 
 @Component({
@@ -12,6 +14,7 @@ import {Router} from "@angular/router";
 })
 export class AlumnoNew implements OnInit {
   alumnoForm : FormGroup;
+  
   filteredProvinces:any[]  ;
   filteredLocalidades:any[];
   filteredParentesco:any[];
@@ -20,7 +23,8 @@ export class AlumnoNew implements OnInit {
   es: any;
   
   constructor(private fb:FormBuilder, private alumnoService:AlumnoService
-        , private messageService:MessageService,private router:Router) {}
+        , private messageService:MessageService,private router:Router
+        , private activeRoute:ActivatedRoute) {}
 
   ngOnInit(){
         this.es = {
@@ -70,10 +74,60 @@ export class AlumnoNew implements OnInit {
     },{validator:this.provinceEntryRequired}
     );
   
-    console.log('Provinica: '+this.alumnoForm.get('provincia').value);
+    console.log('Provincia: '+this.alumnoForm.get('provincia').value);
     //this.alumnoForm.get('provincia').value.id=24;
+    console.log('Parametros route mode: '+this.activeRoute.snapshot.params["mode"]);
+    console.log('Parámetros route id: '+this.activeRoute.snapshot.params["id"]);
+    if(this.activeRoute.snapshot.params["mode"]==CrudCodes.EDIT)
+      this.assignFormValues(this.activeRoute.snapshot.params["id"]);
+  }
 
-
+  assignFormValues(id:number){
+        /*dni:['',[Validators.required]],
+        apellido:['',[Validators.required]],
+        nombre: ['',[Validators.required]],
+        provincia: [{id:24,nombre:'TUCUMAN'},[Validators.required]],
+        localidad:['',[Validators.required]],
+        direccion:['',[Validators.required]],
+        cuil: ['',[Validators.required]],
+        dniTutor: ['',[Validators.required]],
+        apellidoTutor: ['',[Validators.required]],
+        nombreTutor: ['',[Validators.required]],
+        cuilTutor: ['',[Validators.required]],
+        parentescoTutor: ['',[Validators.required]],
+        telefono1:['',[Validators.required]],
+        telefono2:['',[]],
+        fotoDni:[false,[]],
+        constanciaCuil:[false,[]],
+        constancia6grado:[false,[]],
+        actaNacimiento:[false,[]],
+        constaciaRegular:[false,[]],
+        foto4x4:[false,[]],
+        fotoCarnetVac:[false,[]],
+        fichaMedica:[false,[]],
+        aptitudFisica:[false,[]],
+        grupoSanguineo:[false,[]],
+        fichaInscripcion:[false,[]],
+        libreta6grado:[false,[]],
+        fotocopiaLibroMatriz:[false,[]],
+        fotocopiaDniTutor:[false,[]],
+        constanciaCuilTutor:[false,[]],
+        fechaNacimientoUnbinding:['',[Validators.required]]*/
+        //this.alumnoForm.controls[''].setValue();
+    
+    this.alumnoService.getAlumno(id).then(data=>{
+        
+        this.alumnoForm.controls['dni'].setValue(data.dni);        
+        this.alumnoForm.controls['apellido'].setValue(data.apellido);
+        this.alumnoForm.controls['nombre'].setValue(data.apellido);
+        this.alumnoForm.controls['apellido'].setValue(data.apellido);
+        this.alumnoForm.controls['nombre'].setValue(data.apellido);  
+        if(data.localidad!=null){
+          this.alumnoForm.controls['provincia'].setValue(data.localidad.provincia);                      
+          this.alumnoForm.controls['localidad'].setValue(data.localidad);                      
+        }
+        
+    });      
   }
 
   onSubmit(valuesForm){

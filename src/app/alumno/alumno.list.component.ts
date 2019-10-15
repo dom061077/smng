@@ -1,6 +1,7 @@
 import { Component,OnInit } from '@angular/core';
-import { Alumno  } from './alumno.interface';
+import { Alumno  } from './alumno.model';
 import { AlumnoService } from './alumno.service';
+
 
 
 @Component({
@@ -92,5 +93,8 @@ export class AlumnoList implements OnInit{
             });        
         console.log('Evento: first: '+event.first+' numero de filas: '+event.rows);
     }    
+
+    selectAlumno(event:Event){
+    }
 
 }

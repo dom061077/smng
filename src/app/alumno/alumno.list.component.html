@@ -1,10 +1,25 @@
+
+        <div class="ui-grid ui-grid-responsive ui-grid-pad ui-fluid" style="margin: 10px 0px">
+            <div class="ui-grid-row">
+                <div class="ui-grid-col-2">
+                    Filtro:
+                </div>
+            </div>
+            <div class="ui-grid-row">    
+                <div class="ui-grid-col-4">
+                        <p-inputMask mask="99.999.999" formControlName="dni" ></p-inputMask>
+                </div>
+            </div>
+        </div>   
 <p-virtualScroller [value]="alumnos" scrollHeight="500px" [itemSize]="150" [rows]="20" [cache]="false" 
     [lazy]="true" (onLazyLoad)="loadData($event)" [totalRecords]="totalLazyAlumnoLength">
         <ng-template let-alumno pTemplate="item">
             <div class="ui-g-12 ui-md-8">
                 <div class="ui-g">
                     <div class="ui-g-2 ui-sm-6">id: </div>
-                    <div class="ui-g-10 ui-sm-6">{{alumno?.id}}</div>
+                    <div class="ui-g-10 ui-sm-6">
+                        <a [routerLink]="['/alumno','edit',alumno?.id]" (click)="selectAlumno($event)">{{alumno?.id}}</a>
+                    </div>
         
                     <div class="ui-g-2 ui-sm-6">dni: </div>
                     <div class="ui-g-10 ui-sm-6">{{alumno?.dni}}</div>
