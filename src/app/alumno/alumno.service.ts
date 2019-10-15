@@ -40,6 +40,14 @@ export class AlumnoService extends RestDataSource{
         
     }
 
+    updateAlumno(alumno){
+        return this.sendRequest<any>("POST",this.url+"/updatealumno"
+        ,alumno).pipe(map(data=>{
+            return data.success;
+        }));
+    }
+
+
     getCantidad(){
         return this.sendRequest<any>("GET",this.url+"/alumnocount")
         .pipe(map(data=>{

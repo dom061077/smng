@@ -17,6 +17,7 @@ import {CheckboxModule} from 'primeng/checkbox';
 import { AlumnoService } from './alumno.service';
 import {CalendarModule} from 'primeng/calendar';
 import {VirtualScrollerModule} from 'primeng/virtualscroller';
+import {DatePipe} from '@angular/common';
 
 
 
@@ -40,7 +41,7 @@ let routing=RouterModule.forChild([
         
         
     ],
-    providers: [AlumnoService],
+    providers: [AlumnoService,DatePipe],
     declarations: [
         AlumnoNew,AlumnoList
     ]

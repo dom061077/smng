@@ -4,6 +4,7 @@ import {MessageService} from 'primeng/api';
 import { AlumnoService  } from './alumno.service';
 import {Router,ActivatedRoute} from "@angular/router";
 import { CrudCodes } from "../util/crud.enum";
+import { DatePipe } from '@angular/common';
 
 
 
@@ -24,7 +25,9 @@ export class AlumnoNew implements OnInit {
   
   constructor(private fb:FormBuilder, private alumnoService:AlumnoService
         , private messageService:MessageService,private router:Router
-        , private activeRoute:ActivatedRoute) {}
+        , private activeRoute:ActivatedRoute
+        , private datepipe:DatePipe
+        ) {}
 
   ngOnInit(){
         this.es = {
@@ -58,7 +61,7 @@ export class AlumnoNew implements OnInit {
         constanciaCuil:[false,[]],
         constancia6grado:[false,[]],
         actaNacimiento:[false,[]],
-        constaciaRegular:[false,[]],
+        constanciaRegular:[false,[]],
         foto4x4:[false,[]],
         fotoCarnetVac:[false,[]],
         fichaMedica:[false,[]],
@@ -117,21 +120,49 @@ export class AlumnoNew implements OnInit {
     
     this.alumnoService.getAlumno(id).then(data=>{
         
-        this.alumnoForm.controls['dni'].setValue(data.dni);        
+        /*this.alumnoForm.controls['fechaNacimientoUnbinding'].setValue(data.fechaNacimiento);        
         this.alumnoForm.controls['apellido'].setValue(data.apellido);
         this.alumnoForm.controls['nombre'].setValue(data.apellido);
-        this.alumnoForm.controls['apellido'].setValue(data.apellido);
-        this.alumnoForm.controls['nombre'].setValue(data.apellido);  
+        this.alumnoForm.controls['direccion'].setValue(data.direccion);
+        this.alumnoForm.controls['cuil'].setValue(data.cuil);  
         if(data.localidad!=null){
           this.alumnoForm.controls['provincia'].setValue(data.localidad.provincia);                      
           this.alumnoForm.controls['localidad'].setValue(data.localidad);                      
         }
+
+        /*this.alumnoForm.controls['dniTutor'].setValue(data.dniTutor);  
+        this.alumnoForm.controls['apellidoTutor'].setValue(data.apellidoTutor);  
+        this.alumnoForm.controls['dniTutor'].setValue(data.dniTutor);  
+        this.alumnoForm.controls['apellidoTutor'].setValue(data.apellidoTutor);  
+        this.alumnoForm.controls['nombreTutor'].setValue(data.nombreTutor);                  
+        this.alumnoForm.controls['parentescoTutor'].setValue(data.parentescoTutor);       
+        
+        this.alumnoForm.controls['telefono1'].setValue(data.telefono1);                  
+        this.alumnoForm.controls['telefono2'].setValue(data.telefono2);     
+        
+        this.alumnoForm.controls['fotoDni'].setValue(data.fotoDni);                  
+        this.alumnoForm.controls['constanciaCuil'].setValue(data.constanciaCuil);                          
+        this.alumnoForm.controls['constacia6grado'].setValue(data.constancia6grado);        
+        
+        this.alumnoForm.controls['actaNacimiento'].setValue(data.actaNacimiento);                  
+        this.alumnoForm.controls['constanciaRegular'].setValue(data.constanciaRegular);                          
+        this.alumnoForm.controls['constanciaRegular'].setValue(data.constanciaRegular); */ 
+        //this.alumnoForm.controls['fechaNacimientoUnbinding'].setValue('31/01/1978');     
+           
+        this.alumnoForm.controls['fechaNacimientoUnbinding'].setValue(this.datepipe.transform(data.fechaNacimiento,'dd/MM/yyyy'));
+        this.alumnoForm.patchValue(data) ;        
+        console.log('Fecha nacimiento: '+data.fechaNacimiento);
         
     });      
   }
 
   onSubmit(valuesForm){
     console.log('ValuesForm: '+valuesForm);
+
+    if(this.activeRoute.snapshot.params["mode"]==CrudCodes.EDIT)
+
+    enviar el update
+
     this.alumnoService.saveAlumno(valuesForm).subscribe(data=>{
         console.log("Resultado: "+data);   
         if(data){
