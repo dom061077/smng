@@ -45,16 +45,21 @@ export class JwtInterceptor implements HttpInterceptor {
                     
                 }     
                 if(error.status == 422){
-                    // title = 'Error en ingreso de datos';
-                    // if(error.error.total>1){
-                    //     msg='<ul>'
-                    //     error.error._embedded.errors.forEach(element=>{
-                    //         msg=msg+'<li>'+element.message+'</li>';
-                    //     });     
-                    //     msg=msg+'</ul>';                                       
-                    // }else{
-                    //     msg = msg+ '<ul><li>'+error.error.message+'</li></ul>';
-                    // }
+
+                     if(error.error.total>1){
+                        var title = 'Error en ingreso de datos';
+                        var msg = '';                         
+                         msg='<ul>'
+                         error.error._embedded.errors.forEach(element=>{
+                             msg=msg+'<li>'+element.message+'</li>';
+                         });     
+                         msg=msg+'</ul>';   
+                         error.msgobj = {title:title,msg:msg};
+                     }else{
+                         error.msgobj = {title:'Error en ingreso de datos'
+                                        ,msg:error.error.message};
+                         
+                     }
                 }
                 this.authenticationService.currentRestSubError.next(error);
 

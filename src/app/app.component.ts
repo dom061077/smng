@@ -17,11 +17,21 @@ export class AppComponent {
   
   constructor(private dsuser:RestUserDataSource,private messageService:MessageService
       ,private authService:AuthenticationService){
-      console.log("constructor AppComponent XXXXXX");
       authService.currentRestSubError.subscribe(data=>{
           if(data!=null){
             this.messageService.clear;
-            this.messageService.add({severity:'error',summary:data.msgobj.title,detail:data.msgobj.msg});
+              if(data.error && data.error.total>1){
+                data.error._embedded.errors.forEach(element=>{
+                    this.messageService.add({
+                        severity:'error',
+                        summary: 'Error',
+                        detail: element.message
+                    });
+                });                 
+                
+            }else{
+              this.messageService.add({severity:'error',summary:data.msgobj.title,detail:data.msgobj.msg}); 
+            }
           }
 
       });

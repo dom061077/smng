@@ -44,7 +44,7 @@ export class AlumnoNew implements OnInit {
         };    
     this.alumnoForm = this.fb.group({
         dni:['',[Validators.required]],
-        apellido:['',[Validators.required]],
+        //apellido:['',[Validators.required]],
         nombre: ['',[Validators.required]],
         provincia: [{id:24,nombre:'TUCUMAN'},[Validators.required]],
         localidad:['',[Validators.required]],
@@ -159,15 +159,22 @@ export class AlumnoNew implements OnInit {
   onSubmit(valuesForm){
     console.log('ValuesForm: '+valuesForm);
 
-    if(this.activeRoute.snapshot.params["mode"]==CrudCodes.EDIT)
+    if(this.activeRoute.snapshot.params["mode"]==CrudCodes.EDIT){
+        this.alumnoService.updateAlumno(valuesForm).subscribe(data=>{
+            if(data){
+              this.messageService.add({severity:'info',summary:'Mensaje',detail:'Los datos fueron modificados correctamente'});
+            }else
+              this.messageService.add({severity:'error',summary:'Error',detail:'Error al registrar la información'});
+        });
+    }
 
-    enviar el update
+    
 
     this.alumnoService.saveAlumno(valuesForm).subscribe(data=>{
         console.log("Resultado: "+data);   
         if(data){
           this.messageService.add({severity:'info',summary:'Mensaje',detail:'Los datos fueron registrados correctamente'});
-          this.router.navigateByUrl("/listalumno");
+          //this.router.navigateByUrl("/listalumno");
         }else
           this.messageService.add({severity:'error',summary:'Error',detail:'Error al registrar la información'});          
     });
