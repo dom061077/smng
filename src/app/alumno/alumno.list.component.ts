@@ -57,6 +57,7 @@ import { AlumnoService } from './alumno.service';
 })
 export class AlumnoList implements OnInit{ 
     alumnos: Alumno[];
+    filter:string;
     totalLazyAlumnoLength:number;
 
     constructor(private alumnoService:AlumnoService){
@@ -84,7 +85,7 @@ export class AlumnoList implements OnInit{
         //event.first = First row offset
         //event.rows = Number of rows per page
         //this.lazyCars = load new chunk between first index and (first + rows) last index
-        this.alumnoService.getAlumnos('',event.first,event.rows).then(data=>
+        this.alumnoService.getAlumnos(this.filter,event.first,event.rows).then(data=>
             {   this.alumnos=data;
                 console.log("Probando");
                 console.log("Alumnos:  "+this.alumnos.length);

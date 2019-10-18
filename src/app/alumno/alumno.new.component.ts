@@ -43,6 +43,7 @@ export class AlumnoNew implements OnInit {
             weekHeader: 'Semana'
         };    
     this.alumnoForm = this.fb.group({
+        id:[null,[]],
         dni:['',[Validators.required]],
         apellido:['',[Validators.required]],
         nombre: ['',[Validators.required]],
@@ -161,10 +162,12 @@ export class AlumnoNew implements OnInit {
 
     if(this.activeRoute.snapshot.params["mode"]==CrudCodes.EDIT){
         this.alumnoService.updateAlumno(valuesForm).subscribe(data=>{
+            console.log('Data: '+data);
             if(data.success){
               this.messageService.add({severity:'info',summary:'Mensaje',detail:'Los datos fueron modificados correctamente'});
+              this.router.navigateByUrl("/listalumno");
             }else
-              this.messageService.add({severity:'error',summary:'Error',detail:'Error al registrar la información'});
+              this.messageService.add({severity:'error',summary:'Error',detail:data.msg});
         });
     }else{
 
