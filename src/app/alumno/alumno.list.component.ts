@@ -1,6 +1,9 @@
 import { Component,OnInit } from '@angular/core';
 import { Alumno  } from './alumno.model';
 import { AlumnoService } from './alumno.service';
+import { FormControl } from '@angular/forms';
+import { debounceTime,distinctUntilChanged } from 'rxjs/operators';
+
 
 
 
@@ -57,8 +60,10 @@ import { AlumnoService } from './alumno.service';
 })
 export class AlumnoList implements OnInit{ 
     alumnos: Alumno[];
-    filter:string;
+    
     totalLazyAlumnoLength:number;
+    private searchControl: FormControl;
+    private debounce: number = 400;
 
     constructor(private alumnoService:AlumnoService){
         this.totalLazyAlumnoLength=3;
@@ -78,6 +83,22 @@ export class AlumnoList implements OnInit{
 
 
             });*/
+            this.searchControl = new FormControl('');
+            this.searchControl.valueChanges
+              .pipe(debounceTime(this.debounce), distinctUntilChanged())
+              .subscribe(query => {
+                this.alumnoService.getAlumnos(this.searchControl.value,0,20).then(data=>
+                    {   this.alumnos=data;
+                        console.log("Probando");
+                        console.log("Alumnos:  "+this.alumnos.length);
+        
+        
+                    });   
+                this.alumnoService.getCantidad(this.searchControl.value).toPromise().then(data=>{
+                        console.log("Cantidad de alumnos");
+                        this.totalLazyAlumnoLength = data;
+                    });                    
+              });            
         
     }
 
@@ -85,7 +106,7 @@ export class AlumnoList implements OnInit{
         //event.first = First row offset
         //event.rows = Number of rows per page
         //this.lazyCars = load new chunk between first index and (first + rows) last index
-        this.alumnoService.getAlumnos(this.filter,event.first,event.rows).then(data=>
+        this.alumnoService.getAlumnos(this.searchControl.value,event.first,event.rows).then(data=>
             {   this.alumnos=data;
                 console.log("Probando");
                 console.log("Alumnos:  "+this.alumnos.length);
@@ -96,6 +117,10 @@ export class AlumnoList implements OnInit{
     }    
 
     selectAlumno(event:Event){
+    }
+
+    onChange(a){
+        console.log(a);
     }
 
 }

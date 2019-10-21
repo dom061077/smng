@@ -48,8 +48,8 @@ export class AlumnoService extends RestDataSource{
     }
 
 
-    getCantidad(){
-        return this.sendRequest<any>("GET",this.url+"/alumnocount")
+    getCantidad(filter:string ){
+        return this.sendRequest<any>("GET",this.url+"/alumnocount?filter="+filter)
         .pipe(map(data=>{
             return data.count;
         }));
