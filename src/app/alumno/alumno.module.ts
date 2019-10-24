@@ -25,7 +25,7 @@ import {RoleGuard} from '../security/role-guard.service';
 let routing=RouterModule.forChild([
     {   path:"alumno/:mode/:id",component: AlumnoNew
         ,canActivate:[RoleGuard]
-        ,data:{role:'Admin'}
+        ,data:{role:'ROLE_USER'}
     },
     
     {path:"alumno",component:AlumnoNew},
