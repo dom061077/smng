@@ -18,11 +18,15 @@ import { AlumnoService } from './alumno.service';
 import {CalendarModule} from 'primeng/calendar';
 import {VirtualScrollerModule} from 'primeng/virtualscroller';
 import {DatePipe} from '@angular/common';
+import {RoleGuard} from '../security/role-guard.service';
 
 
 
 let routing=RouterModule.forChild([
-    {path:"alumno/:mode/:id",component: AlumnoNew},
+    {   path:"alumno/:mode/:id",component: AlumnoNew
+        ,canActivate:[RoleGuard]
+        ,data:{role:'Admin'}
+    },
     
     {path:"alumno",component:AlumnoNew},
     
@@ -41,7 +45,7 @@ let routing=RouterModule.forChild([
         
         
     ],
-    providers: [AlumnoService,DatePipe],
+    providers: [AlumnoService,DatePipe,RoleGuard],
     declarations: [
         AlumnoNew,AlumnoList
     ]

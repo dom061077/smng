@@ -71,7 +71,7 @@ export class AlumnoList implements OnInit{
 
 
     ngOnInit(){
-        this.alumnoService.getCantidad().toPromise().then(data=>{
+        this.alumnoService.getCantidad(null).toPromise().then(data=>{
             console.log("Cantidad de alumnos");
             this.totalLazyAlumnoLength = data;
         });
