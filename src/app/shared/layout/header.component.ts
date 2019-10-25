@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component,ElementRef, ViewChild } from '@angular/core';
 import { AuthenticationService } from "../../security/authentication.service";
 import {MenuItem} from 'primeng/api';
 import { User } from "../../model/security/user.model";
@@ -10,8 +10,15 @@ import { User } from "../../model/security/user.model";
 export class HeaderComponent {
    items: MenuItem[];
    //display:boolean;
+   @ViewChild("overlay_yo") overlayYo: ElementRef;
   constructor(public authService:AuthenticationService) {
 
+  }
+
+  public clickOverlay(event){
+      //console.log("OVERLAY PRUEBA");
+    (<any>this.overlayYo).toggle(event);
+    return false;
   }
 
   public get currentUser(){
@@ -19,7 +26,7 @@ export class HeaderComponent {
   }
   
     ngOnInit() {
-
+        console.log('On init de header components');
         
         this.items = [
             {
@@ -27,8 +34,8 @@ export class HeaderComponent {
                 icon: 'fa fa-graduation-cap',
                 
                 items: [
-                    {label: 'Nuevo', icon: 'fa fa-plus',routerLink : ['/alumno']},                    
-                    {label: 'Listado', icon: 'fa fa-list',routerLink:['/listalumno']}
+                    {label: 'Nuevo', icon: 'fa fa-plus',routerLink : '/alumno'},                    
+                    {label: 'Listado', icon: 'fa fa-list',routerLink:'/listalumno'}
                 ]
             },
             {

@@ -27,6 +27,11 @@ export class JwtInterceptor implements HttpInterceptor {
       return next.handle(request)
         .pipe(
             catchError(error =>{
+
+                if(error.status == 403){
+                    error.msgobj = {title:'Error',msg:'No posee permisos para esta opción'} 
+                }
+
                 if (error.status == 401){
                     // msg = 'Usuario o Contraseña incorrectos';
                     // title = 'Error';

@@ -21,7 +21,7 @@ export class RoleGuard implements CanActivate {
         }
     }
     //this._router.navigate(['/404']);
-    let error={};
+    let error={msgobj:{}};
     error.msgobj = {title:'Acceso denegado',msg:'No tiene permisos para acceder a esta opción'};    
     this.authService.currentRestSubError.next(error);
     return false;
