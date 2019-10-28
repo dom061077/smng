@@ -27,8 +27,10 @@ export class HeaderComponent {
   
     ngOnInit() {
         console.log('On init de header components');
-        
-        this.items = [
+        this.authService.getMenu().toPromise().then(data=>{
+            this.items = data;
+        });
+        /*this.items = [
             {
                 label: 'Alumnos',
                 icon: 'fa fa-graduation-cap',
@@ -86,7 +88,7 @@ export class HeaderComponent {
                     }
                 ]
             }
-        ];
+        ];*/
     }  
 
 }

@@ -98,5 +98,12 @@ export class AuthenticationService extends RestDataSource {
         this.currentUserSubject.next(null);
     }
 
+    getMenu(){
+        return this.sendRequest<any>("GET",this.url+"/getmenu")
+            .pipe(map(data=>{
+                return data;
+            }));
+    }
+
 
 }
