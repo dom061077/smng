@@ -105,5 +105,12 @@ export class AuthenticationService extends RestDataSource {
             }));
     }
 
+    saveUsuario(usuario){
+        return this.sendRequest<any>("POST",this.url+"/saveusuario"
+            ,usuario).pipe(map(data=>{
+                return data.success
+            }));
+    }
+
 
 }

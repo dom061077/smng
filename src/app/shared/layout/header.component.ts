@@ -1,4 +1,4 @@
-import { Component,ElementRef, ViewChild } from '@angular/core';
+import { Component,ElementRef, ViewChild,AfterViewInit } from '@angular/core';
 import { AuthenticationService } from "../../security/authentication.service";
 import {MenuItem} from 'primeng/api';
 import { User } from "../../model/security/user.model";
@@ -7,12 +7,19 @@ import { User } from "../../model/security/user.model";
   selector: 'layout-header',
   templateUrl: './header.component.html'
 })
-export class HeaderComponent {
+export class HeaderComponent implements AfterViewInit{
    items: MenuItem[];
    //display:boolean;
    @ViewChild("overlay_yo") overlayYo: ElementRef;
   constructor(public authService:AuthenticationService) {
 
+  }
+
+
+  ngAfterViewInit() {
+        this.authService.getMenu().toPromise().then(data=>{
+            this.items = data;
+         });      
   }
 
   public clickOverlay(event){
@@ -27,9 +34,7 @@ export class HeaderComponent {
   
     ngOnInit() {
         console.log('On init de header components');
-        this.authService.getMenu().toPromise().then(data=>{
-            this.items = data;
-        });
+
         /*this.items = [
             {
                 label: 'Alumnos',

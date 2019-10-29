@@ -10,13 +10,15 @@ import { LoginComponent } from './login.component';
 import { AuthenticationService  } from "./authentication.service";
 import { JwtInterceptor  } from "./jwt.interceptor";
 import { ChangePasswordComponent } from "./change.password.component";
+import { Usuario } from "./usuario.component";
 import {PanelModule} from 'primeng/panel';
 import {ToastModule} from 'primeng/toast';
 
 let routing = RouterModule.forChild([
     {path:"login",component: LoginComponent},
     {path:"logout",component: LoginComponent},
-    {path:"changepass",component:ChangePasswordComponent}
+    {path:"changepass",component:ChangePasswordComponent},
+    {path:"user",component:Usuario}
 ]);
 
 @NgModule({
@@ -24,7 +26,7 @@ let routing = RouterModule.forChild([
         ,routing,PanelModule,ToastModule,MessagesModule,MessageModule],
     providers:[AuthenticationService,JwtInterceptor],
     declarations:[
-        LoginComponent,ChangePasswordComponent
+        LoginComponent,ChangePasswordComponent,Usuario
     ]
 
 })

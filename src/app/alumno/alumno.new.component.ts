@@ -15,6 +15,7 @@ import { DatePipe } from '@angular/common';
 })
 export class AlumnoNew implements OnInit {
   alumnoForm : FormGroup;
+  headerTitle: string;
   
   filteredProvinces:any[]  ;
   filteredLocalidades:any[];
@@ -82,8 +83,11 @@ export class AlumnoNew implements OnInit {
     //this.alumnoForm.get('provincia').value.id=24;
     console.log('Parametros route mode: '+this.activeRoute.snapshot.params["mode"]);
     console.log('Parámetros route id: '+this.activeRoute.snapshot.params["id"]);
-    if(this.activeRoute.snapshot.params["mode"]==CrudCodes.EDIT)
-      this.assignFormValues(this.activeRoute.snapshot.params["id"]);
+    this.headerTitle="Alta de Alumno";
+    if(this.activeRoute.snapshot.params["mode"]==CrudCodes.EDIT){
+       this.assignFormValues(this.activeRoute.snapshot.params["id"]);
+       this.headerTitle="Modificación de Alumno";
+    }
   }
 
   assignFormValues(id:number){
