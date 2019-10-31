@@ -1,4 +1,46 @@
-<form [formGroup]="usuarioForm" (ngSubmit)="onSubmit()">
+<form [formGroup]="usuarioForm" >
         <p-panel header="{{headerTitle}}">
+                <div class="ui-grid ui-grid-responsive ui-grid-pad ui-fluid" style="margin: 10px 0px">   
+                    <div class="ui-grid-row">
+                        <div class="ui-grid-col-2">
+                            Nombre de Usuario *:
+                        </div>
+                    </div>
+                    <div class="ui-grid-row">    
+                        <div class="ui-grid-col-4">
+                                <input  style="width:100%" type="text"  formControlName="userName"/>                                
+                        </div>
+                        <div class="ui-grid-col-4">
+                            <p-message severity="error" text="Nombre de Usuario" 
+                                *ngIf="usuarioForm.get('userName').dirty && usuarioForm.get('userName').errors && usuarioForm.get('userName').errors.required"></p-message>
+                        </div>
+                    </div>
+
+                
+                </div>  
+            
+            
+
+                <!--div class="ui-grid ui-grid-responsive ui-grid-pad ui-fluid" style="margin: 10px 0px">   
+                    <div class="ui-grid-row">
+                        <div class="ui-grid-col-2">
+                            Password *:
+                        </div>
+                    </div>
+                    <div class="ui-grid-row">    
+                        <div class="ui-grid-col-4">
+                                <input  style="width:100%" type="text"  formControlName="password"  >                                
+                        </div>
+                        <div class="ui-grid-col-4">
+                            <p-message severity="error" text="Ingrese contraseña" 
+                                *ngIf="alumnoForm.get('password').dirty && alumnoForm.get('password').errors && alumnoForm.get('password').errors.required"></p-message>
+                        </div>
+                    </div>
+                    
+
+                
+                </div-->  
+
+
         </p-panel>
-</form>>
+</form>

@@ -9,17 +9,21 @@ import { DatePipe } from '@angular/common';
     selector:'usuario-page',
     templateUrl:'./usuario.component.html'
 })
-export class Usuario implements OnInit{
+export class UsuarioNew implements OnInit{
     usuarioForm : FormGroup;
-    header
-    ngOnInit(){
-
-
-    }
+    headerTitle:string;
 
     constructor(private fb:FormBuilder){
-        this.usuarioForm = this.fb.group({
 
+    }
+    ngOnInit(){
+        this.headerTitle='Alta de Usuario';
+        this.usuarioForm = this.fb.group({
+            id:[null,[]],
+            userName:['',[Validators.required]],
+            password:['',[Validators.required]],
+            apellido:['',[Validators.required]],
+            nombre:['',[Validators.required]]
         });
     }
 
