@@ -30,16 +30,27 @@ export class UsuarioNew implements OnInit{
         });
     }
 
-showPassword(){
+    showPassword(){
 
-   this.isPassword = false;
+        this.isPassword = false;
 
-}
+    }
 
-hidePassword(){
+    hidePassword(){
 
-   this.isPassword = true;
+        this.isPassword = true;
 
-}
+    }
+
+    togglePassword(){
+        console.log('Toggle password: '+this.isPassword);
+        this.isPassword = !this.isPassword;
+        if (this.isPassword)
+            this.typeInputPassword='password';
+        else
+            this.typeInputPassword='input';    
+    }
+
+
     
 }

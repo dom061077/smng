@@ -17,6 +17,9 @@
                     </div>
                 
                 </div>  
+
+
+              
             
                 <div class="ui-grid ui-grid-responsive ui-grid-pad ui-fluid" style="margin: 10px 0px">   
                     <div class="ui-grid-row">
@@ -26,12 +29,22 @@
                     </div>
                         
                         <div class="ui-grid-row">   
-                           
-                            <div class="ui-grid-col-4">
 
-                                    <input type="{{typeInputPassword}}"  style="width:100%"   formControlName="password"/>     
+                                <div class="input-group add-on">
+                                        <input type="text" class="form-control" placeholder="Search" name="srch-term" id="srch-term">
+                                        <div class="input-group-btn">
+                                          <button class="btn btn-default" type="submit"><i class="fa fa-user"></i></button>
+                                        </div>
+                                </div>                              
                             
-                            </div>
+                           
+                                <div class="input-group add-on">
+                                        <input type="{{typeInputPassword}}"  class="form-control"  class="form-control"  formControlName="password"/>     
+                                        <div class="input-group-btn">
+                                                <button class="btn btn-default" (click)="togglePassword()" type="submit"><i class="fa fa-user"></i></button>
+                                        </div>
+                                </div>
+                            
                             <div class="ui-grid-col-4">
                                 <p-message severity="error" text="Contraseña es obligatorio" 
                                     *ngIf="usuarioForm.get('password').dirty && usuarioForm.get('password').errors && usuarioForm.get('password').errors.required"></p-message>
