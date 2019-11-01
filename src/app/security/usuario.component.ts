@@ -12,12 +12,15 @@ import { DatePipe } from '@angular/common';
 export class UsuarioNew implements OnInit{
     usuarioForm : FormGroup;
     headerTitle:string;
-
+    isPassword:boolean;
+    typeInputPassword:string;
     constructor(private fb:FormBuilder){
 
     }
     ngOnInit(){
         this.headerTitle='Alta de Usuario';
+        this.typeInputPassword='password';
+        this.showPassword();
         this.usuarioForm = this.fb.group({
             id:[null,[]],
             userName:['',[Validators.required]],
@@ -27,5 +30,16 @@ export class UsuarioNew implements OnInit{
         });
     }
 
+showPassword(){
+
+   this.isPassword = false;
+
+}
+
+hidePassword(){
+
+   this.isPassword = true;
+
+}
     
 }
