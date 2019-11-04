@@ -8,7 +8,7 @@
                     </div>
                     <div class="ui-grid-row">    
                         <div class="ui-grid-col-4">
-                                <input  style="width:100%" type="text"  formControlName="userName"/>                                
+                                <input class="form-control"  style="width:100%" type="text"  formControlName="userName"/>                                
                         </div>
                         <div class="ui-grid-col-4">
                             <p-message severity="error" text="Nombre de Usuario es obligatorio" 
@@ -30,18 +30,18 @@
                         
                         <div class="ui-grid-row">   
 
-                                <div class="input-group add-on">
+                                <!--div class="input-group add-on">
                                         <input type="text" class="form-control" placeholder="Search" name="srch-term" id="srch-term">
                                         <div class="input-group-btn">
                                           <button class="btn btn-default" type="submit"><i class="fa fa-user"></i></button>
                                         </div>
-                                </div>                              
+                                </div -->                              
                             
                            
-                                <div class="input-group add-on">
-                                        <input type="{{typeInputPassword}}"  class="form-control"  class="form-control"  formControlName="password"/>     
+                                <div class="input-group add-on ui-grid-col-4">
+                                        <input type="{{typeInputPassword}}" class="form-control"  formControlName="password"/>     
                                         <div class="input-group-btn">
-                                                <button class="btn btn-default" (click)="togglePassword()" type="submit"><i class="fa fa-user"></i></button>
+                                                <button class="btn btn-default" (click)="togglePassword()" type="submit"><i class="{{(isPassword ? 'fa fa-eye-slash' : 'fa fa-eye')}}"></i></button>
                                         </div>
                                 </div>
                             
@@ -61,7 +61,7 @@
                     </div>
                     <div class="ui-grid-row">    
                         <div class="ui-grid-col-4">
-                                <input  style="width:100%" type="text"  formControlName="apellido"/>                                
+                                <input class="form-control"  style="width:100%" type="text"  formControlName="apellido"/>                                
                         </div>
                         <div class="ui-grid-col-4">
                             <p-message severity="error" text="Apellido es obligatorio" 
@@ -79,7 +79,7 @@
                     </div>
                     <div class="ui-grid-row">    
                         <div class="ui-grid-col-4">
-                                <input  style="width:100%" type="text"  formControlName="nombre"/>                                
+                                <input class="form-control"  style="width:100%" type="text"  formControlName="nombre"/>                                
                         </div>
                         <div class="ui-grid-col-4">
                             <p-message severity="error" text="Nombre es obligatorio" 
@@ -88,9 +88,18 @@
                     </div>
                 
                 </div>  
-
-
-
-
         </p-panel>
+
+        <div class="ui-grid ui-grid-responsive ui-grid-pad ui-fluid"  style="margin: 10px 0px">
+                
+
+            <div class="ui-grid-row">        
+
+                <div class="ui-grid-col-4">
+                     <button pButton style="width:100%"  type="submit" label="Confirmar" [disabled]="!usuarioForm.valid"></button>
+                </div>
+                <div class="ui-grid-col-4"></div>
+            </div>    
+        </div>  
+        
 </form>

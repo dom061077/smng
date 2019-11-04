@@ -1,0 +1,25 @@
+<form [formGroup]="perfilForm" (ngSubmit)="onSubmit(perfilForm.value)">
+    <p-panel header="{{headerTitle}}">
+                <div class="ui-grid ui-grid-responsive ui-grid-pad ui-fluid" style="margin: 10px 0px">   
+                    <div class="ui-grid-row">
+                        <div class="ui-grid-col-2">
+                            Descripción *:
+                        </div>
+                    </div>
+                    <div class="ui-grid-row">    
+                        <div class="ui-grid-col-4">
+                                <input class="form-control"  style="width:100%" type="text"  formControlName="descripcion" pInputText [pKeyFilter]="noSpecial" [pValidateOnly]="false">                                
+                        </div>
+                        <div class="ui-grid-col-4">
+                            <p-message severity="error" text="Ingrese descripción del Perfil" 
+                                *ngIf="perfilForm.get('descripcion').dirty && perfilForm.get('descripcion').errors && perfilForm.get('descripcion').errors.required"></p-message>
+                        </div>
+                    </div>
+
+                
+                </div>  
+        
+    </p-panel>    
+
+</form>
+

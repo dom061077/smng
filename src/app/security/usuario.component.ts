@@ -4,6 +4,7 @@ import {MessageService} from 'primeng/api';
 import {Router,ActivatedRoute} from "@angular/router";
 import { CrudCodes } from "../util/crud.enum";
 import { DatePipe } from '@angular/common';
+import { AuthenticationService } from './authentication.service';
 
 @Component({
     selector:'usuario-page',
@@ -14,12 +15,15 @@ export class UsuarioNew implements OnInit{
     headerTitle:string;
     isPassword:boolean;
     typeInputPassword:string;
-    constructor(private fb:FormBuilder){
-
+    constructor(private fb:FormBuilder,private authService:AuthenticationService
+        ,private messageService:MessageService,private router:Router
+        ,private activeRoute:ActivatedRoute){
+        this.typeInputPassword='password';
+        this.isPassword=true;
     }
     ngOnInit(){
         this.headerTitle='Alta de Usuario';
-        this.typeInputPassword='password';
+
         this.showPassword();
         this.usuarioForm = this.fb.group({
             id:[null,[]],
@@ -44,13 +48,20 @@ export class UsuarioNew implements OnInit{
 
     togglePassword(){
         console.log('Toggle password: '+this.isPassword);
-        this.isPassword = !this.isPassword;
+        
         if (this.isPassword)
             this.typeInputPassword='password';
         else
             this.typeInputPassword='input';    
+        this.isPassword = !this.isPassword;    
     }
 
-
+    onSubmit(valuesForm){
+        if(this.activeRoute.snapshot.params["mode"]==CrudCodes.EDIT){
+            
+        }else{
+            
+        }
+    }
     
 }
