@@ -6,6 +6,7 @@ import {ButtonModule} from 'primeng/button';
 import {MessagesModule} from 'primeng/messages';
 import {MessageModule} from 'primeng/message';
 import {KeyFilterModule} from 'primeng/keyfilter';
+import {VirtualScrollerModule} from 'primeng/virtualscroller';
 
 import { LoginComponent } from './login.component';
 import { AuthenticationService  } from "./authentication.service";
@@ -29,7 +30,8 @@ let routing = RouterModule.forChild([
 
 @NgModule({
     imports: [CommonModule, FormsModule,ReactiveFormsModule , ButtonModule
-        ,routing,PanelModule,ToastModule,MessagesModule,MessageModule,KeyFilterModule],
+        ,routing,PanelModule,ToastModule,MessagesModule,MessageModule,KeyFilterModule
+        ,VirtualScrollerModule],
     providers:[AuthenticationService,JwtInterceptor],
     declarations:[
         LoginComponent,ChangePasswordComponent,UsuarioNew
