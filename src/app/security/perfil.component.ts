@@ -4,7 +4,7 @@ import {MessageService} from 'primeng/api';
 import {Router,ActivatedRoute} from "@angular/router";
 import { CrudCodes } from "../util/crud.enum";
 import { AuthenticationService } from './authentication.service';
-
+import { Authority } from './authority.model';
 
 @Component({
     selector:'perfil-page',
@@ -13,7 +13,9 @@ import { AuthenticationService } from './authentication.service';
 
 export class PerfilNew implements OnInit{
     headerTitle:string;
+    totalLazyAuthoritiesLength:number;
     perfilForm:FormGroup;
+    authorities: Authority[];
     noSpecial: RegExp = /^[^<>1234567890!"#%&/$()=?¡[._*{}!]+$/;
     constructor(private fb:FormBuilder,private authService:AuthenticationService
         ,private messageService:MessageService,private router:Router
@@ -27,6 +29,9 @@ export class PerfilNew implements OnInit{
        this.perfilForm = this.fb.group({
            id:[null,[]],
            descripcion:['',[Validators.required]]
+       });
+       this.authService.getAuthorities().then(data=>{
+           this.authorities=data;
        });
        if(this.activeRoute.snapshot.params["mode"]==CrudCodes.EDIT){
             this.assignFormValues(this.activeRoute.snapshot.params["id"]);

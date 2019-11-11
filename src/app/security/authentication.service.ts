@@ -12,6 +12,7 @@ export class AuthenticationService extends RestDataSource {
     private currentUserSubject: BehaviorSubject<User>;
     public currentUser: Observable<User>;
     private currentRestError: BehaviorSubject<any>;
+    private menuSubject: BehaviorSubject<any>;
     
 
 
@@ -21,6 +22,7 @@ export class AuthenticationService extends RestDataSource {
         this.currentUserSubject = new BehaviorSubject<User>(JSON.parse(localStorage.getItem('currentUser')));
         this.currentUser = this.currentUserSubject.asObservable();
         this.currentRestError = new BehaviorSubject<any>(null);
+        this.menuSubject = new BehaviorSubject<any>([]);
         console.log('Constructor de authentication XXXXXXX');
         
     }
@@ -33,6 +35,10 @@ export class AuthenticationService extends RestDataSource {
 
     public get currentRestSubError(){
         return this.currentRestError;
+    }
+
+    public get currentObservableValue(){
+        return this.menuSubject;
     }
 
     public get currentUserValue(): User {
@@ -49,6 +55,9 @@ export class AuthenticationService extends RestDataSource {
                     localStorage.setItem('currentUser',JSON.stringify(user));
 
                     this.currentUserSubject.next(user);
+                    this.getMenu().toPromise().then(data=>{
+                        this.menuSubject.next(data);
+                    });
                 }
                 console.log('User Information: '+localStorage.getItem('userInformation'));
 
@@ -103,6 +112,13 @@ export class AuthenticationService extends RestDataSource {
             .pipe(map(data=>{
                 return data;
             }));
+    }
+
+    getAuthorities(){
+        return this.sendRequest<any>("GET",this.url+"/getresturls")
+            .toPromise().then(data=>{
+                return data.authorities;
+            });
     }
 
     saveUsuario(usuario){

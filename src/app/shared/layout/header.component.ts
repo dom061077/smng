@@ -28,6 +28,10 @@ export class HeaderComponent implements AfterViewInit{
     return false;
   }
 
+  public get currentMenu(){
+      return this.authService.currentObservableValue;
+  }
+
   public get currentUser(){
         return this.authService.currentUserObservableValue;
   }

@@ -3,7 +3,7 @@
 </p-sidebar-->
 <div class="ui-g" > 
     <div class="ui-g-4" *ngIf="currentUser | async">
-      <p-slideMenu #menu [model]="items" [backLabel]="Back" [popup]="true" [viewportHeight]="250"></p-slideMenu>
+      <p-slideMenu #menu [model]="(currentMenu | async)" [backLabel]="Back" [popup]="true" [viewportHeight]="250"></p-slideMenu>
 
       <button type="text" (click)="menu.toggle($event)" 
         pButton icon="fa fa-bars" label="Menu"></button>      
