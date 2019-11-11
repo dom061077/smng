@@ -16,12 +16,14 @@ export class PerfilNew implements OnInit{
     totalLazyAuthoritiesLength:number;
     perfilForm:FormGroup;
     authorities: Authority[];
+    authoritiesAdded:Authority[];
     noSpecial: RegExp = /^[^<>1234567890!"#%&/$()=?¡[._*{}!]+$/;
     constructor(private fb:FormBuilder,private authService:AuthenticationService
         ,private messageService:MessageService,private router:Router
         ,private activeRoute:ActivatedRoute){
         //this.typeInputPassword='password';
         //this.isPassword=true;
+        this.authoritiesAdded=[];
     }
 
     ngOnInit(){
@@ -30,9 +32,10 @@ export class PerfilNew implements OnInit{
            id:[null,[]],
            descripcion:['',[Validators.required]]
        });
-       this.authService.getAuthorities().then(data=>{
+       /*this.authService.getAuthorities().then(data=>{
            this.authorities=data;
-       });
+       });*/
+       this.getAuthorities();
        if(this.activeRoute.snapshot.params["mode"]==CrudCodes.EDIT){
             this.assignFormValues(this.activeRoute.snapshot.params["id"]);
             this.headerTitle='Modificación de Perfil';
@@ -46,5 +49,35 @@ export class PerfilNew implements OnInit{
     onSubmit(valuesForm){
 
     }
+
+    getAuthorities(){
+        this.authService.getAuthorities().then(data=>{
+            this.authorities=data.filter(auth=>{
+                console.log("Auth filtrado: "+auth.descripcion);
+                var found=false;
+                for(var i=0;i < this.authoritiesAdded.length;i++){
+                    if(this.authoritiesAdded[i]==auth.descripcion)
+                        return found;
+                }
+                return !found;
+ 
+            });
+            console.log("Auth dsata: "+this.authorities);
+        });        
+    }
+
+
+    loadData(event) {
+        //event.first = First row offset
+        //event.rows = Number of rows per page
+        //this.lazyCars = load new chunk between first index and (first + rows) last index
+        this.authService.getAuthorities().then(data=>
+            {   this.authorities=data;
+                console.log("Probando");
+
+
+            });        
+        console.log('Evento: first: '+event.first+' numero de filas: '+event.rows);
+    }     
 
 }

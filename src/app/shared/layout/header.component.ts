@@ -19,7 +19,10 @@ export class HeaderComponent implements AfterViewInit{
   ngAfterViewInit() {
         this.authService.getMenu().toPromise().then(data=>{
             this.items = data;
+            this.authService.menuSubject.next(data);
          });      
+
+        
   }
 
   public clickOverlay(event){

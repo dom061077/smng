@@ -21,9 +21,36 @@
 
                 <div class="ui-grid ui-grid-responsive ui-grid-pad ui-fluid" style="margin: 10px 0px"> 
                     <div class="ui-grid-row">
-                        <div class="ui-grid-col-5">
+                        <div class="ui-grid-col-6">
                             <p-panel header="Acciones REST Disponibles">
-
+                                <p-virtualScroller [value]="authorities" scrollHeight="500px" [itemSize]="80" [rows]="5" [cache]="false" 
+                                [lazy]="true" (onLazyLoad)="loadData($event)" [totalRecords]="totalLazyAuthoritiesLength">
+                                    <ng-template let-authority pTemplate="item">
+                                        <div class="ui-g-12 ui-md-8">
+                                            <div class="ui-g">
+                                                <div class="ui-g-4 ui-sm-6">id: </div>
+                                                <div class="ui-g-6 ui-sm-6">
+                                                    {{authority?.id}}
+                                                </div>
+                                    
+                                                <div class="ui-g-4 ui-sm-5">Descripción: </div>
+                                                <div class="ui-g-6 ui-sm-6">{{authority?.descripcion}}</div>
+                                            </div>
+                                        </div>
+                                    </ng-template>     
+                                <!--ng-template let-alumno pTemplate="loadingItem">
+                                        
+                                        <div class="ui-g-12 ui-md-8">
+                                            <div  class="ui-g">
+                                                <div class="ui-g-12"><div class="empty-car-item-text"></div></div>
+                                                <div class="ui-g-12"><div class="empty-car-item-text"></div></div>
+                                                <div class="ui-g-12"><div class="empty-car-item-text"></div></div>
+                                                <div class="ui-g-12"><div class="empty-car-item-text"></div></div>
+                                            </div>
+                                        </div>
+                                    
+                                </ng-template-->        
+                            </p-virtualScroller>  
                             </p-panel>
                         </div>
                         <div class="ui-grid-col-2">

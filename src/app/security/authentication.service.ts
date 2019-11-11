@@ -12,7 +12,7 @@ export class AuthenticationService extends RestDataSource {
     private currentUserSubject: BehaviorSubject<User>;
     public currentUser: Observable<User>;
     private currentRestError: BehaviorSubject<any>;
-    private menuSubject: BehaviorSubject<any>;
+    public menuSubject: BehaviorSubject<any>;
     
 
 
