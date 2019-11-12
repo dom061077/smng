@@ -14,6 +14,7 @@ import { Authority } from './authority.model';
 export class PerfilNew implements OnInit{
     headerTitle:string;
     totalLazyAuthoritiesLength:number;
+    totalLazyAuthoritiesAddedLength:number;
     perfilForm:FormGroup;
     authorities: Authority[];
     authoritiesAdded:Authority[];
@@ -64,6 +65,13 @@ export class PerfilNew implements OnInit{
             });
             console.log("Auth dsata: "+this.authorities);
         });        
+    }
+
+    addAuthority(authority){
+        console.log("Id: "+authority.id+" descripción: "+authority.descripcion);
+        this.authoritiesAdded.push(authority)
+        this.totalLazyAuthoritiesAddedLength = this.authoritiesAdded.length;
+        console.log("Authorityadded: "+this.authoritiesAdded);
     }
 
 
