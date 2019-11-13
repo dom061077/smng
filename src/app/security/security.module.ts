@@ -6,7 +6,7 @@ import {ButtonModule} from 'primeng/button';
 import {MessagesModule} from 'primeng/messages';
 import {MessageModule} from 'primeng/message';
 import {KeyFilterModule} from 'primeng/keyfilter';
-import {VirtualScrollerModule} from 'primeng/virtualscroller';
+
 
 import { LoginComponent } from './login.component';
 import { AuthenticationService  } from "./authentication.service";
@@ -18,6 +18,8 @@ import { PerfilNew } from "./perfil.component";
 
 import {PanelModule} from 'primeng/panel';
 import {ToastModule} from 'primeng/toast';
+
+import {PickListModule} from 'primeng/picklist';
 
 
 let routing = RouterModule.forChild([
@@ -31,7 +33,8 @@ let routing = RouterModule.forChild([
 @NgModule({
     imports: [CommonModule, FormsModule,ReactiveFormsModule , ButtonModule
         ,routing,PanelModule,ToastModule,MessagesModule,MessageModule,KeyFilterModule
-        ,VirtualScrollerModule],
+        ,PickListModule
+        ],
     providers:[AuthenticationService,JwtInterceptor],
     declarations:[
         LoginComponent,ChangePasswordComponent,UsuarioNew

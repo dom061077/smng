@@ -71,6 +71,7 @@ export class PerfilNew implements OnInit{
         console.log("Id: "+authority.id+" descripción: "+authority.descripcion);
         this.authoritiesAdded.push(authority)
         this.totalLazyAuthoritiesAddedLength = this.authoritiesAdded.length;
+        this.authorities.splice(0,1);
         console.log("Authorityadded: "+this.authoritiesAdded);
     }
 
