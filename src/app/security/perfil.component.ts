@@ -24,7 +24,7 @@ export class PerfilNew implements OnInit{
         ,private activeRoute:ActivatedRoute){
         //this.typeInputPassword='password';
         //this.isPassword=true;
-        this.authoritiesAdded=[];
+        this.authoritiesAdded=[{"id":1,"descripcion":"ROLE_ALUMNO_SAVE"}];
     }
 
     ngOnInit(){

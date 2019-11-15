@@ -21,23 +21,17 @@
 
                 <div class="ui-grid ui-grid-responsive ui-grid-pad ui-fluid" style="margin: 10px 0px"> 
                     <div class="ui-grid-row">
-                        <div class="ui-grid-col-6">
-                            <p-panel header="Acciones REST Disponibles">
-
-                            </p-panel>
-                        </div>
-                        <div class="ui-grid-col-2">
-                            <button class="hidden-xs-down-639"><i class="fa fa-hand-o-down" aria-hidden="true"></i></button>
-                                           
-
-                            <button class="hidden-xs-down"><i class="fa fa-hand-o-right" aria-hidden="true"></i></button>
-                        </div>
-                        <div class="ui-grid-col-5">
-                            <p-panel header="Agregadas">
-                                
-                            </p-panel>
-                                
-                        </div>                        
+                        <p-pickList [source]="authorities" [target]="authoritiesAdded" sourceHeader="Available" targetHeader="Selected" 
+                            [responsive]="true" filterBy="descripcion" 
+                            dragdrop="true" sourceFilterPlaceholder="Search by brand" targetFilterPlaceholder="Search by brand" 
+                            [sourceStyle]="{'height':'300px'}" [targetStyle]="{'height':'300px'}">
+                            <ng-template let-auth pTemplate="item">
+                                <div class="ui-helper-clearfix">
+                                    
+                                    <div style="font-size:14px;float:right;margin:15px 5px 0 0">{{auth.id}} - {{auth.descripcion}}</div>
+                                </div>
+                            </ng-template>
+                        </p-pickList>                    
                     </div>                    
                 </div>    
         
