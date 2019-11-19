@@ -12,7 +12,7 @@
                         </div>
                         <div class="ui-grid-col-4">
                             <p-message severity="error" text="Ingrese descripción del Perfil" 
-                                *ngIf="perfilForm.get('descripcion').dirty && perfilForm.get('descripcion').errors && perfilForm.get('descripcion').errors.required"></p-message>
+                                *ngIf="perfilForm.get('descripcion').dirty && perfilForm.get('descripcion').errors  && perfilForm.get('descripcion').errors.required"></p-message>
                         </div>
                     </div>
 
@@ -31,7 +31,11 @@
                                     <div style="font-size:14px;float:left;margin:15px 5px 0 0">{{auth.id}} - {{auth.authority}}</div>
                                 </div>
                             </ng-template>
-                        </p-pickList>                    
+                        </p-pickList>   
+                        <div class="ui-grid-col-4">
+                            <p-message severity="error" text="Ingrese descripción del Perfil" 
+                                *ngIf="perfilForm.get('descripcion').errors &&  perfilForm.get('descripcion').errors.authoritiesAddedRequired"></p-message>
+                        </div>                                         
                     </div>                    
                 </div>    
         

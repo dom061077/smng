@@ -33,7 +33,7 @@ export class PerfilNew implements OnInit{
            id:[null,[]],
            descripcion:['',[Validators.required]],
            authorities:[null,[]]
-       });
+       } ,{validator:this.authoritiesAddedRequired});
        /*this.authService.getAuthorities().then(data=>{
            this.authorities=data;
        });*/
@@ -93,4 +93,10 @@ export class PerfilNew implements OnInit{
         console.log('Evento: first: '+event.first+' numero de filas: '+event.rows);
     }     
 
+
+    authoritiesAddedRequired(control:AbstractControl){
+        if(this.authoritiesAdded && this.authoritiesAdded.length==0)
+            control.get('descripcion').setErrors({authoritiesAddedRequired:true});
+          
+    }    
 }
