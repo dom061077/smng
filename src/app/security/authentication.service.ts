@@ -6,6 +6,7 @@ import { map } from 'rxjs/operators';
 import { RestDataSource,REST_URL } from "../services/rest.datasource";
 
 import { User } from '../model/security/user.model';
+import { Authority } from './authority.model';
 
 @Injectable({ providedIn: 'root' })
 export class AuthenticationService extends RestDataSource {
@@ -124,6 +125,13 @@ export class AuthenticationService extends RestDataSource {
     saveUsuario(usuario){
         return this.sendRequest<any>("POST",this.url+"/saveusuario"
             ,usuario).pipe(map(data=>{
+                return data.success
+            }));
+    }
+
+    savePerfil(perfil){
+        return this.sendRequest<any>("POST",this.url+"/saveperfil"
+            ,perfil).pipe(map(data=>{
                 return data.success
             }));
     }

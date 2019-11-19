@@ -21,14 +21,14 @@
 
                 <div class="ui-grid ui-grid-responsive ui-grid-pad ui-fluid" style="margin: 10px 0px"> 
                     <div class="ui-grid-row">
-                        <p-pickList [source]="authorities" [target]="authoritiesAdded" sourceHeader="Available" targetHeader="Selected" 
-                            [responsive]="true" filterBy="descripcion" 
-                            dragdrop="true" sourceFilterPlaceholder="Search by brand" targetFilterPlaceholder="Search by brand" 
+                        <p-pickList [source]="authorities" [target]="authoritiesAdded" sourceHeader="Roles Disponibles" targetHeader="Roles Asignados" 
+                            [responsive]="true" filterBy="authority" 
+                            dragdrop="true" sourceFilterPlaceholder="Buscar por Descripción" targetFilterPlaceholder="Buscar por Descripción" 
                             [sourceStyle]="{'height':'300px'}" [targetStyle]="{'height':'300px'}">
                             <ng-template let-auth pTemplate="item">
                                 <div class="ui-helper-clearfix">
                                     
-                                    <div style="font-size:14px;float:right;margin:15px 5px 0 0">{{auth.id}} - {{auth.descripcion}}</div>
+                                    <div style="font-size:14px;float:left;margin:15px 5px 0 0">{{auth.id}} - {{auth.authority}}</div>
                                 </div>
                             </ng-template>
                         </p-pickList>                    
@@ -36,6 +36,18 @@
                 </div>    
         
     </p-panel>    
+    <div class="ui-grid ui-grid-responsive ui-grid-pad ui-fluid"  style="margin: 10px 0px">
+            
+
+        <div class="ui-grid-row">        
+
+            <div class="ui-grid-col-4">
+                    <button pButton style="width:100%"  type="submit" label="Confirmar" [disabled]="!perfilForm.valid"></button>
+            </div>
+            <div class="ui-grid-col-4"></div>
+        </div>    
+    </div>  
+    
 
 </form>
 

@@ -24,14 +24,15 @@ export class PerfilNew implements OnInit{
         ,private activeRoute:ActivatedRoute){
         //this.typeInputPassword='password';
         //this.isPassword=true;
-        this.authoritiesAdded=[{"id":1,"descripcion":"ROLE_ALUMNO_SAVE"}];
+        this.authoritiesAdded=[];
     }
 
     ngOnInit(){
        this.headerTitle='Alta de Perfil';     
        this.perfilForm = this.fb.group({
            id:[null,[]],
-           descripcion:['',[Validators.required]]
+           descripcion:['',[Validators.required]],
+           authorities:[null,[]]
        });
        /*this.authService.getAuthorities().then(data=>{
            this.authorities=data;
@@ -48,7 +49,10 @@ export class PerfilNew implements OnInit{
     }
 
     onSubmit(valuesForm){
-
+        valuesForm.authorities = this.authoritiesAdded;    
+        this.authService.savePerfil(valuesForm).subscribe(data=>{
+            console.log("Resultado: "+data);
+        });    
     }
 
     getAuthorities(){
@@ -57,7 +61,7 @@ export class PerfilNew implements OnInit{
                 console.log("Auth filtrado: "+auth.descripcion);
                 var found=false;
                 for(var i=0;i < this.authoritiesAdded.length;i++){
-                    if(this.authoritiesAdded[i]==auth.descripcion)
+                    if(this.authoritiesAdded[i].id==auth.id)
                         return found;
                 }
                 return !found;
