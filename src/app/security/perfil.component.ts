@@ -32,8 +32,8 @@ export class PerfilNew implements OnInit{
        this.perfilForm = this.fb.group({
            id:[null,[]],
            descripcion:['',[Validators.required]],
-           authorities:[null,[]]
-       } ,{validator:this.authoritiesAddedRequired});
+           authorities:[null,[Validators.required]]
+       } /*,{validator:this.authoritiesAddedRequired()}*/);
        /*this.authService.getAuthorities().then(data=>{
            this.authorities=data;
        });*/
@@ -49,10 +49,11 @@ export class PerfilNew implements OnInit{
     }
 
     onSubmit(valuesForm){
+        console.log('valuesForm: '+valuesForm);
         valuesForm.authorities = this.authoritiesAdded;    
         this.authService.savePerfil(valuesForm).subscribe(data=>{
             console.log("Resultado: "+data);
-        });    
+        });  
     }
 
     getAuthorities(){
@@ -94,9 +95,14 @@ export class PerfilNew implements OnInit{
     }     
 
 
-    authoritiesAddedRequired(control:AbstractControl){
-        if(this.authoritiesAdded && this.authoritiesAdded.length==0)
+    /*authoritiesAddedRequired(control:AbstractControl){
+    
             control.get('descripcion').setErrors({authoritiesAddedRequired:true});
           
-    }    
+    }    */
+
+    OnMoveTarget(event){
+        this.perfilForm.get('authorities').setValue(this.authoritiesAdded);
+
+    }
 }

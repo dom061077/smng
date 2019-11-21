@@ -21,7 +21,7 @@
 
                 <div class="ui-grid ui-grid-responsive ui-grid-pad ui-fluid" style="margin: 10px 0px"> 
                     <div class="ui-grid-row">
-                        <p-pickList [source]="authorities" [target]="authoritiesAdded" sourceHeader="Roles Disponibles" targetHeader="Roles Asignados" 
+                        <p-pickList (onMoveToSource)="OnMoveTarget($event)" (onMoveToTarget)="OnMoveTarget($event)" [source]="authorities" [target]="authoritiesAdded" sourceHeader="Roles Disponibles" targetHeader="Roles Asignados" 
                             [responsive]="true" filterBy="authority" 
                             dragdrop="true" sourceFilterPlaceholder="Buscar por Descripción" targetFilterPlaceholder="Buscar por Descripción" 
                             [sourceStyle]="{'height':'300px'}" [targetStyle]="{'height':'300px'}">
@@ -33,8 +33,8 @@
                             </ng-template>
                         </p-pickList>   
                         <div class="ui-grid-col-4">
-                            <p-message severity="error" text="Ingrese descripción del Perfil" 
-                                *ngIf="perfilForm.get('descripcion').errors &&  perfilForm.get('descripcion').errors.authoritiesAddedRequired"></p-message>
+                            <p-message severity="error" text="Agregue los roles" 
+                                *ngIf="perfilForm.get('authorities').errors &&  perfilForm.get('authorities').errors.required"></p-message>
                         </div>                                         
                     </div>                    
                 </div>    
