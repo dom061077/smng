@@ -6,6 +6,7 @@ import { CrudCodes } from "../util/crud.enum";
 import { AuthenticationService } from './authentication.service';
 import { Authority } from './authority.model';
 
+
 @Component({
     selector:'perfil-page',
     templateUrl:'./perfil.component.html'
@@ -50,10 +51,24 @@ export class PerfilNew implements OnInit{
 
     onSubmit(valuesForm){
         console.log('valuesForm: '+valuesForm);
-        valuesForm.authorities = this.authoritiesAdded;    
-        this.authService.savePerfil(valuesForm).subscribe(data=>{
-            console.log("Resultado: "+data);
-        });  
+        valuesForm.authorities = this.authoritiesAdded;  
+        
+        if(this.activeRoute.snapshot.params["mode"]==CrudCodes.EDIT){
+
+        }else{
+            this.authService.savePerfil(valuesForm).subscribe(data=>{
+                console.log("Resultado: "+data);
+                if(data.success){
+                    this.messageService.add({severity:'info',summary:'Mensaje',detail:'Los datos fueron guardados correctamente'});
+                    this.router.navigateByUrl("/listalumno");                    
+                }else
+                    this.messageService.add({severity:'error',summary:'Error',detail:data.msg});
+            });              
+
+        }
+
+
+
     }
 
     getAuthorities(){
