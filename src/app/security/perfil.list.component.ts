@@ -1,4 +1,6 @@
 import { Component,OnInit } from '@angular/core';
+import { Perfil } from './perfil.model';
+import { AuthenticationService } from './authentication.service';
 
 @Component({
     //selector: 'ggg',
@@ -53,5 +55,15 @@ import { Component,OnInit } from '@angular/core';
 })
 export class PerfilList implements OnInit{ 
     perfiles : Perfil[];
+    totalLazyPerfilLength:number;
+    
+
+    ngOnInit(){
+
+    }
+
+    loadData(event){
+        this.
+    }
 
 }

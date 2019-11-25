@@ -62,7 +62,7 @@ export class PerfilNew implements OnInit{
                     this.messageService.add({severity:'info',summary:'Mensaje',detail:'Los datos fueron guardados correctamente'});
                     this.router.navigateByUrl("/listalumno");                    
                 }else
-                    this.messageService.add({severity:'error',summary:'Error',detail:data.msg});
+                    this.messageService.add({severity:'error',summary:'Error',detail:data.message});
             });              
 
         }
