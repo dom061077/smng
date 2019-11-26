@@ -144,6 +144,9 @@ export class AuthenticationService extends RestDataSource {
 
     }
     
+    getPerfiles(filter:string,start:number,limit:number){
+        return this.sendRequest<any>("GET",this.url+"")
+    }
 
 
 }

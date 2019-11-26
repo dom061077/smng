@@ -56,14 +56,18 @@ import { AuthenticationService } from './authentication.service';
 export class PerfilList implements OnInit{ 
     perfiles : Perfil[];
     totalLazyPerfilLength:number;
-    
-
-    ngOnInit(){
+    constructor(private authService:AuthenticationService){
 
     }
 
+    ngOnInit(){
+        this.authService.getCantidadPerfiles("").toPromise().then(data=>{
+            this.totalLazyPerfilLength = data;
+        });
+    }
+
     loadData(event){
-        this.
+        
     }
 
 }
