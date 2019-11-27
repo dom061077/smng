@@ -137,7 +137,7 @@ export class AuthenticationService extends RestDataSource {
     }
 
     getCantidadPerfiles(filter: string) {
-        return this.sendRequest<any>("POST", this.url + "/perfilcount?filter="+filter
+        return this.sendRequest<any>("GET", this.url + "/perfilcount?filter="+filter
             ).pipe(map(data => {
                 return data.count;    
             }));
@@ -145,7 +145,12 @@ export class AuthenticationService extends RestDataSource {
     }
     
     getPerfiles(filter:string,start:number,limit:number){
-        return this.sendRequest<any>("GET",this.url+"")
+        return this.sendRequest<any>("GET",this.url+"/getperfiles?filter="
+            +filter+"&start="+start+"&limit="+limit)
+                .toPromise().then(data=>{
+                    
+                    return data.perfiles;
+        });
     }
 
 

@@ -1,0 +1,48 @@
+
+        <div class="ui-grid ui-grid-responsive ui-grid-pad ui-fluid" style="margin: 10px 0px">
+            <div class="ui-grid-row">
+                <div class="ui-grid-col-2">
+                    Filtro:
+                </div>
+            </div>
+            <div class="ui-grid-row">  
+                  
+                <div class="ui-grid-col-4">
+                    <!--input type="text" [formControl]="searchControl" placeholder="search"-->                             
+                </div>
+            </div>
+        </div>   
+<div class="ui-grid ui-grid-responsive ui-grid-pad ui-fluid" style="margin: 10px 0px">        
+<p-virtualScroller [value]="perfiles" scrollHeight="500px" [itemSize]="130" [rows]="10" [cache]="false" 
+    [lazy]="true" (onLazyLoad)="loadData($event)" [totalRecords]="totalLazyPerfilLength">
+        <ng-template let-perfil pTemplate="item">
+            <div class="ui-g-12 ui-md-8">
+                <div class="ui-g">
+                    <div class="ui-g-2 ui-sm-6">id: </div>
+                    <div class="ui-g-10 ui-sm-6">
+                        <a [routerLink]="['/perfil','edit',perfil?.id]" (click)="selectPerfil($event)">{{perfil?.id}}</a>
+                    </div>
+        
+                    <div class="ui-g-2 ui-sm-6">ID: </div>
+                    <div class="ui-g-10 ui-sm-6">{{perfil?.id}}</div>
+        
+                    <div class="ui-g-2 ui-sm-6">Descripción: </div>
+                    <div class="ui-g-10 ui-sm-6">{{perfil?.descripcion}}</div>
+        
+                </div>
+            </div>
+        </ng-template>     
+    <!--ng-template let-alumno pTemplate="loadingItem">
+            
+            <div class="ui-g-12 ui-md-8">
+                <div  class="ui-g">
+                    <div class="ui-g-12"><div class="empty-car-item-text"></div></div>
+                    <div class="ui-g-12"><div class="empty-car-item-text"></div></div>
+                    <div class="ui-g-12"><div class="empty-car-item-text"></div></div>
+                    <div class="ui-g-12"><div class="empty-car-item-text"></div></div>
+                </div>
+            </div>
+        
+    </ng-template-->        
+</p-virtualScroller>        
+</div>

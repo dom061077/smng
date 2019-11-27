@@ -4,7 +4,7 @@ import { AuthenticationService } from './authentication.service';
 
 @Component({
     //selector: 'ggg',
-    templateUrl: './alumno.list.component.html',
+    templateUrl: './perfil.list.component.html',
     styles: [`
         .car-item .ui-md-3 {
             text-align: center;
@@ -67,6 +67,13 @@ export class PerfilList implements OnInit{
     }
 
     loadData(event){
+        this.authService.getPerfiles("",event.first,event.rows)
+            .then(data=>{
+                this.perfiles = data;
+            });
+    }
+    
+    selectPerfil(event){
         
     }
 

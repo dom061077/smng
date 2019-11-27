@@ -15,11 +15,13 @@ import { ChangePasswordComponent } from "./change.password.component";
 
 import { UsuarioNew } from "./usuario.component";
 import { PerfilNew } from "./perfil.component";
+import { PerfilList } from "./perfil.list.component";
 
 import {PanelModule} from 'primeng/panel';
 import {ToastModule} from 'primeng/toast';
 
 import {PickListModule} from 'primeng/picklist';
+import {VirtualScrollerModule} from 'primeng/virtualscroller';
 
 
 let routing = RouterModule.forChild([
@@ -27,18 +29,23 @@ let routing = RouterModule.forChild([
     {path:"logout",component: LoginComponent},
     {path:"changepass",component:ChangePasswordComponent},
     {path:"user",component:UsuarioNew},
-    {path:"perfil",component:PerfilNew}
+    {   path:"perfil/:mode/:id",component: PerfilNew
+        //,canActivate:[RoleGuard]
+        ,data:{role:'ROLE_USER'}
+    },    
+    {path:"perfil",component:PerfilNew},
+    {path:"listperfil",component:PerfilList}
 ]);
 
 @NgModule({
     imports: [CommonModule, FormsModule,ReactiveFormsModule , ButtonModule
         ,routing,PanelModule,ToastModule,MessagesModule,MessageModule,KeyFilterModule
-        ,PickListModule
+        ,PickListModule,VirtualScrollerModule
         ],
     providers:[AuthenticationService,JwtInterceptor],
     declarations:[
         LoginComponent,ChangePasswordComponent,UsuarioNew
-        ,PerfilNew
+        ,PerfilNew,PerfilList
     ]
 
 })
