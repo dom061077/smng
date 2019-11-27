@@ -62,7 +62,7 @@ export class AlumnoList implements OnInit{
     alumnos: Alumno[];
     
     totalLazyAlumnoLength:number;
-    private searchControl: FormControl;
+    public searchControl: FormControl;
     private debounce: number = 400;
 
     constructor(private alumnoService:AlumnoService){

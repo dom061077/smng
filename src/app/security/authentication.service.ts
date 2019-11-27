@@ -153,5 +153,12 @@ export class AuthenticationService extends RestDataSource {
         });
     }
 
+    getPerfil(id:number){
+        return this.sendRequest<any>("GET"
+                ,this.url+"/getperfil/"+id
+            ).toPromise().then(data=>{
+                return data;
+            });
+    }    
 
 }

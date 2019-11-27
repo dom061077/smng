@@ -46,7 +46,9 @@ export class PerfilNew implements OnInit{
     }
 
     assignFormValues(id:number){
-
+        this.authService.getPerfil(id).then(data=>{
+            this.perfilForm.patchValue(data);
+        });
     }
 
     onSubmit(valuesForm){
