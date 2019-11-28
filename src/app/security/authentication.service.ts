@@ -160,5 +160,8 @@ export class AuthenticationService extends RestDataSource {
                 return data;
             });
     }    
+    getAuthoritiesbyPerfil(id:number){
+        
+    }
 
 }
