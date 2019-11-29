@@ -38,18 +38,24 @@ export class PerfilNew implements OnInit{
        /*this.authService.getAuthorities().then(data=>{
            this.authorities=data;
        });*/
-       this.getAuthorities();
+       
        if(this.activeRoute.snapshot.params["mode"]==CrudCodes.EDIT){
             this.assignFormValues(this.activeRoute.snapshot.params["id"]);
             this.headerTitle='Modificación de Perfil';
        }
+       this.getAuthorities();
     }
 
     assignFormValues(id:number){
         this.authService.getPerfil(id).then(data=>{
             this.perfilForm.patchValue(data);
         });
+        this.authService.getAuthoritiesbyPerfil(id).then(data=>{
+            this.authoritiesAdded = data;
+        });
+
     }
+    
 
     onSubmit(valuesForm){
         console.log('valuesForm: '+valuesForm);

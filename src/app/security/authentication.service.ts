@@ -161,7 +161,11 @@ export class AuthenticationService extends RestDataSource {
             });
     }    
     getAuthoritiesbyPerfil(id:number){
-        
+        return this.sendRequest<any>("GET"
+                ,this.url+"/getroles/"+id
+            ).toPromise().then(data=>{
+                return data.authorities;
+            });
     }
 
 }
