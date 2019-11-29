@@ -43,7 +43,7 @@ export class PerfilNew implements OnInit{
             this.assignFormValues(this.activeRoute.snapshot.params["id"]);
             this.headerTitle='Modificación de Perfil';
        }
-       this.getAuthorities();
+       
     }
 
     assignFormValues(id:number){
@@ -52,6 +52,8 @@ export class PerfilNew implements OnInit{
         });
         this.authService.getAuthoritiesbyPerfil(id).then(data=>{
             this.authoritiesAdded = data;
+            this.perfilForm.get('authorities').setValue(data);
+            this.getAuthorities();
         });
 
     }
@@ -62,13 +64,18 @@ export class PerfilNew implements OnInit{
         valuesForm.authorities = this.authoritiesAdded;  
         
         if(this.activeRoute.snapshot.params["mode"]==CrudCodes.EDIT){
+            this.authService.updatePerfil(valuesForm).subscribe(data=>{
+                if(data.success){
+                    this.messageService.add({severity:'info',summary:'Mensanje',detail:'Los datos fueron guardados correctamente'});
+                }
+            });
             
         }else{
             this.authService.savePerfil(valuesForm).subscribe(data=>{
                 console.log("Resultado: "+data);
                 if(data.success){
                     this.messageService.add({severity:'info',summary:'Mensaje',detail:'Los datos fueron guardados correctamente'});
-                    this.router.navigateByUrl("/listalumno");                    
+                    this.router.navigateByUrl("/listperfil");                    
                 }else
                     this.messageService.add({severity:'error',summary:'Error',detail:data.message});
             });              
@@ -82,7 +89,7 @@ export class PerfilNew implements OnInit{
     getAuthorities(){
         this.authService.getAuthorities().then(data=>{
             this.authorities=data.filter(auth=>{
-                console.log("Auth filtrado: "+auth.descripcion);
+                console.log("Auth filtrado: "+auth.authority);
                 var found=false;
                 for(var i=0;i < this.authoritiesAdded.length;i++){
                     if(this.authoritiesAdded[i].id==auth.id)

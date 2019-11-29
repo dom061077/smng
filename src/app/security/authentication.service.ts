@@ -136,6 +136,14 @@ export class AuthenticationService extends RestDataSource {
             }));
     }
 
+    updatePerfil(perfil){
+        return this.sendRequest<any>("POST",this.url + "/updateperfil"
+            ,perfil).pipe(map(data=>{
+                return data;    
+            }));
+    }
+
+
     getCantidadPerfiles(filter: string) {
         return this.sendRequest<any>("GET", this.url + "/perfilcount?filter="+filter
             ).pipe(map(data => {
