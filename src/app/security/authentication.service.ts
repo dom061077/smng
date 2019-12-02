@@ -137,7 +137,7 @@ export class AuthenticationService extends RestDataSource {
     }
 
     updatePerfil(perfil){
-        return this.sendRequest<any>("POST",this.url + "/updateperfil"
+        return this.sendRequest<any>("POST",this.url + "/updateperfil/"+perfil.id
             ,perfil).pipe(map(data=>{
                 return data;    
             }));

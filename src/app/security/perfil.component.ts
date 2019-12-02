@@ -40,15 +40,17 @@ export class PerfilNew implements OnInit{
        });*/
        
        if(this.activeRoute.snapshot.params["mode"]==CrudCodes.EDIT){
-            this.assignFormValues(this.activeRoute.snapshot.params["id"]);
+            
             this.headerTitle='Modificación de Perfil';
        }
+       this.assignFormValues(this.activeRoute.snapshot.params["id"]);
        
     }
 
     assignFormValues(id:number){
         this.authService.getPerfil(id).then(data=>{
-            this.perfilForm.patchValue(data);
+            if(data)
+                this.perfilForm.patchValue(data);
         });
         this.authService.getAuthoritiesbyPerfil(id).then(data=>{
             this.authoritiesAdded = data;
@@ -67,6 +69,7 @@ export class PerfilNew implements OnInit{
             this.authService.updatePerfil(valuesForm).subscribe(data=>{
                 if(data.success){
                     this.messageService.add({severity:'info',summary:'Mensanje',detail:'Los datos fueron guardados correctamente'});
+                    this.router.navigateByUrl("/listperfil");
                 }
             });
             
