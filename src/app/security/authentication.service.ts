@@ -122,6 +122,10 @@ export class AuthenticationService extends RestDataSource {
             });
     }
 
+    getNgUrls(){
+        return this.sendRequest<any>("GET",this.url + "/getngurls"+())
+    }
+
     saveUsuario(usuario) {
         return this.sendRequest<any>("POST", this.url + "/saveusuario"
             , usuario).pipe(map(data => {

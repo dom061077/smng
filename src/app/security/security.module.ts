@@ -16,6 +16,7 @@ import { ChangePasswordComponent } from "./change.password.component";
 import { UsuarioNew } from "./usuario.component";
 import { PerfilNew } from "./perfil.component";
 import { PerfilList } from "./perfil.list.component";
+import { PerfilNgUrl } from "./perfil.ngurl.component";
 
 import {PanelModule} from 'primeng/panel';
 import {ToastModule} from 'primeng/toast';
@@ -34,7 +35,9 @@ let routing = RouterModule.forChild([
         ,data:{role:'ROLE_USER'}
     },    
     {path:"perfil",component:PerfilNew},
-    {path:"listperfil",component:PerfilList}
+    {path:"listperfil",component:PerfilList},
+    {path:"perfilurl", component:PerfilNgUrl},
+    {path:"perfilurl/:mode/:id",component:PerfilNgUrl}
 ]);
 
 @NgModule({
@@ -45,7 +48,7 @@ let routing = RouterModule.forChild([
     providers:[AuthenticationService,JwtInterceptor],
     declarations:[
         LoginComponent,ChangePasswordComponent,UsuarioNew
-        ,PerfilNew,PerfilList
+        ,PerfilNew,PerfilList,PerfilNgUrl
     ]
 
 })
