@@ -7,13 +7,13 @@
             </div>
             <div class="ui-grid-row">  
                   
-                <div class="ui-grid-col-4">
-                    <!--input type="text" [formControl]="searchControl" placeholder="search"-->                             
+                <div class="ui-grid-col-8">
+                    <input type="text" [formControl]="searchControl" placeholder="search">                             
                 </div>
             </div>
         </div>   
 <div class="ui-grid ui-grid-responsive ui-grid-pad ui-fluid" style="margin: 10px 0px">        
-<p-virtualScroller [value]="perfiles" scrollHeight="500px" [itemSize]="130" [rows]="10" [cache]="false" 
+<p-virtualScroller [value]="perfiles" scrollHeight="500px" [itemSize]="140" [rows]="10" [cache]="false" 
     [lazy]="true" (onLazyLoad)="loadData($event)" [totalRecords]="totalLazyPerfilLength">
         <ng-template let-perfil pTemplate="item">
             <div class="ui-g-12 ui-md-8">
@@ -22,12 +22,14 @@
                     <div class="ui-g-10 ui-sm-6">
                         <a [routerLink]="['/perfil','edit',perfil?.id]" (click)="selectPerfil($event)">{{perfil?.id}}</a>
                     </div>
-        
-                    <div class="ui-g-2 ui-sm-6">ID: </div>
-                    <div class="ui-g-10 ui-sm-6">{{perfil?.id}}</div>
+ 
         
                     <div class="ui-g-2 ui-sm-6">Descripción: </div>
                     <div class="ui-g-10 ui-sm-6">{{perfil?.descripcion}}</div>
+
+                    <div class="ui-g-2 ui-sm-6">URLs: </div>
+                    <div class="ui-g-10 ui-sm-6"><a [routerLink]="['/perfilurl',perfil?.id]"><i class="fa fa-plus-square" aria-hidden="true"></i></a></div>                    
+
         
                 </div>
             </div>

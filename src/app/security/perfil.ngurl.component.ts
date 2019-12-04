@@ -30,7 +30,7 @@ export class PerfilNgUrl implements OnInit{
     }
 
     ngOnInit(){
-        this.headerTitle='Alta de URLs de Perfil';
+        this.headerTitle='Asignación de URLs de Perfil';
         this.assignFormValues(this.activeRoute.snapshot.params["id"]);
     }
 
@@ -39,9 +39,8 @@ export class PerfilNgUrl implements OnInit{
             if(data)
                 this.perfilNgUrlForm.patchValue(data);
         });
-        this.authService.getAuthoritiesbyPerfil(id).then(data=>{
+        this.authService.getUrlsbyPerfil(id).then(data=>{
             this.urlsAdded = data;
-            console.log("Antes de obtener las urls");
             this.perfilNgUrlForm.get('ngurls').setValue(data);
             this.getNgUrls();
         });
@@ -61,12 +60,20 @@ export class PerfilNgUrl implements OnInit{
         });
     }
 
-    onSubmit(valuesForm){
-        if(this.activeRoute.snapshot.params["mode"]==CrudCodes.EDIT){
+    OnMoveTarget(event){
+        this.perfilNgUrlForm.get('ngurls').setValue(this.urlsAdded);
 
-        }else{
-            this.authService.savePerfil
-        }
+    }    
+
+    onSubmit(valuesForm){
+        this.authService.savePerfilUrl(valuesForm).subscribe(data=>{
+            if(data.success){
+                this.messageService.add({severity:'info',summary:'Mensaje',detail:'Los datos fueron guardados'});
+                this.router.navigateByUrl("/listperfil");
+            }else
+                this.messageService.add({severity:'error',summary:'Error',detail:''});
+
+        });
     }
 
 

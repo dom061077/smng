@@ -191,8 +191,10 @@ export class AuthenticationService extends RestDataSource {
     }
     getUrlsbyPerfil(id:number){
         return this.sendRequest<any>("GET"
-                ,this.url+"/get"
-        )
+                ,this.url+"/getngperfilurls/"+id
+        ).toPromise().then(data=>{
+            return data.ngurls;
+        });
     }
 
 
