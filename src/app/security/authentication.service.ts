@@ -123,7 +123,10 @@ export class AuthenticationService extends RestDataSource {
     }
 
     getNgUrls(){
-        return this.sendRequest<any>("GET",this.url + "/getngurls"+())
+        return this.sendRequest<any>("GET",this.url + "/getngurls")
+            .toPromise().then(data=>{
+                return data.ngurls;
+            });
     }
 
     saveUsuario(usuario) {
@@ -136,6 +139,13 @@ export class AuthenticationService extends RestDataSource {
     savePerfil(perfil) {
         return this.sendRequest<any>("POST", this.url + "/saveperfil"
             , perfil).pipe(map(data => {
+                return data
+            }));
+    }
+
+    savePerfilUrl(perfil){
+        return this.sendRequest<any>("POST",this.url+"/saveperfilurls"
+            , perfil).pipe(map(data=>{
                 return data
             }));
     }
@@ -179,5 +189,12 @@ export class AuthenticationService extends RestDataSource {
                 return data.authorities;
             });
     }
+    getUrlsbyPerfil(id:number){
+        return this.sendRequest<any>("GET"
+                ,this.url+"/get"
+        )
+    }
+
+
 
 }

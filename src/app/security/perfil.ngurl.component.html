@@ -3,7 +3,7 @@
                 <div class="ui-grid ui-grid-responsive ui-grid-pad ui-fluid" style="margin: 10px 0px">   
                     <div class="ui-grid-row">
                         <div class="ui-grid-col-2">
-                            Descripción *:
+                            Perfil:
                         </div>
                     </div>
                     <div class="ui-grid-row">    
@@ -22,7 +22,7 @@
                 <div class="ui-grid ui-grid-responsive ui-grid-pad ui-fluid" style="margin: 10px 0px"> 
                     <div class="ui-grid-row">
                         <p-pickList (onMoveToSource)="OnMoveTarget($event)" (onMoveToTarget)="OnMoveTarget($event)" [source]="urls" [target]="urlsAdded" sourceHeader="Urls Disponibles" targetHeader="Urls Asignadas" 
-                            [responsive]="true" filterBy="authority" 
+                            [responsive]="true" filterBy="url" 
                             dragdrop="true" sourceFilterPlaceholder="Filtrar por Descripción" targetFilterPlaceholder="Filtrar por Descripción" 
                             [sourceStyle]="{'height':'300px'}" [targetStyle]="{'height':'300px'}">
                             <ng-template let-ngurl pTemplate="item">

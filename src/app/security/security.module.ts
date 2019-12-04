@@ -36,8 +36,7 @@ let routing = RouterModule.forChild([
     },    
     {path:"perfil",component:PerfilNew},
     {path:"listperfil",component:PerfilList},
-    {path:"perfilurl", component:PerfilNgUrl},
-    {path:"perfilurl/:mode/:id",component:PerfilNgUrl}
+    {path:"perfilurl/:id",component:PerfilNgUrl}
 ]);
 
 @NgModule({

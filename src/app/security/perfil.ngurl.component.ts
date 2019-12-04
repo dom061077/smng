@@ -30,7 +30,8 @@ export class PerfilNgUrl implements OnInit{
     }
 
     ngOnInit(){
-        this.headerTitle='Alta de Perfil y URLs';
+        this.headerTitle='Alta de URLs de Perfil';
+        this.assignFormValues(this.activeRoute.snapshot.params["id"]);
     }
 
     assignFormValues(id:number){
@@ -40,6 +41,7 @@ export class PerfilNgUrl implements OnInit{
         });
         this.authService.getAuthoritiesbyPerfil(id).then(data=>{
             this.urlsAdded = data;
+            console.log("Antes de obtener las urls");
             this.perfilNgUrlForm.get('ngurls').setValue(data);
             this.getNgUrls();
         });
@@ -47,7 +49,24 @@ export class PerfilNgUrl implements OnInit{
     }   
     
     getNgUrls(){
+        this.authService.getNgUrls().then(data=>{
+            this.urls = data.filter(url=>{
+                var found = false;
+                for(var i=0;i < this.urlsAdded.length;i++){
+                    if(this.urlsAdded[i].id==url.id)
+                        return found;
+                }
+                return !found;                
+            });
+        });
+    }
 
+    onSubmit(valuesForm){
+        if(this.activeRoute.snapshot.params["mode"]==CrudCodes.EDIT){
+
+        }else{
+            this.authService.savePerfil
+        }
     }
 
 
