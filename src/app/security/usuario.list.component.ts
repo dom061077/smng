@@ -6,12 +6,12 @@ import { debounceTime,distinctUntilChanged } from 'rxjs/operators';
 
 @Component({
     //selector: 'ggg',
-    templateUrl: './perfil.list.component.html',
+    templateUrl: './usuario.list.component.html',
     //styles: []
     
 
 })
-export class PerfilList implements OnInit{ 
+export class UsuarioList implements OnInit{ 
     perfiles : Perfil[];
     totalLazyPerfilLength:number;
     public searchControl : FormControl;
@@ -36,19 +36,7 @@ export class PerfilList implements OnInit{
         this.authService.getCantidadPerfiles(this.searchControl.value).toPromise().then(data=>{
             this.totalLazyPerfilLength = data;
         })        
-        /*.subscribe(query => {
-          this.alumnoService.getAlumnos(this.searchControl.value,0,20).then(data=>
-              {   this.alumnos=data;
-                  console.log("Probando");
-                  console.log("Alumnos:  "+this.alumnos.length);
-  
-  
-              });   
-          this.alumnoService.getCantidad(this.searchControl.value).toPromise().then(data=>{
-                  console.log("Cantidad de alumnos");
-                  this.totalLazyAlumnoLength = data;
-              });                    
-        });*/                   
+                 
     }
 
     loadData(event){

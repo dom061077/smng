@@ -17,6 +17,7 @@ import { UsuarioNew } from "./usuario.component";
 import { PerfilNew } from "./perfil.component";
 import { PerfilList } from "./perfil.list.component";
 import { PerfilNgUrl } from "./perfil.ngurl.component";
+import { UsuarioList } from "./usuario.list.component";
 
 import {PanelModule} from 'primeng/panel';
 import {ToastModule} from 'primeng/toast';
@@ -47,7 +48,7 @@ let routing = RouterModule.forChild([
     providers:[AuthenticationService,JwtInterceptor],
     declarations:[
         LoginComponent,ChangePasswordComponent,UsuarioNew
-        ,PerfilNew,PerfilList,PerfilNgUrl
+        ,PerfilNew,PerfilList,PerfilNgUrl,UsuarioList
     ]
 
 })
