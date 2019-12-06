@@ -3,6 +3,7 @@ import { Perfil } from './perfil.model';
 import { AuthenticationService } from './authentication.service';
 import { FormControl } from '@angular/forms';
 import { debounceTime,distinctUntilChanged } from 'rxjs/operators';
+import { Usuario } from './usuario.model';
 
 @Component({
     //selector: 'ggg',
@@ -12,8 +13,8 @@ import { debounceTime,distinctUntilChanged } from 'rxjs/operators';
 
 })
 export class UsuarioList implements OnInit{ 
-    perfiles : Perfil[];
-    totalLazyPerfilLength:number;
+    usuarios : Usuario[];
+    totalLazyUsuariosLength:number;
     public searchControl : FormControl;
     private debounce: number = 400;
 
@@ -27,22 +28,22 @@ export class UsuarioList implements OnInit{
         this.searchControl.valueChanges
         .pipe(debounceTime(this.debounce), distinctUntilChanged())
         .subscribe(query=>{
-            this.authService.getPerfiles(this.searchControl.value,0,20).then(data=>{
-                this.perfiles = data;
+            this.authService.getUsuarios(this.searchControl.value,0,20).then(data=>{
+                this.usuarios = data;
 
 
             })
         });
         this.authService.getCantidadPerfiles(this.searchControl.value).toPromise().then(data=>{
-            this.totalLazyPerfilLength = data;
+            this.totalLazyUsuariosLength = data;
         })        
                  
     }
 
     loadData(event){
-        this.authService.getPerfiles("",event.first,event.rows)
+        this.authService.getUsuarios("",event.first,event.rows)
             .then(data=>{
-                this.perfiles = data;
+                this.usuarios = data;
             });
     }
     

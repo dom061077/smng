@@ -31,6 +31,8 @@ let routing = RouterModule.forChild([
     {path:"logout",component: LoginComponent},
     {path:"changepass",component:ChangePasswordComponent},
     {path:"user",component:UsuarioNew},
+    {path:"userlist",component:UsuarioList},
+    {path:"user/:mode/:id",component:UsuarioNew},
     {   path:"perfil/:mode/:id",component: PerfilNew
         //,canActivate:[RoleGuard]
         ,data:{role:'ROLE_USER'}
@@ -38,6 +40,7 @@ let routing = RouterModule.forChild([
     {path:"perfil",component:PerfilNew},
     {path:"listperfil",component:PerfilList},
     {path:"perfilurl/:id",component:PerfilNgUrl}
+    
 ]);
 
 @NgModule({

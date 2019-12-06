@@ -32,6 +32,19 @@ export class UsuarioNew implements OnInit{
             apellido:['',[Validators.required]],
             nombre:['',[Validators.required]]
         });
+        console.log("Mode: "+this.activeRoute.snapshot.params);
+
+        if(this.activeRoute.snapshot.params["mode"]==CrudCodes.EDIT){
+            this.assignFormValues(this.activeRoute.snapshot.params["id"]);
+            this.headerTitle="Modificación de Usuario"
+
+        }
+    }
+
+    assignFormValues(id:number){
+        this.authService.getUser(id).then(data=>{
+            this.usuarioForm.patchValue(data);
+        });
     }
 
     showPassword(){

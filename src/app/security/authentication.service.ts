@@ -69,6 +69,16 @@ export class AuthenticationService extends RestDataSource {
 
     }
 
+    getUser(id:number){
+        return this.sendRequest<any>("GET",this.url+"/getuser/"
+            +id).toPromise().then(data=>{
+                return data;
+            });
+
+            
+    }
+
+
     getUserInformation(username: string) {
 
         return this.sendRequest<any>("GET", this.url + "/showuser?userName=" + username)
@@ -173,6 +183,15 @@ export class AuthenticationService extends RestDataSource {
                     
                     return data.perfiles;
         });
+    }
+
+    getUsuarios(filter:string,start:number,limit:number){
+        return this.sendRequest<any>("GET",this.url+"/getusuarios?filter="
+            +filter+"&start="+start+"&limit="+limit)
+                .toPromise().then(data=>{
+                    return data.usuarios;
+                    
+                });
     }
 
     getPerfil(id:number){
