@@ -13,7 +13,7 @@
             </div>
         </div>   
 <div class="ui-grid ui-grid-responsive ui-grid-pad ui-fluid" style="margin: 10px 0px">        
-<p-virtualScroller [value]="usuarios" scrollHeight="500px" [itemSize]="160" [rows]="10" [cache]="false" 
+<p-virtualScroller [value]="usuarios" scrollHeight="500px" [itemSize]="200" [rows]="10" [cache]="false" 
     [lazy]="true" (onLazyLoad)="loadData($event)" [totalRecords]="totalLazyUsuariosLength">
         <ng-template let-usuario pTemplate="item">
             <div class="ui-g-12 ui-md-8">
@@ -31,9 +31,12 @@
                     <div class="ui-g-10 ui-sm-6">{{usuario?.nombre}}</div>
                     
                     <div class="ui-g-2 ui-sm-6">Usuario: </div>
-                    <div class="ui-g-10 ui-sm-6">{{usuario?.username}}</div>                    
+                    <div class="ui-g-10 ui-sm-6">{{usuario?.username}}</div>      
+
+                    <div class="ui-g-2 ui-sm-6">Agregar Perfiles: </div>
+                    <div class="ui-g-10 ui-sm-6"><a [routerLink]="['/perfilusuario',usuario?.id]"><i class="fa fa-plus-square" aria-hidden="true"></i></a></div>                    
  
-        
+                    
                 </div>
             </div>
         </ng-template>     

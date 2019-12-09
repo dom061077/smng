@@ -18,6 +18,7 @@ import { PerfilNew } from "./perfil.component";
 import { PerfilList } from "./perfil.list.component";
 import { PerfilNgUrl } from "./perfil.ngurl.component";
 import { UsuarioList } from "./usuario.list.component";
+import { PerfilUsuario } from "./perfil.usuario.component";
 
 import {PanelModule} from 'primeng/panel';
 import {ToastModule} from 'primeng/toast';
@@ -39,7 +40,8 @@ let routing = RouterModule.forChild([
     },    
     {path:"perfil",component:PerfilNew},
     {path:"listperfil",component:PerfilList},
-    {path:"perfilurl/:id",component:PerfilNgUrl}
+    {path:"perfilurl/:id",component:PerfilNgUrl},
+    {path:"perfilusuario/:id",component:PerfilUsuario}
     
 ]);
 
@@ -52,6 +54,7 @@ let routing = RouterModule.forChild([
     declarations:[
         LoginComponent,ChangePasswordComponent,UsuarioNew
         ,PerfilNew,PerfilList,PerfilNgUrl,UsuarioList
+        ,PerfilUsuario
     ]
 
 })

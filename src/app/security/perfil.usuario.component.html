@@ -1,0 +1,54 @@
+<form [formGroup]="perfilNgUrlForm" (ngSubmit)="onSubmit(perfilNgUrlForm.value)">
+    <p-panel header="{{headerTitle}}">
+                <div class="ui-grid ui-grid-responsive ui-grid-pad ui-fluid" style="margin: 10px 0px">   
+                    <div class="ui-grid-row">
+                        <div class="ui-grid-col-2">
+                            Usuario:
+                        </div>
+                    </div>
+                    <div class="ui-grid-row">    
+                        <div class="ui-grid-col-4">
+                                <input class="form-control" disabled style="width:100%" type="text"  formControlName="username" pInputText [pKeyFilter]="noSpecial" [pValidateOnly]="false">                                
+                        </div>
+
+                    </div>
+
+                
+                </div>  
+
+                <div class="ui-grid ui-grid-responsive ui-grid-pad ui-fluid" style="margin: 10px 0px"> 
+                    <div class="ui-grid-row">
+                        <p-pickList (onMoveToSource)="OnMoveTarget($event)" (onMoveToTarget)="OnMoveTarget($event)" [source]="urls" [target]="urlsAdded" sourceHeader="Perfiles Disponibles" targetHeader="Perfiles Asignados" 
+                            [responsive]="true" filterBy="url" 
+                            dragdrop="true" sourceFilterPlaceholder="Filtrar por Descripción" targetFilterPlaceholder="Filtrar por Descripción" 
+                            [sourceStyle]="{'height':'300px'}" [targetStyle]="{'height':'300px'}">
+                            <ng-template let-perfil pTemplate="item">
+                                <div class="ui-helper-clearfix">
+                                    
+                                    <div style="font-size:14px;float:left;margin:15px 5px 0 0">{{perfil.id}} - {{perfil.url}}</div>
+                                </div>
+                            </ng-template>
+                        </p-pickList>   
+                        <div class="ui-grid-col-4">
+                            <p-message severity="error" text="Agregue el o los perfiles" 
+                                *ngIf="perfilNgUrlForm.get('perfiles').errors &&  perfilNgUrlForm.get('perfiles').errors.required"></p-message>
+                        </div>                                         
+                    </div>                    
+                </div>    
+        
+    </p-panel>    
+    <div class="ui-grid ui-grid-responsive ui-grid-pad ui-fluid"  style="margin: 10px 0px">
+            
+
+        <div class="ui-grid-row">        
+
+            <div class="ui-grid-col-4">
+                    <button pButton style="width:100%"  type="submit" label="Confirmar" [disabled]="!perfilNgUrlForm.valid"></button>
+            </div>
+            <div class="ui-grid-col-4"></div>
+        </div>    
+    </div>  
+    
+
+</form>
+
