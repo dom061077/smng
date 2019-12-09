@@ -15,6 +15,7 @@ export class UsuarioNew implements OnInit{
     headerTitle:string;
     isPassword:boolean;
     typeInputPassword:string;
+    mode:any;
     constructor(private fb:FormBuilder,private authService:AuthenticationService
         ,private messageService:MessageService,private router:Router
         ,private activeRoute:ActivatedRoute){
@@ -23,17 +24,27 @@ export class UsuarioNew implements OnInit{
     }
     ngOnInit(){
         this.headerTitle='Alta de Usuario';
+        console.log("Mode: "+this.activeRoute.snapshot.params);
+        this.mode=this.activeRoute.snapshot.params["mode"];
 
         this.showPassword();
-        this.usuarioForm = this.fb.group({
-            id:[null,[]],
-            userName:['',[Validators.required]],
-            password:['',[Validators.required]],
-            apellido:['',[Validators.required]],
-            nombre:['',[Validators.required]]
-        });
-        console.log("Mode: "+this.activeRoute.snapshot.params);
+        if(this.mode==CrudCodes.EDIT){
+            this.usuarioForm = this.fb.group({
+                id:[null,[]],
+                username:['',[Validators.required]],
+                apellido:['',[(Validators.required)]],
+                nombre:['',[Validators.required]]
+            });
 
+        }else{
+            this.usuarioForm = this.fb.group({
+                id:[null,[]],
+                username:['',[Validators.required]],
+                password:['',[Validators.required]],
+                apellido:['',[(Validators.required)]],
+                nombre:['',[Validators.required]]
+            });
+        }
         if(this.activeRoute.snapshot.params["mode"]==CrudCodes.EDIT){
             this.assignFormValues(this.activeRoute.snapshot.params["id"]);
             this.headerTitle="Modificación de Usuario"
@@ -66,14 +77,24 @@ export class UsuarioNew implements OnInit{
             this.typeInputPassword='password';
         else
             this.typeInputPassword='input';    
-        this.isPassword = !this.isPassword;    
+        this.isPassword = !this.isPassword;   
+        return false; 
     }
 
     onSubmit(valuesForm){
         if(this.activeRoute.snapshot.params["mode"]==CrudCodes.EDIT){
-            
+            this
         }else{
-            
+            this.authService.saveUsuario(valuesForm).subscribe(data=>{
+                if(data){
+                    this.messageService.add({severity:'info',summary:'Mensaje'
+                            ,detail:'Los datos fueron registrados correctamente'});
+                    this.router.navigateByUrl("/userlist");
+                }else{
+                    this.messageService.add({severity:'error',summary:'Error'
+                            ,detail:'Error al registrar la información'});
+                }
+            });            
         }
     }
     

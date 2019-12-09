@@ -1,4 +1,4 @@
-<form [formGroup]="usuarioForm" >
+<form [formGroup]="usuarioForm" (ngSubmit)="onSubmit(usuarioForm.value)">
         <p-panel header="{{headerTitle}}">
                 <div class="ui-grid ui-grid-responsive ui-grid-pad ui-fluid" style="margin: 10px 0px">   
                     <div class="ui-grid-row">
@@ -8,11 +8,11 @@
                     </div>
                     <div class="ui-grid-row">    
                         <div class="ui-grid-col-4">
-                                <input class="form-control"  style="width:100%" type="text"  formControlName="userName"/>                                
+                                <input class="form-control"  style="width:100%" type="text"  formControlName="username"/>                                
                         </div>
                         <div class="ui-grid-col-4">
                             <p-message severity="error" text="Nombre de Usuario es obligatorio" 
-                                *ngIf="usuarioForm.get('userName').dirty && usuarioForm.get('userName').errors && usuarioForm.get('userName').errors.required"></p-message>
+                                *ngIf="usuarioForm.get('username').dirty && usuarioForm.get('username').errors && usuarioForm.get('username').errors.required"></p-message>
                         </div>
                     </div>
                 
@@ -21,14 +21,14 @@
 
               
             
-                <div class="ui-grid ui-grid-responsive ui-grid-pad ui-fluid" style="margin: 10px 0px">   
+                <div *ngIf="mode!='edit'" class="ui-grid ui-grid-responsive ui-grid-pad ui-fluid" style="margin: 10px 0px">   
                     <div class="ui-grid-row">
                         <div class="ui-grid-col-2">
                             Contraseña *:
                         </div>
                     </div>
                         
-                        <div class="ui-grid-row">   
+                        <div  class="ui-grid-row">   
 
                                 <!--div class="input-group add-on">
                                         <input type="text" class="form-control" placeholder="Search" name="srch-term" id="srch-term">
@@ -41,7 +41,7 @@
                                 <div class="input-group add-on ui-grid-col-4">
                                         <input type="{{typeInputPassword}}" class="form-control"  formControlName="password"/>     
                                         <div class="input-group-btn">
-                                                <button class="btn btn-default" (click)="togglePassword()" type="submit"><i class="{{(isPassword ? 'fa fa-eye-slash' : 'fa fa-eye')}}"></i></button>
+                                                <button class="btn btn-default" (click)="togglePassword();" type="submit"><i class="{{(isPassword ? 'fa fa-eye-slash' : 'fa fa-eye')}}"></i></button>
                                         </div>
                                 </div>
                             
