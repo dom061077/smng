@@ -139,6 +139,8 @@ export class AuthenticationService extends RestDataSource {
             });
     }
 
+
+
     saveUsuario(usuario) {
         return this.sendRequest<any>("POST", this.url + "/saveusuario"
             , usuario).pipe(map(data => {
@@ -174,6 +176,13 @@ export class AuthenticationService extends RestDataSource {
                 return data.count;    
             }));
 
+    }
+
+    getAllPerfiles(){
+        return this.sendRequest<any>("GET",this.url
+            +"/perfilall").toPromise().then(data=>{
+                return data.perfiles;
+            })
     }
     
     getPerfiles(filter:string,start:number,limit:number){
@@ -214,6 +223,15 @@ export class AuthenticationService extends RestDataSource {
         ).toPromise().then(data=>{
             return data.ngurls;
         });
+    }
+
+    getUserPerfiles(id:number){
+        return this.sendRequest<any>("GET"
+                ,this.url+"/getuserperfiles/"+id
+        ).toPromise().then(data=>{
+            return data.perfiles;
+        });
+
     }
 
 
