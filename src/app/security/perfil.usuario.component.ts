@@ -15,13 +15,13 @@ export class PerfilUsuario implements OnInit{
     headerTitle:string;
     urls: NgUrl[];
     urlsAdded: NgUrl[];
-    perfilUsuarioForm:FormGroup;
+    perfilNgUrlForm:FormGroup;
 
     constructor(private fb:FormBuilder,private authService:AuthenticationService
         ,private messageService:MessageService,private router:Router
         ,private activeRoute:ActivatedRoute){
         this.urlsAdded = [];
-        this.perfilUsuarioForm = this.fb.group({
+        this.perfilNgUrlForm = this.fb.group({
             id:[null,[]],
             username:['',[Validators.required]],
             ngurls:[null,[Validators.required]]
