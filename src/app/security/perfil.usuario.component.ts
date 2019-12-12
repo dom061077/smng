@@ -37,11 +37,11 @@ export class PerfilUsuario implements OnInit{
     assignFormValues(id:number){
         this.authService.getPerfil(id).then(data=>{
             if(data)
-                this.perfilNgUrlForm.patchValue(data);
+                this.perfilUsuarioForm.patchValue(data);
         });
         this.authService.getUrlsbyPerfil(id).then(data=>{
             this.urlsAdded = data;
-            this.perfilNgUrlForm.get('ngurls').setValue(data);
+            this.perfilUsuarioForm.get('ngurls').setValue(data);
             this.getNgUrls();
         });
 
@@ -61,7 +61,7 @@ export class PerfilUsuario implements OnInit{
     }
 
     OnMoveTarget(event){
-        this.perfilNgUrlForm.get('ngurls').setValue(this.urlsAdded);
+        this.perfilUsuarioForm.get('ngurls').setValue(this.urlsAdded);
 
     }    
 

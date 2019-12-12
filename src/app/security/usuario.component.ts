@@ -46,21 +46,23 @@ export class UsuarioNew implements OnInit{
                 username:['',[Validators.required]],
                 password:['',[Validators.required]],
                 apellido:['',[(Validators.required)]],
-                nombre:['',[Validators.required]]
+                nombre:['',[Validators.required]],
+                perfiles:['',[Validators.required]]
             });
         }
         if(this.activeRoute.snapshot.params["mode"]==CrudCodes.EDIT){
-            this.assignFormValues(this.activeRoute.snapshot.params["id"]);
+            
             this.headerTitle="Modificación de Usuario"
 
         }
+        this.assignFormValues(this.activeRoute.snapshot.params["id"]);
     }
 
     assignFormValues(id:number){
         this.authService.getUser(id).then(data=>{
             this.usuarioForm.patchValue(data);
         });
-        this.authService
+        this.getPerfiles();
     }
 
     getPerfiles(){

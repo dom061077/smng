@@ -180,7 +180,7 @@ export class AuthenticationService extends RestDataSource {
 
     getAllPerfiles(){
         return this.sendRequest<any>("GET",this.url
-            +"/perfilall").toPromise().then(data=>{
+            +"/getallperfiles").toPromise().then(data=>{
                 return data.perfiles;
             })
     }
