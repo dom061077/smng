@@ -15,7 +15,7 @@ export class PerfilUsuario implements OnInit{
     headerTitle:string;
     urls: NgUrl[];
     urlsAdded: NgUrl[];
-    perfilNgUrlForm:FormGroup;
+    perfilUsuarioForm:FormGroup;
 
     constructor(private fb:FormBuilder,private authService:AuthenticationService
         ,private messageService:MessageService,private router:Router
