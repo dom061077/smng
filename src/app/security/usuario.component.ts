@@ -62,8 +62,14 @@ export class UsuarioNew implements OnInit{
         this.authService.getUser(id).then(data=>{
             this.usuarioForm.patchValue(data);
         });
-        this.getPerfiles();
+        this.authService.getPerfilesByUser(id).then(data=>{
+            this.perfilesAdded = data;
+            this.usuarioForm.get('perfiles').setValue(data);
+            this.getPerfiles();
+        });
+        
     }
+
 
     getPerfiles(){
         this.authService.getAllPerfiles().then(data=>{
@@ -78,6 +84,11 @@ export class UsuarioNew implements OnInit{
 
         });
     }
+
+    OnMoveTarget(event){
+        this.usuarioForm.get('perfiles').setValue(this.perfilesAdded);
+
+    }        
 
     showPassword(){
 

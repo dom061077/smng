@@ -225,7 +225,9 @@ export class AuthenticationService extends RestDataSource {
         });
     }
 
-    getUserPerfiles(id:number){
+    
+
+    getPerfilesByUser(id:number){
         return this.sendRequest<any>("GET"
                 ,this.url+"/getuserperfiles/"+id
         ).toPromise().then(data=>{
