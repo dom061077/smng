@@ -5,6 +5,7 @@ import {Router,ActivatedRoute} from "@angular/router";
 import { CrudCodes } from "../util/crud.enum";
 import { DatePipe } from '@angular/common';
 import { AuthenticationService } from './authentication.service';
+import { Perfil } from './perfil.model';
 
 @Component({
     selector:'usuario-page',
@@ -12,6 +13,8 @@ import { AuthenticationService } from './authentication.service';
 })
 export class UsuarioNew implements OnInit{
     usuarioForm : FormGroup;
+    perfiles : Perfil[];
+    perfilesAdded : Perfil[];
     headerTitle:string;
     isPassword:boolean;
     typeInputPassword:string;
@@ -21,6 +24,7 @@ export class UsuarioNew implements OnInit{
         ,private activeRoute:ActivatedRoute){
         this.typeInputPassword='password';
         this.isPassword=true;
+        this.perfilesAdded = [];
     }
     ngOnInit(){
         this.headerTitle='Alta de Usuario';
@@ -42,21 +46,49 @@ export class UsuarioNew implements OnInit{
                 username:['',[Validators.required]],
                 password:['',[Validators.required]],
                 apellido:['',[(Validators.required)]],
-                nombre:['',[Validators.required]]
+                nombre:['',[Validators.required]],
+                perfiles:['',[Validators.required]]
             });
         }
         if(this.activeRoute.snapshot.params["mode"]==CrudCodes.EDIT){
-            this.assignFormValues(this.activeRoute.snapshot.params["id"]);
+            
             this.headerTitle="Modificación de Usuario"
 
         }
+        this.assignFormValues(this.activeRoute.snapshot.params["id"]);
     }
 
     assignFormValues(id:number){
         this.authService.getUser(id).then(data=>{
             this.usuarioForm.patchValue(data);
         });
+        this.authService.getPerfilesByUser(id).then(data=>{
+            this.perfilesAdded = data;
+            this.usuarioForm.get('perfiles').setValue(data);
+            this.getPerfiles();
+        });
+        
     }
+
+
+    getPerfiles(){
+        this.authService.getAllPerfiles().then(data=>{
+            this.perfiles = data.filter(url=>{
+                var found = false;
+                for(var i=0;i < this.perfilesAdded.length;i++){
+                    if(this.perfilesAdded[i].id==url.id)
+                        return found;
+                }
+                return !found;                
+            });
+
+        });
+    }
+
+    OnMoveTarget(event){
+        this.usuarioForm.get('perfiles').setValue(this.perfilesAdded);
+
+    }        
 
     showPassword(){
 

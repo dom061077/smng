@@ -88,6 +88,25 @@
                     </div>
                 
                 </div>  
+                <div class="ui-grid ui-grid-responsive ui-grid-pad ui-fluid" style="margin: 10px 0px"> 
+                    <div class="ui-grid-row">
+                        <p-pickList (onMoveToSource)="OnMoveTarget($event)" (onMoveToTarget)="OnMoveTarget($event)" [source]="perfiles" [target]="perfilesAdded" sourceHeader="Perfiles Disponibles" targetHeader="Perfiles Asignados" 
+                            [responsive]="true" filterBy="descripcion" 
+                            dragdrop="true" sourceFilterPlaceholder="Filtrar por Descripción" targetFilterPlaceholder="Filtrar por Descripción" 
+                            [sourceStyle]="{'height':'300px'}" [targetStyle]="{'height':'300px'}">
+                            <ng-template let-perfil pTemplate="item">
+                                <div class="ui-helper-clearfix">
+                                    
+                                    <div style="font-size:14px;float:left;margin:15px 5px 0 0">{{perfil.id}} - {{perfil.descripcion}}</div>
+                                </div>
+                            </ng-template>
+                        </p-pickList>   
+                        <div class="ui-grid-col-4">
+                            <p-message severity="error" text="Agregue los Perfiles" 
+                                *ngIf="usuarioForm.get('perfiles').errors &&  usuarioForm.get('perfiles').errors.required"></p-message>
+                        </div>                                         
+                    </div>                    
+                </div>                    
         </p-panel>
 
         <div class="ui-grid ui-grid-responsive ui-grid-pad ui-fluid"  style="margin: 10px 0px">
