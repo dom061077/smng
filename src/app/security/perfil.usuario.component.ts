@@ -21,7 +21,7 @@ export class PerfilUsuario implements OnInit{
         ,private messageService:MessageService,private router:Router
         ,private activeRoute:ActivatedRoute){
         this.urlsAdded = [];
-        this.perfilNgUrlForm = this.fb.group({
+        this.perfilUsuarioForm = this.fb.group({
             id:[null,[]],
             username:['',[Validators.required]],
             ngurls:[null,[Validators.required]]
