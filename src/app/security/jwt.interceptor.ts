@@ -50,7 +50,7 @@ export class JwtInterceptor implements HttpInterceptor {
                     
                 }     
                 if(error.status == 422){
-
+                     console.log('Error: '+error);
                      if(error.error.total>1){
                         var title = 'Error en ingreso de datos';
                         var msg = '';                         

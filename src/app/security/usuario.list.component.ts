@@ -23,6 +23,9 @@ export class UsuarioList implements OnInit{
     }
 
     ngOnInit(){
+        this.authService.getCantidadUsuarios("").toPromise().then(data=>{
+            this.totalLazyUsuariosLength = data;
+        });          
 
         this.searchControl = new FormControl('');
         this.searchControl.valueChanges
@@ -33,10 +36,11 @@ export class UsuarioList implements OnInit{
 
 
             })
+            this.authService.getCantidadUsuarios(this.searchControl.value).toPromise().then(data=>{
+                this.totalLazyUsuariosLength = data;
+            });   
         });
-        this.authService.getCantidadPerfiles(this.searchControl.value).toPromise().then(data=>{
-            this.totalLazyUsuariosLength = data;
-        })        
+     
                  
     }
 

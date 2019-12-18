@@ -178,6 +178,13 @@ export class AuthenticationService extends RestDataSource {
 
     }
 
+    getCantidadUsuarios(filter: string){
+        return this.sendRequest<any>("GET",this.url + "/usercount?filter="+filter
+            ).pipe(map(data => {
+                return data.count;
+            }));
+    }
+
     getAllPerfiles(){
         return this.sendRequest<any>("GET",this.url
             +"/getallperfiles").toPromise().then(data=>{

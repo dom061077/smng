@@ -37,7 +37,8 @@ export class UsuarioNew implements OnInit{
                 id:[null,[]],
                 username:['',[Validators.required]],
                 apellido:['',[(Validators.required)]],
-                nombre:['',[Validators.required]]
+                nombre:['',[Validators.required]],
+                perfiles:[null,[Validators.required]]
             });
 
         }else{
