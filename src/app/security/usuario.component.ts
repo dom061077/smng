@@ -116,7 +116,16 @@ export class UsuarioNew implements OnInit{
 
     onSubmit(valuesForm){
         if(this.activeRoute.snapshot.params["mode"]==CrudCodes.EDIT){
-            this.authService.
+            this.authService.updateUsuario(valuesForm).subscribe(data=>{
+                if(data){
+                    this.messageService.add({severity:'info',summary:'Mensaje'
+                        ,detail:'Los datos fueron registrados correctamente'});
+                    this.router.navigateByUrl("/userlist");
+                }else{
+                    this.messageService.add({severity:"error",summary:'Error'
+                        ,detail:'Error al registrar la información'});
+                }
+            });
         }else{
             this.authService.saveUsuario(valuesForm).subscribe(data=>{
                 if(data){

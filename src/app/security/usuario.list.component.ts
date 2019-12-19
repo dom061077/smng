@@ -17,6 +17,7 @@ export class UsuarioList implements OnInit{
     totalLazyUsuariosLength:number;
     public searchControl : FormControl;
     private debounce: number = 400;
+    
 
     constructor(private authService:AuthenticationService){
 
@@ -24,14 +25,16 @@ export class UsuarioList implements OnInit{
 
     ngOnInit(){
         this.authService.getCantidadUsuarios("").toPromise().then(data=>{
+            
             this.totalLazyUsuariosLength = data;
+            console.log("Total de registros: "+this.totalLazyUsuariosLength);
         });          
 
         this.searchControl = new FormControl('');
         this.searchControl.valueChanges
         .pipe(debounceTime(this.debounce), distinctUntilChanged())
         .subscribe(query=>{
-            this.authService.getUsuarios(this.searchControl.value,0,20).then(data=>{
+            this.authService.getUsuarios(this.searchControl.value,0,10).then(data=>{
                 this.usuarios = data;
 
 

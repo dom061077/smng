@@ -13,7 +13,7 @@
             </div>
         </div>   
 <div class="ui-grid ui-grid-responsive ui-grid-pad ui-fluid" style="margin: 10px 0px">        
-<p-virtualScroller [value]="usuarios" scrollHeight="500px" [itemSize]="200" [rows]="10" [cache]="false" 
+<p-virtualScroller [value]="usuarios" scrollHeight="500px" [itemSize]="200" [rows]="6" [cache]="false" 
     [lazy]="true" (onLazyLoad)="loadData($event)" [totalRecords]="totalLazyUsuariosLength">
         <ng-template let-usuario pTemplate="item">
             <div class="ui-g-12 ui-md-8">

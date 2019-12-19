@@ -148,6 +148,13 @@ export class AuthenticationService extends RestDataSource {
             }));
     }
 
+    updateUsuario(usuario){
+        return this.sendRequest<any>("POST",this.url+"/updateusuario"
+            ,usuario).pipe(map(data=>{
+                return data.success
+            }));
+    }
+
     savePerfil(perfil) {
         return this.sendRequest<any>("POST", this.url + "/saveperfil"
             , perfil).pipe(map(data => {
