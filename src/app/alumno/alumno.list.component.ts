@@ -40,6 +40,7 @@ import { debounceTime,distinctUntilChanged } from 'rxjs/operators';
             animation: pulse 1s infinite ease-in-out;
         }
 
+
         .title-container {
             padding: 1em;
             text-align: right;
