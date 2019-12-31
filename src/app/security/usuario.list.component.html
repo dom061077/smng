@@ -1,19 +1,6 @@
 
-        <div class="ui-grid ui-grid-responsive ui-grid-pad ui-fluid" style="margin: 10px 0px">
-            <div class="ui-grid-row">
-                <div class="ui-grid-col-2">
-                    Filtro:
-                </div>
-            </div>
-            <div class="ui-grid-row">  
-                  
-                <div class="ui-grid-col-8">
-                    <input type="text" [formControl]="searchControl" placeholder="Desc.Perfil">                             
-                </div>
-            </div>
-        </div>   
 <div class="ui-grid ui-grid-responsive ui-grid-pad ui-fluid" style="margin: 10px 0px">        
-<p-virtualScroller [value]="usuarios" scrollHeight="500px" [itemSize]="200" [rows]="6" [cache]="false" 
+<!-- p-virtualScroller [value]="usuarios" scrollHeight="500px" [itemSize]="200" [rows]="6" [cache]="false" 
     [lazy]="true" (onLazyLoad)="loadData($event)" [totalRecords]="totalLazyUsuariosLength">
         <ng-template let-usuario pTemplate="item">
             <div class="ui-g-12 ui-md-8">
@@ -52,5 +39,36 @@
             </div>
         
     </ng-template-->        
-</p-virtualScroller>        
+<!-- /p-virtualScroller-->        
+<p-dataView [value]="usuarios" [paginator]="true" [rows]="5"
+    [lazy]="true" (onLazyLoad)="loadData($event)" [totalRecords]="totalLazyUsuariosLength">
+    <p-header>
+        <div class="ui-helper-clearfix">
+            <div class="ui-g">
+                <div class="ui-g-12 ui-md-4">
+                    <p-dropdown [options]="sortOptions" [(ngModel)]="sortKey" placeholder="Sort By" (onChange)="onSortChange($event)" [style]="{'min-width':'140px'}"></p-dropdown>
+                </div>
+                <div class="ui-g-6 ui-md-4 filter-container">
+                    <div style="position:relative">
+                        <input type="search" pInputText placeholder="Search by brand" (input)="dv.filter($event.target.value)">
+                    </div>
+                </div>
+                <div class="ui-g-6 ui-md-4" style="text-align:right">
+                    <p-dataViewLayoutOptions></p-dataViewLayoutOptions>
+                </div>
+            </div>
+        </div>
+    </p-header>
+    <p-footer>Seleccione uno de la lista.</p-footer>
+    <ng-template let-usuario pTemplate="listItem">
+        <div>
+            {{usuario.id}}
+        </div>
+    </ng-template>
+    <ng-template let-usuario pTemplate="gridItem">
+        <div class="ui-g-12 ui-md-3">
+            {{usuario.apellido}}
+        </div>
+    </ng-template>
+</p-dataView>
 </div>

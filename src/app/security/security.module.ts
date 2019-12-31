@@ -25,6 +25,8 @@ import {ToastModule} from 'primeng/toast';
 
 import {PickListModule} from 'primeng/picklist';
 import {VirtualScrollerModule} from 'primeng/virtualscroller';
+import {DataViewModule} from 'primeng/dataview';
+import {DropdownModule} from 'primeng/dropdown';
 
 
 let routing = RouterModule.forChild([
@@ -48,7 +50,8 @@ let routing = RouterModule.forChild([
 @NgModule({
     imports: [CommonModule, FormsModule,ReactiveFormsModule , ButtonModule
         ,routing,PanelModule,ToastModule,MessagesModule,MessageModule,KeyFilterModule
-        ,PickListModule,VirtualScrollerModule
+        ,PickListModule,VirtualScrollerModule,DataViewModule
+        ,DropdownModule
         ],
     providers:[AuthenticationService,JwtInterceptor],
     declarations:[
