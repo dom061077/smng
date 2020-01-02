@@ -61,8 +61,16 @@
     </p-header>
     <p-footer>Seleccione uno de la lista.</p-footer>
     <ng-template let-usuario pTemplate="listItem">
-        <div>
-            {{usuario.id}}
+        <div class="ui-g-12">
+            <div class="car-details">
+                <div>
+                <div class="ui-g">
+                    <div class="ui-g-12">Id: <b>{{usuario.id}}</b></div>
+                    <div class="ui-g-12">Apellido: <b>{{usuario.apellido}}</b></div>
+                    <div class="ui-g-12">Nombre: <b>{{usuario.nombre}}</b></div>
+                </div>    
+                </div>
+            </div>
         </div>
     </ng-template>
     <ng-template let-usuario pTemplate="gridItem">

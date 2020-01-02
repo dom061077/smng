@@ -8,7 +8,7 @@ import { Usuario } from './usuario.model';
 @Component({
     //selector: 'ggg',
     templateUrl: './usuario.list.component.html',
-    //styles: []
+        //styles: [`        `]
     
 
 })
