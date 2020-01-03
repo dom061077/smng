@@ -62,10 +62,11 @@
     <p-footer>Seleccione uno de la lista.</p-footer>
     <ng-template let-usuario pTemplate="listItem">
         <div class="ui-g-12">
-            <div class="car-details">
+            <div class="item-details">
                 <div>
                 <div class="ui-g">
-                    <div class="ui-g-12">Id: <b>{{usuario.id}}</b></div>
+                    <div class="ui-g-12">Id: <b><a [routerLink]="['/user','edit',usuario?.id]" >{{usuario?.id}}</a></b></div>
+                    <div class="ui-g-12">Nombre de Usuario: <b>{{usuario.username}}</b></div>
                     <div class="ui-g-12">Apellido: <b>{{usuario.apellido}}</b></div>
                     <div class="ui-g-12">Nombre: <b>{{usuario.nombre}}</b></div>
                 </div>    
@@ -74,8 +75,12 @@
         </div>
     </ng-template>
     <ng-template let-usuario pTemplate="gridItem">
-        <div class="ui-g-12 ui-md-3">
-            {{usuario.apellido}}
+        <div style="padding:.5em" class="ui-g-12 ui-md-3">
+            <p-panel [header]="usuario.id" [style]="{'text-align':'center'}">
+                <div class="item-detail">{{usuario.id}} - {{usuario.username}}</div>
+                <hr class="ui-widget-content" style="border-top:0">
+                <!--button pButton type="button" icon="pi pi-search" (click)="selectCar($event, car)" style="margin-top:0"></button -->
+            </p-panel>
         </div>
     </ng-template>
 </p-dataView>
