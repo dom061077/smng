@@ -5,6 +5,8 @@ import { FormControl } from '@angular/forms';
 import { debounceTime,distinctUntilChanged } from 'rxjs/operators';
 import { Usuario } from './usuario.model';
 
+import {SelectItem} from 'primeng/api';
+
 @Component({
     //selector: 'ggg',
     templateUrl: './usuario.list.component.html',
@@ -14,6 +16,7 @@ import { Usuario } from './usuario.model';
 })
 export class UsuarioList implements OnInit{ 
     usuarios : Usuario[];
+    sortOptions:SelectItem[];
     totalLazyUsuariosLength:number;
     public searchControl : FormControl;
     private debounce: number = 400;
@@ -24,6 +27,12 @@ export class UsuarioList implements OnInit{
     }
 
     ngOnInit(){
+        this.sortOptions = [
+            {label: 'Newest First', value: '!year'},
+            {label: 'Oldest First', value: 'year'},
+            {label: 'Brand', value: 'brand'}
+        ];
+
         this.authService.getCantidadUsuarios("").toPromise().then(data=>{
             
             this.totalLazyUsuariosLength = data;

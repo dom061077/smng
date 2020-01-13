@@ -46,11 +46,12 @@
         <div class="ui-helper-clearfix">
             <div class="ui-g">
                 <div class="ui-g-12 ui-md-4">
-                    <p-dropdown [options]="sortOptions" [(ngModel)]="sortKey" placeholder="Sort By" (onChange)="onSortChange($event)" [style]="{'min-width':'140px'}"></p-dropdown>
+                    <p-dropdown [options]="sortOptions" [(ngModel)]="sortKey" placeholder="Ordenar Por" (onChange)="onSortChange($event)" [style]="{'min-width':'140px'}"></p-dropdown>
                 </div>
                 <div class="ui-g-6 ui-md-4 filter-container">
                     <div style="position:relative">
-                        <input type="search" pInputText placeholder="Search by brand" (input)="dv.filter($event.target.value)">
+                        <input type="search" pInputText  [formControl]="searchControl" pInputText placeholder="Filtar por " >
+                        
                     </div>
                 </div>
                 <div class="ui-g-6 ui-md-4" style="text-align:right">
