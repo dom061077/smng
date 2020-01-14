@@ -208,9 +208,10 @@ export class AuthenticationService extends RestDataSource {
         });
     }
 
-    getUsuarios(filter:string,start:number,limit:number){
+    getUsuarios(filter:string,start:number,limit:number,sortField:string,ascDesc:string){
         return this.sendRequest<any>("GET",this.url+"/getusuarios?filter="
-            +filter+"&start="+start+"&limit="+limit)
+            +filter+"&start="+start+"&limit="+limit+"&sortField="+sortField
+                +"&ascDesc="+ascDesc)
                 .toPromise().then(data=>{
                     return data.usuarios;
                     

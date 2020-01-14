@@ -20,17 +20,18 @@ export class UsuarioList implements OnInit{
     totalLazyUsuariosLength:number;
     public searchControl : FormControl;
     private debounce: number = 400;
-    
+    ascSort:boolean;//true= orden ascendente, false= orden descendente
+    sortKey:string;
 
     constructor(private authService:AuthenticationService){
 
     }
 
     ngOnInit(){
+        this.ascSort=true;
         this.sortOptions = [
-            {label: 'Newest First', value: '!year'},
-            {label: 'Oldest First', value: 'year'},
-            {label: 'Brand', value: 'brand'}
+            {label: 'Apellido y nombre', value: 'apellidonombre'},
+            {label: 'Nombre de Usuario', value: 'username'}
         ];
 
         this.authService.getCantidadUsuarios("").toPromise().then(data=>{
@@ -43,7 +44,8 @@ export class UsuarioList implements OnInit{
         this.searchControl.valueChanges
         .pipe(debounceTime(this.debounce), distinctUntilChanged())
         .subscribe(query=>{
-            this.authService.getUsuarios(this.searchControl.value,0,10).then(data=>{
+            
+            this.authService.getUsuarios(this.searchControl.value,0,10,this.sortKey,(this.ascSort?'asc':'desc')).then(data=>{
                 this.usuarios = data;
 
 
@@ -57,7 +59,8 @@ export class UsuarioList implements OnInit{
     }
 
     loadData(event){
-        this.authService.getUsuarios("",event.first,event.rows)
+        console.log('SorKey: '+this.sortKey);
+        this.authService.getUsuarios("",event.first,event.rows,this.sortKey,(this.ascSort?'asc':'desc'))
             .then(data=>{
                 this.usuarios = data;
             });
@@ -65,6 +68,14 @@ export class UsuarioList implements OnInit{
     
     selectPerfil(event){
         
+    }
+
+    onSortChange(event){
+        console.log('Valor del campo seleccionado: '+event.value);
+    }
+
+    handleChange(event){
+        console.log('Evento: '+event.value);
     }
 
 }

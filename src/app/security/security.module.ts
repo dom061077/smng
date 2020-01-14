@@ -27,6 +27,7 @@ import {PickListModule} from 'primeng/picklist';
 import {VirtualScrollerModule} from 'primeng/virtualscroller';
 import {DataViewModule} from 'primeng/dataview';
 import {DropdownModule} from 'primeng/dropdown';
+import {ToggleButtonModule} from 'primeng/togglebutton';
 
 
 let routing = RouterModule.forChild([
@@ -51,7 +52,7 @@ let routing = RouterModule.forChild([
     imports: [CommonModule, FormsModule,ReactiveFormsModule , ButtonModule
         ,routing,PanelModule,ToastModule,MessagesModule,MessageModule,KeyFilterModule
         ,PickListModule,VirtualScrollerModule,DataViewModule
-        ,DropdownModule
+        ,DropdownModule,ToggleButtonModule
         ],
     providers:[AuthenticationService,JwtInterceptor],
     declarations:[
