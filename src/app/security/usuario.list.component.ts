@@ -22,6 +22,10 @@ export class UsuarioList implements OnInit{
     private debounce: number = 400;
     ascSort:boolean;//true= orden ascendente, false= orden descendente
     sortKey:string;
+    first:number;
+    rows:number;
+
+    
 
     constructor(private authService:AuthenticationService){
 
@@ -31,7 +35,8 @@ export class UsuarioList implements OnInit{
         this.ascSort=true;
         this.sortOptions = [
             {label: 'Apellido y nombre', value: 'apellidonombre'},
-            {label: 'Nombre de Usuario', value: 'username'}
+            {label: 'Nombre de Usuario', value: 'username'},
+            {label: 'Identificador',value:'id'}
         ];
 
         this.authService.getCantidadUsuarios("").toPromise().then(data=>{
@@ -60,6 +65,8 @@ export class UsuarioList implements OnInit{
 
     loadData(event){
         console.log('SorKey: '+this.sortKey);
+        this.first = event.first;
+        this.rows = event.rows;
         this.authService.getUsuarios("",event.first,event.rows,this.sortKey,(this.ascSort?'asc':'desc'))
             .then(data=>{
                 this.usuarios = data;
@@ -72,10 +79,12 @@ export class UsuarioList implements OnInit{
 
     onSortChange(event){
         console.log('Valor del campo seleccionado: '+event.value);
+        
+        this.authService.getUsuarios(this.searchControl.value,this.first,this.rows,this.sortKey,(this.ascSort?'asc':'desc'))
+            .then(data=>{
+                this.usuarios = data;
+            });
     }
 
-    handleChange(event){
-        console.log('Evento: '+event.value);
-    }
 
 }

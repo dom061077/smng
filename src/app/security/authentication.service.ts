@@ -111,6 +111,14 @@ export class AuthenticationService extends RestDataSource {
             }));
     }
 
+    changeUserPassword(userId:number,password:string){
+        return this.sendRequest<any>("PUT", this.url + "/changepassword"
+            , { "id": userId, "password": password })
+            .pipe(map(data => {
+                console.log("Response: " + data);
+            }));
+    }
+
 
     logout() {
         // remove user from local storage to log user out

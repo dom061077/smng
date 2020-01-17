@@ -41,15 +41,15 @@
     </ng-template-->        
 <!-- /p-virtualScroller-->        
 <p-panel header="Listado de Usuarios">
-<p-dataView [value]="usuarios" [paginator]="true" [rows]="5"
-    [lazy]="true" (onLazyLoad)="loadData($event)" [totalRecords]="totalLazyUsuariosLength">
+<p-dataView  #dataView [value]="usuarios" [paginator]="true" [rows]="10"
+    [lazy]="true"  (onLazyLoad)="loadData($event)" [totalRecords]="totalLazyUsuariosLength">
     <p-header>
         <div class="ui-helper-clearfix">
             <div class="ui-g">
                 <div class="ui-g-12 ui-md-4" style="display: inline-flex">
                     <p-dropdown [options]="sortOptions" [(ngModel)]="sortKey" placeholder="Ordenar Por" (onChange)="onSortChange($event)" [style]="{'min-width':'140px'}"></p-dropdown>
                     <div style="position:relative"><p-toggleButton  onIcon="fa fa-sort-desc"
-                            (onChange)="handleChange($event)"
+                            (onChange)="onSortChange($event)"
                             offIcon="fa fa-sort-asc" onLabel="" ofLabel=""  
                             [(ngModel)]="ascSort"></p-toggleButton></div>
                 </div>

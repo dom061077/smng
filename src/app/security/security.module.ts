@@ -34,6 +34,7 @@ let routing = RouterModule.forChild([
     {path:"login",component: LoginComponent},
     {path:"logout",component: LoginComponent},
     {path:"changepass",component:ChangePasswordComponent},
+    {path:"changepass/:mode/:id",component:ChangePasswordComponent},
     {path:"user",component:UsuarioNew},
     {path:"userlist",component:UsuarioList},
     {path:"user/:mode/:id",component:UsuarioNew},

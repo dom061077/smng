@@ -3,6 +3,8 @@ import {Validators,ValidationErrors,ValidatorFn,AbstractControl,FormControl,Form
 import {MessageService} from 'primeng/api';
 import {CustomValidators} from '../util/custom-validators';
 import { AuthenticationService } from './authentication.service';
+import {Router,ActivatedRoute} from "@angular/router";
+import { CrudCodes } from '../util/crud.enum';
 
 
 @Component({
@@ -15,12 +17,17 @@ import { AuthenticationService } from './authentication.service';
 export class ChangePasswordComponent  implements OnInit{
     changePassForm: FormGroup;
     submitted: boolean;
+    headerTitle: string;
     constructor(private fb: FormBuilder, private messageService: MessageService
-        ,private authService:AuthenticationService) {
+        ,private authService:AuthenticationService,private router:Router
+        ,private activeRoute:ActivatedRoute
+        ) {
         console.log("Constructor changepassword");
     }
     ngOnInit() {
         this.changePassForm = this.fb.group({
+            id:[null,[]],
+            userName:['',[]],
             passwordAnterior: //new FormControl('', [Validators.required],CustomValidators.validateOldPassword(this.authService)),
                     ['',[Validators.required],CustomValidators.validateOldPassword(this.authService)],
             //
@@ -34,7 +41,10 @@ export class ChangePasswordComponent  implements OnInit{
              }
             ,{validator: CustomValidators.passwordMatchValidator}
         );
-
+        this.headerTitle = 'Cambia tu propia contraseña';
+        if(this.activeRoute.snapshot.params["mode"]==CrudCodes.EDIT){
+            this.headerTitle = 'Modificación de Contraseña de Usuario';                
+        }
 
        /* this.genders = [];
         this.genders.push({label:'Select Gender', value:''});
