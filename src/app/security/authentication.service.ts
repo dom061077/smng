@@ -14,6 +14,7 @@ export class AuthenticationService extends RestDataSource {
     public currentUser: Observable<User>;
     private currentRestError: BehaviorSubject<any>;
     public menuSubject: BehaviorSubject<any>;
+    public ngUrlsSubject: BehaviorSubject<any>;
 
 
 
@@ -24,6 +25,7 @@ export class AuthenticationService extends RestDataSource {
         this.currentUser = this.currentUserSubject.asObservable();
         this.currentRestError = new BehaviorSubject<any>(null);
         this.menuSubject = new BehaviorSubject<any>([]);
+        this.ngUrlsSubject = new BehaviorSubject<any>([]);
         console.log('Constructor de authentication XXXXXXX');
 
     }
@@ -58,6 +60,9 @@ export class AuthenticationService extends RestDataSource {
                     this.currentUserSubject.next(user);
                     this.getMenu().toPromise().then(data => {
                         this.menuSubject.next(data);
+                    });
+                    this.getUserNgUrls().toPromise().then(data=>{
+                        this.ngUrlsSubject.next(data);
                     });
                 }
                 console.log('User Information: ' + localStorage.getItem('userInformation'));
@@ -107,15 +112,15 @@ export class AuthenticationService extends RestDataSource {
         return this.sendRequest<any>("PUT", this.url + "/changepassword"
             , { "oldPassword": oldPassword, "newPassword": newPassword })
             .pipe(map(data => {
-                console.log("Response: " + data);
+                return data;
             }));
     }
 
     changeUserPassword(userId:number,password:string){
-        return this.sendRequest<any>("PUT", this.url + "/changepassword"
+        return this.sendRequest<any>("PUT", this.url + "/changeuserpassword"
             , { "id": userId, "password": password })
             .pipe(map(data => {
-                console.log("Response: " + data);
+                return data;
             }));
     }
 
@@ -130,6 +135,13 @@ export class AuthenticationService extends RestDataSource {
         return this.sendRequest<any>("GET", this.url + "/getmenu")
             .pipe(map(data => {
                 return data;
+            }));
+    }
+
+    getUserNgUrls(){
+        return this.sendRequest<any>("GET",this.url + "/getuserngurls")
+            .pipe(map(data=>{
+                return       data;
             }));
     }
 

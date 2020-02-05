@@ -17,10 +17,16 @@ export class HeaderComponent implements AfterViewInit{
 
 
   ngAfterViewInit() {
+        console.log("AfterViewInit");
         this.authService.getMenu().toPromise().then(data=>{
             this.items = data;
             this.authService.menuSubject.next(data);
-         });      
+            this.authService.getUserNgUrls().toPromise().then(data=>{
+                this.authService.ngUrlsSubject.next(data);
+            });             
+         }); 
+
+    
 
         
   }

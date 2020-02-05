@@ -42,7 +42,8 @@
 <!-- /p-virtualScroller-->        
 <p-panel header="Listado de Usuarios">
 <p-dataView  #dataView [value]="usuarios" [paginator]="true" [rows]="10"
-    [lazy]="true"  (onLazyLoad)="loadData($event)" [totalRecords]="totalLazyUsuariosLength">
+    [lazy]="true"  (onLazyLoad)="loadData($event)" paginatorPosition="both"
+     [totalRecords]="totalLazyUsuariosLength">
     <p-header>
         <div class="ui-helper-clearfix">
             <div class="ui-g">
@@ -78,6 +79,7 @@
                     <div class="ui-g-12">Nombre de Usuario: <b>{{usuario.username}}</b></div>
                     <div class="ui-g-12">Apellido: <b>{{usuario.apellido}}</b></div>
                     <div class="ui-g-12">Nombre: <b>{{usuario.nombre}}</b></div>
+                    <div class="ui-g-12">Cambiar password:<a [routerLink]="['/changepass','edit',usuario?.id]"> <i class="fa fa-key"></i></a></div>
                 </div>    
                 </div>
             </div>
@@ -86,7 +88,8 @@
     <ng-template let-usuario pTemplate="gridItem">
         <div style="padding:.5em" class="ui-g-12 ui-md-3">
             <p-panel [header]="usuario.id" [style]="{'text-align':'center'}">
-                <div class="item-detail">{{usuario.id}} - {{usuario.username}}</div>
+                <div class="item-detail"><a [routerLink]="['/user','edit',usuario?.id]">{{usuario.id}}</a> - {{usuario.username}}</div>
+                <div class="item-detail">Cambiar password:<a [routerLink]="['/changepass','edit',usuario?.id]"> <i class="fa fa-key"></i></a></div>
                 <hr class="ui-widget-content" style="border-top:0">
                 <!--button pButton type="button" icon="pi pi-search" (click)="selectCar($event, car)" style="margin-top:0"></button -->
             </p-panel>

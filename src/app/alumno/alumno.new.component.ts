@@ -154,8 +154,20 @@ export class AlumnoNew implements OnInit {
         this.alumnoForm.controls['constanciaRegular'].setValue(data.constanciaRegular); */ 
         //this.alumnoForm.controls['fechaNacimientoUnbinding'].setValue('31/01/1978');     
            
-        this.alumnoForm.controls['fechaNacimientoUnbinding'].setValue(this.datepipe.transform(data.fechaNacimiento,'dd/MM/yyyy'));
+        //this.alumnoForm.controls['fechaNacimientoUnbinding'].setValue(this.datepipe.transform(data.fechaNacimiento,'dd/MM/yyyy'));
+        if(data.dniTutor){
+          if(data.dniTutor.toString().length<8)
+            data.dniTutor='0'+data.dniTutor.toString();
+        }
+        if(data.fechaNacimiento){
+          const fNac = data.fechaNacimiento;
+          const fNacZ = fNac.substring(0,fNac.length - 1);
+          
+          const formattedDate = new Date(this.datepipe.transform(fNacZ));
+          this.alumnoForm.controls['fechaNacimientoUnbinding'].setValue(formattedDate);
+        }
         this.alumnoForm.patchValue(data) ;        
+        
         console.log('Fecha nacimiento: '+data.fechaNacimiento);
         
     });      

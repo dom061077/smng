@@ -28,9 +28,6 @@ export class ChangePasswordComponent  implements OnInit{
         this.changePassForm = this.fb.group({
             id:[null,[]],
             username:['',[]],
-            passwordAnterior: //new FormControl('', [Validators.required],CustomValidators.validateOldPassword(this.authService)),
-                    ['',[Validators.required],CustomValidators.validateOldPassword(this.authService)],
-            //
             password: new FormControl('',Validators.required),
             confirmPassword: 
                 new FormControl('',[Validators.required])
@@ -44,13 +41,7 @@ export class ChangePasswordComponent  implements OnInit{
         this.headerTitle = 'Cambia tu propia contraseña';
         if(this.activeRoute.snapshot.params["mode"]==CrudCodes.EDIT){
             this.headerTitle = 'Modificación de Contraseña de Usuario';      
-            this.assignFormValues(this.activeRoute.snapshot.params["id"]); 
-            console.log('Probando id: '+this.activeRoute.snapshot.params["id"]);               
-            this.changePassForm.controls["passwordAnterior"].clearValidators();
-            this.changePassForm.controls["passwordAnterior"].updateValueAndValidity();
-            this.changePassForm.controls["passwordAnterior"].clearAsyncValidators();
-            this.changePassForm.updateValueAndValidity();
-           
+            this.assignFormValues(this.activeRoute.snapshot.params["id"]);          
         }
 
        /* this.genders = [];
@@ -67,10 +58,6 @@ export class ChangePasswordComponent  implements OnInit{
         
     }
 
-    onValid(){
-        return this.changePassForm.valid;
-    }
-
     onSubmit(valuesForm: any) {
         this.submitted = true;
         if(this.activeRoute.snapshot.params["mode"]==CrudCodes.EDIT){
@@ -79,7 +66,7 @@ export class ChangePasswordComponent  implements OnInit{
             ).subscribe(data=>{
                 if(data.success){
                     this.messageService.add({severity:'info',summary:'Mensaje',detail:'Los datos fueron modificados correctamente'});
-                    this.router.navigateByUrl("/userlist");
+                    this.router.navigateByUrl("/listuser");
                 }else
                     this.messageService.add({severity:'error',summary:'Error',detail:data.msg});
 
@@ -87,25 +74,8 @@ export class ChangePasswordComponent  implements OnInit{
             error=>{
                 this.messageService.add({severity:'error',summary:'Error',detail:'ERROR EN HTTP'});
             });
-        }else{
-            this.authService.changePassword(valuesForm.passwordAnterior,valuesForm.password)
-            .subscribe(data=>{
-                    if(data.success){
-                            this.messageService.add({severity:'info',summary:'Mensaje',detail:'Los datos fueron modificados correctamente'});
-                            this.router.navigateByUrl("/listuser");
-                        }else
-                            this.messageService.add({severity:'error',summary:'Error',detail:data.msg});
-
-                },
-                error=>{
-                    this.messageService.add({severity:'error',summary:'Error',detail:'ERROR EN HTTP'});
-                    
-                }
-            );
         }
 
-        //this.authService.changePassword()
-        //this.messageService.add({severity:'info', summary:'Success', detail:'Form Submitted'});
     }    
 
 
