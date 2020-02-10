@@ -18,6 +18,7 @@ export class AppComponent {
   constructor(private dsuser:RestUserDataSource,private messageService:MessageService
       ,private authService:AuthenticationService){
       authService.currentRestSubError.subscribe(data=>{
+          //console.log("Mostrando error");
           if(data!=null){
             this.messageService.clear;
               if(data.error && data.error.total>1){

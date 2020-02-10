@@ -1,5 +1,6 @@
 import { ValidationErrors, ValidatorFn, AbstractControl } from '@angular/forms';
 import { AuthenticationService  } from '../security/authentication.service';
+import { AlumnoService } from '../alumno/alumno.service';
 
 export class CustomValidators {
   static patternValidator(regex: RegExp, error: ValidationErrors): ValidatorFn {
@@ -32,12 +33,13 @@ export class CustomValidators {
       
       return (control:AbstractControl) =>{
                 return authService.validateOldPassword(control.value);
-
             };
-            
-          
+  }
 
-        
+  static validateDniAlumno(alumnoService:AlumnoService){
+      return (control:AbstractControl) =>{
+                return alumnoService.dniExists(control.value);
+      }
   }
 
   
