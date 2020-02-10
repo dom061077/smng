@@ -7,6 +7,7 @@ import { CrudCodes } from "../util/crud.enum";
 import { DatePipe } from '@angular/common';
 import { debounceTime,distinctUntilChanged } from 'rxjs/operators';
 import { AlumnoService } from '../alumno/alumno.service';
+import { ThrowStmt } from '@angular/compiler';
 
 @Component({
   //selector: 'alumno-page',
@@ -17,6 +18,8 @@ export class InscripcionNew implements OnInit {
     private debounce: number = 400;
     headerTitle:string;
     public dniCtrl:FormControl;
+    private apellido:string;
+    private nombre:string;
 
     constructor(private fb:FormBuilder
         , private messageService:MessageService,private router:Router
@@ -26,18 +29,25 @@ export class InscripcionNew implements OnInit {
     }
 
     ngOnInit(){
-      this.dniCtrl = new FormControl('');
+      this.dniCtrl = new FormControl('',Validators.required);
       this.dniCtrl.valueChanges
       .pipe(debounceTime(this.debounce), distinctUntilChanged())
       .subscribe(query=>{
           this.alumnoService.getAlumnoByDni(query).then(data=>{
-              console.log("Data getalumnobydni"+data) ;
+              console.log("Data getalumnobydni "+data) ;
+              if(data){
+                  this.apellido = data.apellido;
+                  this.nombre = data.nombre;
+              }else{
+                this.apellido='';
+                this.nombre='';
+              }
           });
       });
 
       this.inscripcionForm = this.fb.group({
         id:[null,[]],
-        dni:['',[]]
+        dni:this.dniCtrl
 
       },{validator:CustomValidators.validateDniAlumno});
       this.headerTitle='Alta de Inscripción';

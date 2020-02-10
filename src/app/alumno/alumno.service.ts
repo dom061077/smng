@@ -94,7 +94,7 @@ export class AlumnoService extends RestDataSource{
         return this.sendRequest<any>("GET"
                 ,this.url+"/getalumnobydni?dni="+dniInt)
                 .toPromise().then(data=>{
-                    
+                    return data;
                 });
     }
 }

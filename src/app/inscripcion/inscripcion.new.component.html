@@ -1,13 +1,13 @@
 <form [formGroup]="inscripcionForm" (ngSubmit)="onSubmit(alumnoForm.value)">
     <p-panel header="Hola">
-               <div *ngIf="inscripcionForm.get('id').value!=null" class="ui-grid ui-grid-responsive ui-grid-pad ui-fluid" style="margin: 10px 0px">
+               <div  class="ui-grid ui-grid-responsive ui-grid-pad ui-fluid" style="margin: 10px 0px">
                     <div class="ui-grid-row">
                             <div class="ui-grid-col-2">
                                 Id:
                             </div>
                             <div class="ui-grid-row">    
                                     <div class="ui-grid-col-4">
-                                        <input style="width:100%"   inscripcionForm="id" disabled />
+                                        <input style="width:100%"   inscripcionForm="id"  />
                                     </div>
 
                             </div>    
@@ -21,14 +21,28 @@
                     </div>
                     <div class="ui-grid-row">    
                         <div class="ui-grid-col-4">
-                                <p-inputMask [formControl]="dniCtrl"  mask="99.999.999" formControlName="dni" ></p-inputMask>
+                                <p-inputMask [formControl]="dniCtrl" formControlName="dni"  mask="99.999.999" ></p-inputMask>
                         </div>
                         <div class="ui-grid-col-4">
                             <p-message severity="error" text="Ingrese un D.N.I válido" 
-                                *ngIf="inscripcionForm.get('dni').dirty && inscripcionForm.get('dni').errors && inscripcionForm.get('dni').errors.required"></p-message>
+                                *ngIf="dniCtrl.errors.required"></p-message>
                         </div>
                     </div>
+                    <div class="ui-grid-row">
+                        {{apellido}} - {{nombre}}
+                    </div>    
                 </div>                   
          
     </p-panel>    
+    <div class="ui-grid ui-grid-responsive ui-grid-pad ui-fluid"  style="margin: 10px 0px">
+                
+
+            <div class="ui-grid-row">        
+
+                <div class="ui-grid-col-4">
+                     <button pButton style="width:100%"  type="submit" label="Confirmar" [disabled]="!inscripcionForm.valid"></button>
+                </div>
+                <div class="ui-grid-col-4"></div>
+            </div>    
+        </div>      
 </form>    
