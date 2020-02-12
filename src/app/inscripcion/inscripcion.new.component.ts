@@ -29,8 +29,13 @@ export class InscripcionNew implements OnInit {
     }
 
     ngOnInit(){
-      this.dniCtrl = new FormControl('',Validators.required);
-      this.dniCtrl.valueChanges
+      this.inscripcionForm = this.fb.group({
+        id:[null,[]],
+        dni:['',[Validators.required],CustomValidators.validateDniAlumno]
+
+      },{validator:CustomValidators.validateDniAlumno});
+
+      this.inscripcionForm.get('dni').valueChanges
       .pipe(debounceTime(this.debounce), distinctUntilChanged())
       .subscribe(query=>{
           this.alumnoService.getAlumnoByDni(query).then(data=>{
@@ -45,11 +50,7 @@ export class InscripcionNew implements OnInit {
           });
       });
 
-      this.inscripcionForm = this.fb.group({
-        id:[null,[]],
-        dni:this.dniCtrl
 
-      },{validator:CustomValidators.validateDniAlumno});
       this.headerTitle='Alta de Inscripción';
     }
 }
