@@ -37,8 +37,10 @@ export class CustomValidators {
   }
 
   static validateDniAlumno(alumnoService:AlumnoService){
-      return (control:AbstractControl) =>{
-                return alumnoService.dniExists(control.value);
+      return (control:AbstractControl):{[key:string]:boolean} =>{
+                //const dniInt = control.value.split('.').join('').split('_').join('');
+                //return {'dniExist':(alumnoService.getAlumnoByDni(control.value.id)?true:false)};
+                return true;//{'dniExist':true};
       }
   }
 

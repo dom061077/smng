@@ -80,15 +80,17 @@ export class AlumnoService extends RestDataSource{
             });
     }
 
-    dniExists(dni:any){
+    /*dniExists(dni:any){
         return this.sendRequest<any>("GET"
-                ,this.url+"/dniexists/"+dni
+                ,this.url+"/getalumnobydni?dni=/"+dni
                 ).toPromise().then(data=>{
                     return data;
                 });
-    }
+    }*/
 
     getAlumnoByDni(dni:any){
+        if(!dni)
+            dni='';
         const dniInt = dni.split('.').join('').split('_').join('');
         console.log("dniInt: "+dniInt);
         return this.sendRequest<any>("GET"

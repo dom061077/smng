@@ -17,7 +17,7 @@ export class InscripcionNew implements OnInit {
     inscripcionForm : FormGroup;
     private debounce: number = 400;
     headerTitle:string;
-    public dniCtrl:FormControl;
+    
     private apellido:string;
     private nombre:string;
 
@@ -31,7 +31,7 @@ export class InscripcionNew implements OnInit {
     ngOnInit(){
       this.inscripcionForm = this.fb.group({
         id:[null,[]],
-        dni:['',[Validators.required],CustomValidators.validateDniAlumno]
+        dni:['',[Validators.required],CustomValidators.validateDniAlumno(this.alumnoService)]
 
       },{validator:CustomValidators.validateDniAlumno});
 
