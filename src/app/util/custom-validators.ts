@@ -36,11 +36,13 @@ export class CustomValidators {
             };
   }
 
-  static validateDniAlumno(alumnoService:AlumnoService){
-      return (control:AbstractControl):{[key:string]:boolean} =>{
+  static validateDniAlumno(alumnoService:AlumnoService):ValidatorFn{
+      return (control:AbstractControl): {[key:string]:boolean}|null=>{
                 //const dniInt = control.value.split('.').join('').split('_').join('');
-                //return {'dniExist':(alumnoService.getAlumnoByDni(control.value.id)?true:false)};
-                return true;//{'dniExist':true};
+                return {
+                  'dniExist':(alumnoService.getAlumnoByDni(control.value.id)?false:true)
+                };
+                
       }
   }
 

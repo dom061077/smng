@@ -31,7 +31,7 @@ export class InscripcionNew implements OnInit {
     ngOnInit(){
       this.inscripcionForm = this.fb.group({
         id:[null,[]],
-        dni:['',[Validators.required],CustomValidators.validateDniAlumno(this.alumnoService)]
+        dni:['',[Validators.required,CustomValidators.validateDniAlumno(this.alumnoService)]]
 
       },{validator:CustomValidators.validateDniAlumno});
 
