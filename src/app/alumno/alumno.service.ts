@@ -3,6 +3,7 @@ import { Injectable, Inject } from '@angular/core';
 import { RestDataSource,REST_URL } from "../services/rest.datasource";
 import { map } from 'rxjs/operators';
 import { Alumno } from './alumno.model';
+import { Observable } from 'rxjs';
 
 @Injectable()
 export class AlumnoService extends RestDataSource{
@@ -88,15 +89,13 @@ export class AlumnoService extends RestDataSource{
                 });
     }*/
 
-    getAlumnoByDni(dni:any){
+    getAlumnoByDni(dni:any): Observable<boolean>{
         if(!dni)
             dni='';
         const dniInt = dni.split('.').join('').split('_').join('');
         console.log("dniInt: "+dniInt);
         return this.sendRequest<any>("GET"
                 ,this.url+"/getalumnobydni?dni="+dniInt)
-                .toPromise().then(data=>{
-                    return data;
-                });
+                ;
     }
 }

@@ -1,18 +1,6 @@
 <form [formGroup]="inscripcionForm" (ngSubmit)="onSubmit(alumnoForm.value)">
-    <p-panel header="Hola">
-               <div  class="ui-grid ui-grid-responsive ui-grid-pad ui-fluid" style="margin: 10px 0px">
-                    <div class="ui-grid-row">
-                            <div class="ui-grid-col-2">
-                                Id:
-                            </div>
-                            <div class="ui-grid-row">    
-                                    <div class="ui-grid-col-4">
-                                        <input style="width:100%"   inscripcionForm="id"  />
-                                    </div>
+    <p-panel header="Alta de Inscripción">
 
-                            </div>    
-                    </div>                    
-                </div>
                 <div class="ui-grid ui-grid-responsive ui-grid-pad ui-fluid" style="margin: 10px 0px">
                     <div class="ui-grid-row">
                         <div class="ui-grid-col-2">
@@ -29,7 +17,7 @@
                         </div>
                         <div class="ui-grid-col-4">
                             <p-message severity="error" text="El D.N.I no existe"
-                                *ngIf="inscripcionForm.get('dni').dniExist">
+                                *ngIf="inscripcionForm.get('dni').errors?.dniExist">
                             </p-message>    
                         </div>    
                     </div>

@@ -8,7 +8,8 @@ import { DatePipe } from '@angular/common';
 import { debounceTime,distinctUntilChanged } from 'rxjs/operators';
 import { AlumnoService } from '../alumno/alumno.service';
 import { ThrowStmt } from '@angular/compiler';
-
+import { Observable } from 'rxjs';
+    
 @Component({
   //selector: 'alumno-page',
   templateUrl: './inscripcion.new.component.html'
@@ -31,11 +32,15 @@ export class InscripcionNew implements OnInit {
     ngOnInit(){
       this.inscripcionForm = this.fb.group({
         id:[null,[]],
-        dni:['',[Validators.required,CustomValidators.validateDniAlumno(this.alumnoService)]]
+        dni:['',[Validators.required],
+                [(control: AbstractControl): Observable<ValidationErrors | null> => 
+                
+                        CustomValidators.validateDniAlumno$(control,this.alumnoService)]        
+        ]
 
-      },{validator:CustomValidators.validateDniAlumno});
+      });
 
-      this.inscripcionForm.get('dni').valueChanges
+      /*this.inscripcionForm.get('dni').valueChanges
       .pipe(debounceTime(this.debounce), distinctUntilChanged())
       .subscribe(query=>{
           this.alumnoService.getAlumnoByDni(query).then(data=>{
@@ -48,7 +53,7 @@ export class InscripcionNew implements OnInit {
                 this.nombre='';
               }
           });
-      });
+      });*/
 
 
       this.headerTitle='Alta de Inscripción';

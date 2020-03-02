@@ -1,6 +1,8 @@
 import { ValidationErrors, ValidatorFn, AbstractControl } from '@angular/forms';
 import { AuthenticationService  } from '../security/authentication.service';
 import { AlumnoService } from '../alumno/alumno.service';
+import { Observable } from 'rxjs';
+import { map } from 'rxjs/operators';
 
 export class CustomValidators {
   static patternValidator(regex: RegExp, error: ValidationErrors): ValidatorFn {
@@ -36,15 +38,40 @@ export class CustomValidators {
             };
   }
 
-  static validateDniAlumno(alumnoService:AlumnoService):ValidatorFn{
+  /*static validateDniAlumno(alumnoService:AlumnoService):ValidatorFn{
       return (control:AbstractControl): {[key:string]:boolean}|null=>{
                 //const dniInt = control.value.split('.').join('').split('_').join('');
                 return {
-                  'dniExist':(alumnoService.getAlumnoByDni(control.value.id)?false:true)
+                  'dniExist':true//(alumnoService.getAlumnoByDni(control.value.id)?false:true)
                 };
                 
       }
+  }*/
+  static validateDniAlumno$(control: AbstractControl,alumnoService:AlumnoService)
+      : Observable<ValidationErrors | null>{
+        if(control)
+          return alumnoService.getAlumnoByDni(control.value).pipe(map(
+              response=>{
+               
+                if(!response){
+                  return {dniExist:'El D.N.I no existe'};
+                  
+                }else{
+                  return null;
+                }
+            }));
+                   
+        else
+          return null;           
+                
+            
   }
+
+  /*public checkFruitIsApproved$(control: AbstractControl,alumnoService:AlumnoService): 
+      Observable<ValidationErrors | null> {
+    return this.alumnoService.getAlumnoByDni(control.value)
+      /// CODE OMITTED //
+      }*/
 
   
 }
