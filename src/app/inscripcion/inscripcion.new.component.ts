@@ -36,14 +36,16 @@ export class InscripcionNew implements OnInit {
                 [(control: AbstractControl): Observable<ValidationErrors | null> => 
                 
                         CustomValidators.validateDniAlumno$(control,this.alumnoService)]        
-        ]
+        ],
+        periodoLectivo:['',[Validators.required]],
+        turno:['',[Validators.required]]
 
       });
 
-      /*this.inscripcionForm.get('dni').valueChanges
+      this.inscripcionForm.get('dni').valueChanges
       .pipe(debounceTime(this.debounce), distinctUntilChanged())
       .subscribe(query=>{
-          this.alumnoService.getAlumnoByDni(query).then(data=>{
+          this.alumnoService.getAlumnoByDni(query).toPromise().then(data=>{
               console.log("Data getalumnobydni "+data) ;
               if(data){
                   this.apellido = data.apellido;
@@ -53,7 +55,7 @@ export class InscripcionNew implements OnInit {
                 this.nombre='';
               }
           });
-      });*/
+      });
 
 
       this.headerTitle='Alta de Inscripción';

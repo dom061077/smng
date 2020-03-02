@@ -89,7 +89,7 @@ export class AlumnoService extends RestDataSource{
                 });
     }*/
 
-    getAlumnoByDni(dni:any): Observable<boolean>{
+    getAlumnoByDni(dni:any)/*: Observable<boolean>*/{
         if(!dni)
             dni='';
         const dniInt = dni.split('.').join('').split('_').join('');

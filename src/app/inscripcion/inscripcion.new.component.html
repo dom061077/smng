@@ -24,7 +24,43 @@
                     <div class="ui-grid-row">
                         {{apellido}} - {{nombre}}
                     </div>    
-                </div>                   
+                </div>    
+                
+                <div class="ui-grid ui-grid-responsive ui-grid-pad ui-fluid" style="margin: 10px 0px">
+                    <div class="ui-grid-row">
+                        <div class="ui-grid-col-3">
+                            Periodo Lectivo:
+                        </div>    
+                    </div>    
+
+                    <div class="ui-grid-row">
+                            <div class="ui-grid-col-3">
+                                <p-autoComplete formControlName="periodoLectivo" [suggestions]="filteredParentesco" 
+                                    (completeMethod)="filterParentesco($event)" field="anio" [size]="30"
+                                    [minLength]="1" [dropdown]="true"></p-autoComplete>
+
+                                
+                            </div>    
+                        </div>                       
+                </div>    
+
+                <div class="ui-grid ui-grid-responsive ui-grid-pad ui-fluid" style="margin: 10px 0px">
+                        <div class="ui-grid-row">
+                            <div class="ui-grid-col-3">
+                                Turno:
+                            </div>    
+                        </div>    
+    
+                        <div class="ui-grid-row">
+                                <div class="ui-grid-col-3">
+                                    <p-autoComplete formControlName="turno" [suggestions]="filteredParentesco" 
+                                        (completeMethod)="filterParentesco($event)" field="anio" [size]="30"
+                                        [minLength]="1" [dropdown]="true"></p-autoComplete>
+    
+                                    
+                                </div>    
+                            </div>                       
+                 </div>                   
          
     </p-panel>    
     <div class="ui-grid ui-grid-responsive ui-grid-pad ui-fluid"  style="margin: 10px 0px">
