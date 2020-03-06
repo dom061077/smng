@@ -18,9 +18,14 @@ export class InscripcionNew implements OnInit {
     inscripcionForm : FormGroup;
     private debounce: number = 400;
     headerTitle:string;
-    
+    filteredPeriodos:any[];
+    filteredTurnos:any[];
+    filteredCursos:any[];
+    filteredDivisiones:any[];
+
     private apellido:string;
     private nombre:string;
+
 
     constructor(private fb:FormBuilder
         , private messageService:MessageService,private router:Router
