@@ -35,8 +35,9 @@
 
                     <div class="ui-grid-row">
                             <div class="ui-grid-col-3">
-                                <p-autoComplete formControlName="periodoLectivo" [suggestions]="filteredParentesco" 
-                                    (completeMethod)="filterParentesco($event)" field="anio" [size]="30"
+                                <p-autoComplete formControlName="periodoLectivo" [suggestions]="filteredPeriodos" 
+                                    (completeMethod)="filterPeriodos($event)" field="anio" [size]="30"
+                                    
                                     [minLength]="1" [dropdown]="true"></p-autoComplete>
 
                                 
@@ -53,8 +54,9 @@
     
                         <div class="ui-grid-row">
                                 <div class="ui-grid-col-3">
-                                    <p-autoComplete formControlName="turno" [suggestions]="filteredParentesco" 
-                                        (completeMethod)="filterParentesco($event)" field="anio" [size]="30"
+                                    <p-autoComplete formControlName="turno" [suggestions]="filteredTurnos" 
+                                        (completeMethod)="filterTurnos($event)" field="nombre" [size]="30"
+                                        (onSelect)="inscripcionForm.get('curso').setValue(null);inscripcionForm.get('division').setValue(null)"                                        
                                         [minLength]="1" [dropdown]="true"></p-autoComplete>
     
                                     
@@ -71,8 +73,9 @@
     
                         <div class="ui-grid-row">
                                 <div class="ui-grid-col-3">
-                                    <p-autoComplete formControlName="turno" [suggestions]="filteredParentesco" 
-                                        (completeMethod)="filterParentesco($event)" field="anio" [size]="30"
+                                    <p-autoComplete formControlName="curso" [suggestions]="filteredCursos" 
+                                        (completeMethod)="filterCursos($event)" field="nombre" [size]="30"
+                                        (onSelect)="inscripcionForm.get('division').setValue(null)"        
                                         [minLength]="1" [dropdown]="true"></p-autoComplete>
     
                                     
@@ -88,8 +91,8 @@
     
                         <div class="ui-grid-row">
                                 <div class="ui-grid-col-3">
-                                    <p-autoComplete formControlName="turno" [suggestions]="filteredParentesco" 
-                                        (completeMethod)="filterParentesco($event)" field="anio" [size]="30"
+                                    <p-autoComplete formControlName="division" [suggestions]="filteredDivisiones" 
+                                        (completeMethod)="filterDivisiones($event)" field="nombre" [size]="30"
                                         [minLength]="1" [dropdown]="true"></p-autoComplete>
     
                                     

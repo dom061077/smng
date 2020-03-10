@@ -16,6 +16,7 @@ import {CalendarModule} from 'primeng/calendar';
 
 
 import { InscripcionNew } from './inscripcion.new.component';
+import { InscripcionService } from './inscripcion.service';
 
 let routing=RouterModule.forChild([
  
@@ -36,7 +37,7 @@ let routing=RouterModule.forChild([
 
     ],
     providers: [
-
+        InscripcionService
     ],
     declarations: [InscripcionNew]
 })

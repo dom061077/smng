@@ -5,7 +5,7 @@ import { map } from 'rxjs/operators';
 
 
 @Injectable()
-export class IncripcionService extends RestDataSource{
+export class InscripcionService extends RestDataSource{
     constructor (public http: HttpClient,@Inject(REST_URL) public url: string){
         super(http,url);
     }
@@ -24,15 +24,16 @@ export class IncripcionService extends RestDataSource{
             }));
     }
 
-    getCursos(){
-        return this.sendRequest<any>("GET",this.url+"/getcursos")
+    getCursos(turnoId:number){
+        return this.sendRequest<any>("GET",this.url+"/getcursos?turnoId="+turnoId)
             .pipe(map(data=>{
                 return data.cursos;
             }));
     }
 
-    getDivisiones(){
-        return this.sendRequest<any>("GET",this.url+"/getdivisiones")
+    getDivisiones(cursoId:number,turnoId:number){
+        return this.sendRequest<any>("GET",this.url+"/getdivisiones?cursoId="
+            +cursoId+"&turnoId="+turnoId)
             .pipe(map(data=>{
                 return data.divisiones;
             }));

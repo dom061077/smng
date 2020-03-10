@@ -7,6 +7,7 @@ import { CrudCodes } from "../util/crud.enum";
 import { DatePipe } from '@angular/common';
 import { debounceTime,distinctUntilChanged } from 'rxjs/operators';
 import { AlumnoService } from '../alumno/alumno.service';
+import { InscripcionService } from './inscripcion.service';
 import { ThrowStmt } from '@angular/compiler';
 import { Observable } from 'rxjs';
     
@@ -30,7 +31,8 @@ export class InscripcionNew implements OnInit {
     constructor(private fb:FormBuilder
         , private messageService:MessageService,private router:Router
         , private activeRoute:ActivatedRoute
-        , private datepipe:DatePipe, private alumnoService:AlumnoService){
+        , private datepipe:DatePipe, private alumnoService:AlumnoService
+        , private inscripcionService: InscripcionService){
 
     }
 
@@ -43,7 +45,10 @@ export class InscripcionNew implements OnInit {
                         CustomValidators.validateDniAlumno$(control,this.alumnoService)]        
         ],
         periodoLectivo:['',[Validators.required]],
-        turno:['',[Validators.required]]
+        turno:['',[Validators.required]],
+        curso:['',[Validators.required]],
+        division:['',[Validators.required]]
+
 
       });
 
@@ -64,5 +69,31 @@ export class InscripcionNew implements OnInit {
 
 
       this.headerTitle='Alta de Inscripción';
+
+    }
+
+    filterPeriodos(event){
+        this.inscripcionService.getPeriodos().subscribe(data=>{
+            console.log("Periodos devueltos: "+data);
+            this.filteredPeriodos = data;
+        });
+    }
+
+    filterTurnos(event){
+        this.inscripcionService.getTurnos().subscribe(data=>{
+            this.filteredTurnos = data;
+        });
+    }
+
+    filterCursos(event){
+        this.inscripcionService.getCursos(this.inscripcionForm.get("turno").value.id).subscribe(data=>{     
+            this.filteredCursos = data;
+        });
+    }
+
+    filterDivisiones(event){
+        this.inscripcionService.getDivisiones(this.inscripcionForm.get("curso").value.id,this.inscripcionForm.get("turno").value.id).subscribe(data=>{
+            this.filteredDivisiones = data;
+        });
     }
 }
