@@ -9,7 +9,7 @@ import { debounceTime,distinctUntilChanged } from 'rxjs/operators';
 import { AlumnoService } from '../alumno/alumno.service';
 import { InscripcionService } from './inscripcion.service';
 import { ThrowStmt } from '@angular/compiler';
-import { Observable } from 'rxjs';
+import { Observable, BehaviorSubject } from 'rxjs';
     
 @Component({
   //selector: 'alumno-page',
@@ -26,6 +26,9 @@ export class InscripcionNew implements OnInit {
 
     private apellido:string;
     private nombre:string;
+    private alumnoId:number;
+    private showLoading$:BehaviorSubject<boolean>;
+    
 
 
     constructor(private fb:FormBuilder
@@ -33,7 +36,7 @@ export class InscripcionNew implements OnInit {
         , private activeRoute:ActivatedRoute
         , private datepipe:DatePipe, private alumnoService:AlumnoService
         , private inscripcionService: InscripcionService){
-
+            this.showLoading$ = new BehaviorSubject(true);
     }
 
     ngOnInit(){
@@ -56,14 +59,18 @@ export class InscripcionNew implements OnInit {
       .pipe(debounceTime(this.debounce), distinctUntilChanged())
       .subscribe(query=>{
           this.alumnoService.getAlumnoByDni(query).toPromise().then(data=>{
+              this.showLoading$.next(true);
               console.log("Data getalumnobydni "+data) ;
               if(data){
                   this.apellido = data.apellido;
                   this.nombre = data.nombre;
+                  this.alumnoId = data.id;
               }else{
                 this.apellido='';
                 this.nombre='';
+                this.alumnoId = null;
               }
+              this.showLoading$.next(false);
           });
       });
 

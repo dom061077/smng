@@ -13,6 +13,7 @@ import {TabViewModule} from 'primeng/tabview';
 import {AutoCompleteModule} from 'primeng/autocomplete';
 import {CheckboxModule} from 'primeng/checkbox';
 import {CalendarModule} from 'primeng/calendar';
+import {ProgressSpinnerModule} from 'primeng/progressspinner';
 
 
 import { InscripcionNew } from './inscripcion.new.component';
@@ -34,6 +35,7 @@ let routing=RouterModule.forChild([
         ,AutoCompleteModule,CheckboxModule
         ,CalendarModule
         ,BrowserAnimationsModule
+        ,ProgressSpinnerModule
 
     ],
     providers: [
