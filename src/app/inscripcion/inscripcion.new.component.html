@@ -8,9 +8,13 @@
                         </div>
                     </div>
                     <div class="ui-grid-row">    
-                        <div class="ui-grid-col-4">
+                        <div class="ui-grid-col-3">
                                 <p-inputMask  formControlName="dni"  mask="99.999.999" ></p-inputMask>
+                                
                         </div>
+                        <div class="ui-grid-col-2" *ngIf="(showLoading$ | async)">
+                            <p-progressSpinner [style]="{width: '30px', height: '30px'}" strokeWidth="8" fill="#EEEEEE" animationDuration=".5s"></p-progressSpinner>
+                        </div>                         
                         <div class="ui-grid-col-4">
                             <p-message severity="error" text="Ingrese un D.N.I válido" 
                                 *ngIf="inscripcionForm.get('dni').dirty && inscripcionForm.get('dni').errors?.required"></p-message>
@@ -25,9 +29,7 @@
                         {{apellido}} - {{nombre}}
                     </div>    
                 </div>    
-                <div *ngIf="(showLoading$ | async)">
-                    <p-progressSpinner></p-progressSpinner>
-                </div>    
+   
                 <div *ngIf="alumnoId">
                         <div class="ui-grid ui-grid-responsive ui-grid-pad ui-fluid" style="margin: 10px 0px">
                             <div class="ui-grid-row">
