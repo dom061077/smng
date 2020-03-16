@@ -1,4 +1,4 @@
-<form [formGroup]="inscripcionForm" (ngSubmit)="onSubmit(alumnoForm.value)">
+<form [formGroup]="inscripcionForm" (ngSubmit)="onSubmit(inscripcionForm.value)">
     <p-panel header="Alta de Inscripción">
 
                 <div class="ui-grid ui-grid-responsive ui-grid-pad ui-fluid" style="margin: 10px 0px">
@@ -30,7 +30,7 @@
                     </div>    
                 </div>    
    
-                <div *ngIf="alumnoId">
+                <div *ngIf="!inscripcionForm.get('alumnoId').errors">
                         <div class="ui-grid ui-grid-responsive ui-grid-pad ui-fluid" style="margin: 10px 0px">
                             <div class="ui-grid-row">
                                 <div class="ui-grid-col-3">

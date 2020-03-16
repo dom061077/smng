@@ -44,11 +44,16 @@ export class JwtInterceptor implements HttpInterceptor {
                     // }
                     
                 }           
-                if(error.status == 400){
-
-                        error.msgobj = {title:'Error',msg:'Ingrese usuario y contraseña'}
+                if(error.status == 404){
+                        console.log('404');
+                        error.msgobj = {title:'Error',msg:'Recurso no encontrado'}
                     
-                }     
+                }   
+                if(error.status == 500){
+                    error.msgobj = {title:'Error',msg:'Error interno en el servidor'}
+                }
+
+
                 if(error.status == 422){
                      console.log('Error: '+error);
                      if(error.error.total>1){

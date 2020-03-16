@@ -26,7 +26,7 @@ export class InscripcionNew implements OnInit {
 
     private apellido:string;
     private nombre:string;
-    private alumnoId:number;
+
     private showLoading$:BehaviorSubject<boolean>;
     
 
@@ -47,6 +47,7 @@ export class InscripcionNew implements OnInit {
                 
                         CustomValidators.validateDniAlumno$(control,this.alumnoService)]        
         ],
+        alumnoId:['',[Validators.required]],
         periodoLectivo:['',[Validators.required]],
         turno:['',[Validators.required]],
         curso:['',[Validators.required]],
@@ -66,11 +67,12 @@ export class InscripcionNew implements OnInit {
                     if(data){
                         this.apellido = data.apellido;
                         this.nombre = data.nombre;
-                        this.alumnoId = data.id;
+                        this.inscripcionForm.get('alumnoId').setValue(data.id);
+                        
                     }else{
                         this.apellido='';
                         this.nombre='';
-                        this.alumnoId = null;
+                        this.inscripcionForm.get('alumnoId').setValue(null);
                     }
                     this.showLoading$.next(false);
               }, 1000);              
@@ -106,6 +108,15 @@ export class InscripcionNew implements OnInit {
     filterDivisiones(event){
         this.inscripcionService.getDivisiones(this.inscripcionForm.get("curso").value.id,this.inscripcionForm.get("turno").value.id).subscribe(data=>{
             this.filteredDivisiones = data;
+        });
+    }
+
+    onSubmit(valuesForm){
+        return this.inscripcionService.saveInscripcion(valuesForm).subscribe(data=>{
+            if(data){
+                this.messageService.add({severity:'info',summary:'Mensaje',detail:'Los datos fueron registrados correctamente'});
+            }else
+                this.messageService.add({severity:'error',summary:'Error',detail:'Error al registrar la información'});
         });
     }
 }

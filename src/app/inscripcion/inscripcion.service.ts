@@ -39,4 +39,11 @@ export class InscripcionService extends RestDataSource{
             }));
     }
 
+    saveInscripcion(inscripcion){
+        return this.sendRequest<any>("POST",this.url+"/saveinscripcion"
+            ,inscripcion).pipe(map(data=>{
+                return data.success;
+            }));
+    }
+
 }
