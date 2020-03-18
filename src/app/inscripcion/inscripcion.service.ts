@@ -46,4 +46,21 @@ export class InscripcionService extends RestDataSource{
             }));
     }
 
+    getCantidadInscripciones(filter: string){
+        return this.sendRequest<any>("GET",this.url + "/insccount?filter="+filter
+            ).pipe(map(data => {
+                return data.count;
+            }));
+    }    
+
+    getInscripciones(filter:string,start:number,limit:number,sortField:string,ascDesc:string){
+        return this.sendRequest<any>("GET",this.url+"/getinscripciones?filter="
+            +filter+"&start="+start+"&limit="+limit+"&sortField="+sortField
+                +"&ascDesc="+ascDesc)
+                .toPromise().then(data=>{
+                    return data.usuarios;
+                    
+                });
+    }    
+
 }
