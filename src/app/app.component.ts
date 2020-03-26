@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { RestUserDataSource } from './model/rest.user.datasource';
+
 import {MessageService} from 'primeng/api';
 import { AuthenticationService } from './security/authentication.service';
 
@@ -12,10 +12,10 @@ import { AuthenticationService } from './security/authentication.service';
   ,providers:[MessageService]
 })
 export class AppComponent {
-  title = 'smng';
+  title = 'Escuela Pedro de Mendoza';
   
   
-  constructor(private dsuser:RestUserDataSource,private messageService:MessageService
+  constructor(private messageService:MessageService
       ,private authService:AuthenticationService){
       authService.currentRestSubError.subscribe(data=>{
           //console.log("Mostrando error");
