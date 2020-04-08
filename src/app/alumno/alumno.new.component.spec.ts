@@ -2,6 +2,8 @@ import { TestBed,tick,fakeAsync, inject,ComponentFixture,async} from '@angular/c
 //import {NgModule} from "@angular/core";
 import { NO_ERRORS_SCHEMA  } from '@angular/core';
 import { FormsModule,ReactiveFormsModule  } from "@angular/forms";
+import { By } from '@angular/platform-browser';
+import { DebugElement } from '@angular/core';
 import { AlumnoNew } from './alumno.new.component';
 import { AlumnoService } from './alumno.service';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
@@ -77,7 +79,7 @@ class MockAlumnoService  {
   }
 }
 
-describe('AlamnoNew, Create and Edit Alumno',()=>{
+describe('AlamnoNew, Alumno',()=>{
     let mockRoute: any = { snapshot: {}};
 
     mockRoute.parent = { params: new Subject<any>()};
@@ -88,6 +90,7 @@ describe('AlamnoNew, Create and Edit Alumno',()=>{
     let component: AlumnoNew;
     let element : HTMLElement;
     let fixture : ComponentFixture<AlumnoNew>;
+    let debugElement: DebugElement;
     //let alumnoService : AlumnoService=new AlumnoService(new HttpClient(null),'');
 
     /*beforeEach(()=>{
@@ -103,10 +106,13 @@ describe('AlamnoNew, Create and Edit Alumno',()=>{
         }).compileComponents();
 
     });*/
-
-    beforeEach(() => {    
+    beforeAll(()=>{
         TestBed.initTestEnvironment(BrowserDynamicTestingModule
             , platformBrowserDynamicTesting());
+
+    });
+
+    beforeEach(() => {    
 
         TestBed.configureTestingModule({
             imports: [HttpClientTestingModule
@@ -132,25 +138,43 @@ describe('AlamnoNew, Create and Edit Alumno',()=>{
                     ],
             schemas: [NO_ERRORS_SCHEMA]
         }).compileComponents()
-            .then(()=>{
 
-            });
-            
 
     });     
 
-    it('should create with Mode Alta',()=>{
+    it('should create with Mode Edit',()=>{
+              mockRoute.parent.params.next({ mode: CrudCodes.EDIT });
+              fixture = TestBed.createComponent(AlumnoNew);
+              component = fixture.debugElement.componentInstance; // The component instantiation 
+              element = fixture.nativeElement; // The HTML reference
+
+              // spyOn(component.alumnoService, 'getAlumno').and.callThrough();
+              //tick(2000); 
+              fixture.detectChanges();              
+      
+        expect(component).toBeTruthy();
+
+
+        //spyOn(component,'assignFormValues').and.callThrough();
+        //expect(component.assignFormValues).toHaveBeenCalled();
+    });
+
+    it('should test cascade event',()=>{
+        TestBed.overrideProvider( ActivatedRoute, 
+            {useValue: {snapshot: {params: {id: 1,mode:CrudCodes.INS}}}});
+        TestBed.compileComponents();
         mockRoute.parent.params.next({ mode: CrudCodes.EDIT });
         fixture = TestBed.createComponent(AlumnoNew);
         component = fixture.debugElement.componentInstance; // The component instantiation 
         element = fixture.nativeElement; // The HTML reference
-         spyOn(component.alumnoService, 'getAlumno').and.callThrough();
-        //tick(2000); 
-        fixture.detectChanges();        
-        expect(component).toBeTruthy();
-        //spyOn(component,'assignFormValues').and.callThrough();
-        //expect(component.assignFormValues).toHaveBeenCalled();
+
+              // spyOn(component.alumnoService, 'getAlumno').and.callThrough();
+              //tick(2000); 
+        fixture.detectChanges();              
+        //fixture.detectChanges();
+        //expect(component)
     });
+
 });
 
 
