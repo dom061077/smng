@@ -24,7 +24,7 @@ export class AlumnoNew implements OnInit {
   noSpecial: RegExp = /^[^<>1234567890!"#%&/$()=?¡[._*{}!]+$/;
   es: any;
   
-  constructor(private fb:FormBuilder, private alumnoService:AlumnoService
+  constructor(private fb:FormBuilder, public alumnoService:AlumnoService
         , private messageService:MessageService,private router:Router
         , private activeRoute:ActivatedRoute
         , private datepipe:DatePipe
@@ -155,6 +155,7 @@ export class AlumnoNew implements OnInit {
         //this.alumnoForm.controls['fechaNacimientoUnbinding'].setValue('31/01/1978');     
            
         //this.alumnoForm.controls['fechaNacimientoUnbinding'].setValue(this.datepipe.transform(data.fechaNacimiento,'dd/MM/yyyy'));
+        console.log(data);
         if(data.dniTutor){
           if(data.dniTutor.toString().length<8)
             data.dniTutor='0'+data.dniTutor.toString();
