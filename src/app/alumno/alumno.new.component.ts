@@ -168,7 +168,7 @@ export class AlumnoNew implements OnInit {
           this.alumnoForm.controls['fechaNacimientoUnbinding'].setValue(formattedDate);
         }
         this.alumnoForm.patchValue(data) ;        
-        
+        console.log('Id: '+this.alumnoForm.controls['id'].value);
         console.log('Fecha nacimiento: '+data.fechaNacimiento);
         
     });      
@@ -201,6 +201,7 @@ export class AlumnoNew implements OnInit {
   }
 
   filterProvince(event){
+     console.log('filterProvince event');
      this.alumnoService.getProvincias(event.query).subscribe(data=>{
         this.filteredProvinces = data;
      });

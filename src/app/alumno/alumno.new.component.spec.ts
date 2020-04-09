@@ -28,7 +28,7 @@ import { HttpClient, HttpHeaders } from "@angular/common/http";
 import { BrowserDynamicTestingModule, platformBrowserDynamicTesting } from '@angular/platform-browser-dynamic/testing';
 import {RouterTestingModule} from "@angular/router/testing"; 
 
-let mockData = {
+let mockAlumnoData = {
    "id":1,
    "constanciaRegular":false,
    "nombreTutor":"nombre tutor",
@@ -73,9 +73,17 @@ let mockData = {
    "telefono1":"5555-5555555",
    "direccion":"direccion alumno"
 };
+
+let mockProvinciasData =[{id:1,nombre:'Catamarca'}
+    ,{id:2,nombre:'Chaco'}] ;
+
 class MockAlumnoService  {
   getAlumno(id:number) {
-    return of(mockData).toPromise();
+    return of(mockAlumnoData).toPromise();
+  }
+
+  getProvincias(search:String){
+    return of(mockProvinciasData);
   }
 }
 
@@ -142,24 +150,12 @@ describe('AlamnoNew, Alumno',()=>{
 
     });     
 
-    it('should create with Mode Edit',()=>{
-              mockRoute.parent.params.next({ mode: CrudCodes.EDIT });
-              fixture = TestBed.createComponent(AlumnoNew);
-              component = fixture.debugElement.componentInstance; // The component instantiation 
-              element = fixture.nativeElement; // The HTML reference
+    it('',()=>{
 
-              // spyOn(component.alumnoService, 'getAlumno').and.callThrough();
-              //tick(2000); 
-              fixture.detectChanges();              
-      
-        expect(component).toBeTruthy();
-
-
-        //spyOn(component,'assignFormValues').and.callThrough();
-        //expect(component.assignFormValues).toHaveBeenCalled();
     });
 
-    it('should test cascade event',()=>{
+
+    it('should create with INS Mode',()=>{
         TestBed.overrideProvider( ActivatedRoute, 
             {useValue: {snapshot: {params: {id: 1,mode:CrudCodes.INS}}}});
         TestBed.compileComponents();
@@ -170,10 +166,49 @@ describe('AlamnoNew, Alumno',()=>{
 
               // spyOn(component.alumnoService, 'getAlumno').and.callThrough();
               //tick(2000); 
+        spyOn(component,'assignFormValues').and.callThrough();              
         fixture.detectChanges();              
-        //fixture.detectChanges();
-        //expect(component)
+        expect(component.assignFormValues).not.toHaveBeenCalled()
+
     });
+
+     it('should create with EDIT Mode',()=>{
+              fixture = TestBed.createComponent(AlumnoNew);
+              component = fixture.debugElement.componentInstance; // The component instantiation 
+              element = fixture.nativeElement; // The HTML reference
+
+              // spyOn(component.alumnoService, 'getAlumno').and.callThrough();
+              //tick(2000); 
+        spyOn(component,'assignFormValues').and.callThrough();              
+        fixture.detectChanges();              
+              
+        expect(component).toBeTruthy();
+
+        expect(component.assignFormValues).toHaveBeenCalled();
+        
+        expect(component.alumnoForm.controls['apellido'].value).not.toBeNull("el campo Id no debe ser nulo");
+
+    });   
+
+     it('should trigger event on edit Mode',()=>{
+              fixture = TestBed.createComponent(AlumnoNew);
+              component = fixture.debugElement.componentInstance; // The component instantiation 
+              element = fixture.nativeElement; // The HTML reference
+
+              // spyOn(component.alumnoService, 'getAlumno').and.callThrough();
+              //tick(2000); 
+        spyOn(component,'assignFormValues').and.callThrough();              
+        fixture.detectChanges();              
+              
+        expect(component).toBeTruthy();
+
+        const autoComp = fixture.debugElement.query(By.css('#provinciaId')).nativeElement;
+        const button=autoComp.querySelector('button');
+        button.click();
+        //autoComp.triggerEventHandler('completeMethod',null);
+        expect(component.filteredProvinces.length).toEqual(2);
+    });   
+    
 
 });
 

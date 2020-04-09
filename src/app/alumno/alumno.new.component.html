@@ -106,7 +106,7 @@
                     </div>
                     <div class="ui-grid-row">    
                         <div class="ui-grid-col-4">
-                                <p-autoComplete formControlName="provincia" [suggestions]="filteredProvinces" 
+                                <p-autoComplete id = 'provinciaId' formControlName="provincia" [suggestions]="filteredProvinces" 
                                     (completeMethod)="filterProvince($event)"
                                     (onSelect)="alumnoForm.get('localidad').setValue(null)"
                                      field="nombre" [size]="30"
