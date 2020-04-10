@@ -201,7 +201,7 @@ export class AlumnoNew implements OnInit {
   }
 
   filterProvince(event){
-     console.log('filterProvince event');
+     console.log('filterProvince event: '+event.query);
      this.alumnoService.getProvincias(event.query).subscribe(data=>{
         this.filteredProvinces = data;
      });

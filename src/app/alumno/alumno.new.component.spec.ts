@@ -74,8 +74,8 @@ let mockAlumnoData = {
    "direccion":"direccion alumno"
 };
 
-let mockProvinciasData =[{id:1,nombre:'Catamarca'}
-    ,{id:2,nombre:'Chaco'}] ;
+let mockProvinciasData =[{id:1,nombre:'Buenos Aires'},{id:2,nombre:'Catamarca'}
+    ,{id:3,nombre:'Chaco'},{id:4,nombre:'Chubut'}] ;
 
 class MockAlumnoService  {
   getAlumno(id:number) {
@@ -83,7 +83,10 @@ class MockAlumnoService  {
   }
 
   getProvincias(search:String){
-    return of(mockProvinciasData);
+    if (search)
+      return of([{id:3,nombre:'Chaco'},{id:4,nombre:'Chubut'}] );
+    else
+      return of(mockProvinciasData);
   }
 }
 
@@ -190,7 +193,7 @@ describe('AlamnoNew, Alumno',()=>{
 
     });   
 
-     it('should trigger event on edit Mode',()=>{
+     it('should trigger event on edit Mode',async(()=>{
               fixture = TestBed.createComponent(AlumnoNew);
               component = fixture.debugElement.componentInstance; // The component instantiation 
               element = fixture.nativeElement; // The HTML reference
@@ -202,12 +205,30 @@ describe('AlamnoNew, Alumno',()=>{
               
         expect(component).toBeTruthy();
 
-        const autoComp = fixture.debugElement.query(By.css('#provinciaId')).nativeElement;
-        const button=autoComp.querySelector('button');
-        button.click();
+        const provinciaComp = fixture.debugElement.query(By.css('#provinciaId')).nativeElement;
+        const buttonProvincia=provinciaComp.querySelector('button');
+        buttonProvincia.click();
         //autoComp.triggerEventHandler('completeMethod',null);
-        expect(component.filteredProvinces.length).toEqual(2);
-    });   
+        expect(component.filteredProvinces.length).toEqual(4);
+        
+        fixture.detectChanges();
+        //console.log('Elemento: '+provinciaComp.innerHTML  );
+        
+        const itemList = fixture.debugElement.query(By.css('.ui-autocomplete-list-item')).nativeElement;
+        itemList.click();
+        console.log('Elemento: '+itemList.innerHTML);
+        expect(component.alumnoForm.controls['localidad'].value).toBeNull();
+        const inputProvincia = provinciaComp.querySelector('input');
+        console.log('inputProvincia: '+inputProvincia);
+        
+        
+        inputProvincia.dispatchEvent(new Event('input'));
+        inputProvincia.value='Probando';
+        fixture.detectChanges();
+        //fixture.whenStable().then(()=>{
+        //});
+        //expect(component.filteredProvinces.length).toEqual(2);
+    }));   
     
 
 });
