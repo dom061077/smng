@@ -20,12 +20,13 @@ import {Subject,of,Observable,Observer} from 'rxjs';
 import {Router,ActivatedRoute} from "@angular/router";
 import { CommonModule } from "@angular/common";
 import { RestDataSource,REST_URL } from "../services/rest.datasource"; 
+import { map } from 'rxjs/operators';
 import {MessageService} from 'primeng/api';
 import {Validators,ValidationErrors,ValidatorFn,AbstractControl,FormControl,FormGroup,FormBuilder} from '@angular/forms';
 import { HttpClient, HttpHeaders } from "@angular/common/http";
 
 
-import { BrowserDynamicTestingModule, platformBrowserDynamicTesting } from '@angular/platform-browser-dynamic/testing';
+//import { BrowserDynamicTestingModule, platformBrowserDynamicTesting } from '@angular/platform-browser-dynamic/testing';
 import {RouterTestingModule} from "@angular/router/testing"; 
 
 let mockAlumnoData = {
@@ -77,16 +78,39 @@ let mockAlumnoData = {
 let mockProvinciasData =[{id:1,nombre:'Buenos Aires'},{id:2,nombre:'Catamarca'}
     ,{id:3,nombre:'Chaco'},{id:4,nombre:'Chubut'}] ;
 
+let mockLocalidadedData = [{id:1,nombre:'San Ferando del valle de Catamarca'}
+    ,{id:2,nombre:'Portozuelo'},{id:3,nombre:'El Rodeo'}];
+const provinceFilter={id:2,nombre:'Catamarca'};
+
 class MockAlumnoService  {
   getAlumno(id:number) {
     return of(mockAlumnoData).toPromise();
   }
 
-  getProvincias(search:String){
+  getLocalidades(provinciaId:number,search:any){
+    return this.getWithFilter(mockLocalidadedData,search);
+  }
+
+  getProvincias(search:any){
+    return this.getWithFilter(mockProvinciasData,search);
+  }
+
+  private getWithFilter(mockData:any,search:any):Observable<any>{
+    
     if (search)
-      return of([{id:3,nombre:'Chaco'},{id:4,nombre:'Chubut'}] );
+      return of(mockData)
+                
+                .pipe(map(data=>{
+                    let r=[];
+                    /*for(let i = 0;i<data.length;i++){
+
+                        if(data[i].nombre.indexOf(search.toString())!=-1)
+                          r.push(data[i]);
+                    }*/
+                    return r;
+                }));
     else
-      return of(mockProvinciasData);
+      return of(mockData);
   }
 }
 
@@ -118,8 +142,8 @@ describe('AlamnoNew, Alumno',()=>{
 
     });*/
     beforeAll(()=>{
-        TestBed.initTestEnvironment(BrowserDynamicTestingModule
-            , platformBrowserDynamicTesting());
+       // TestBed.initTestEnvironment(BrowserDynamicTestingModule
+       //     , platformBrowserDynamicTesting());
 
     });
 
@@ -158,11 +182,11 @@ describe('AlamnoNew, Alumno',()=>{
     });
 
 
-    it('should create with INS Mode',()=>{
+    it('should create with INS Mode and NOT call assignFormValues',()=>{
         TestBed.overrideProvider( ActivatedRoute, 
             {useValue: {snapshot: {params: {id: 1,mode:CrudCodes.INS}}}});
         TestBed.compileComponents();
-        mockRoute.parent.params.next({ mode: CrudCodes.EDIT });
+        
         fixture = TestBed.createComponent(AlumnoNew);
         component = fixture.debugElement.componentInstance; // The component instantiation 
         element = fixture.nativeElement; // The HTML reference
@@ -175,7 +199,7 @@ describe('AlamnoNew, Alumno',()=>{
 
     });
 
-     it('should create with EDIT Mode',()=>{
+     it('should create with EDIT Mode and call assignFormValues',()=>{
               fixture = TestBed.createComponent(AlumnoNew);
               component = fixture.debugElement.componentInstance; // The component instantiation 
               element = fixture.nativeElement; // The HTML reference
@@ -193,7 +217,7 @@ describe('AlamnoNew, Alumno',()=>{
 
     });   
 
-     it('should trigger event on edit Mode',async(()=>{
+     it('should trigger event on select provincia by click in edit Mode',fakeAsync (()=>{
               fixture = TestBed.createComponent(AlumnoNew);
               component = fixture.debugElement.componentInstance; // The component instantiation 
               element = fixture.nativeElement; // The HTML reference
@@ -216,21 +240,64 @@ describe('AlamnoNew, Alumno',()=>{
         
         const itemList = fixture.debugElement.query(By.css('.ui-autocomplete-list-item')).nativeElement;
         itemList.click();
-        console.log('Elemento: '+itemList.innerHTML);
+        //console.log('Elemento: '+itemList.innerHTML);
         expect(component.alumnoForm.controls['localidad'].value).toBeNull();
-        const inputProvincia = provinciaComp.querySelector('input');
-        console.log('inputProvincia: '+inputProvincia);
         
-        
-        inputProvincia.dispatchEvent(new Event('input'));
-        inputProvincia.value='Probando';
-        fixture.detectChanges();
-        //fixture.whenStable().then(()=>{
-        //});
-        //expect(component.filteredProvinces.length).toEqual(2);
-    }));   
-    
 
+        
+
+
+    }));   
+
+     it('should trigger event keydown on provincia in edit Mode and filter list',fakeAsync(()=>{
+              fixture = TestBed.createComponent(AlumnoNew);
+              component = fixture.debugElement.componentInstance; // The component instantiation 
+              element = fixture.nativeElement; // The HTML reference
+
+              // spyOn(component.alumnoService, 'getAlumno').and.callThrough();
+              //tick(2000); 
+       spyOn(component.alumnoService,'getProvincias').and.callThrough();
+        fixture.detectChanges();              
+              
+        expect(component).toBeTruthy();
+
+      const provinciaComp = fixture.debugElement.query(By.css('#provinciaId')).nativeElement;
+
+      const inputEl = provinciaComp.querySelector('input');
+      inputEl.dispatchEvent(new Event('focus'));  
+      inputEl.focus();
+      inputEl.click();
+      fixture.detectChanges();
+
+
+      inputEl.value = "Ch";
+      inputEl.dispatchEvent(new Event('keydown'));
+      inputEl.dispatchEvent(new Event('input'));
+      inputEl.dispatchEvent(new Event('keyup'));
+      tick(300);
+      
+      fixture.detectChanges();
+      expect(component.alumnoService.getProvincias).toHaveBeenCalled();                           
+    }));       
+
+    it('should filter Localidades by provincia id ',fakeAsync(()=>{
+        TestBed.overrideProvider( ActivatedRoute, 
+            {useValue: {snapshot: {params: {id: 1,mode:CrudCodes.INS}}}});
+        TestBed.compileComponents();
+        
+        fixture = TestBed.createComponent(AlumnoNew);
+        component = fixture.debugElement.componentInstance; // The component instantiation 
+        element = fixture.nativeElement; // The HTML reference
+        fixture.detectChanges();
+        expect(component).toBeTruthy();
+        component.alumnoForm.controls['provincia'].setValue(provinceFilter);
+        const localidadComp = fixture.debugElement.query(By.css('#localidadId')).nativeElement;
+        const buttonLocalidad = localidadComp.querySelector('button');
+        buttonLocalidad.click();   
+        //component.filteredLocalidades=mockLocalidadedData;
+
+        expect(component.filteredLocalidades.length).toEqual(3);  
+    }));
 });
 
 
