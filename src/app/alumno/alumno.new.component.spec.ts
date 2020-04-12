@@ -298,6 +298,24 @@ describe('AlamnoNew, Alumno',()=>{
 
         expect(component.filteredLocalidades.length).toEqual(3);  
     }));
+
+    it('should raise validation messages',()=>{
+        TestBed.overrideProvider( ActivatedRoute, 
+            {useValue: {snapshot: {params: {id: 1,mode:CrudCodes.INS}}}});
+        TestBed.compileComponents();
+        
+        fixture = TestBed.createComponent(AlumnoNew);
+        component = fixture.debugElement.componentInstance; // The component instantiation 
+        element = fixture.nativeElement; // The HTML reference
+        fixture.detectChanges();
+        expect(component).toBeTruthy();   
+        const inputs = fixture.nativeElement.query('input');
+        console.log('Inputs: '+inputs);
+
+    });
+
+    Agregando algo al repositorio
+
 });
 
 
