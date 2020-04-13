@@ -298,6 +298,24 @@ describe('AlamnoNew, Alumno',()=>{
 
         expect(component.filteredLocalidades.length).toEqual(3);  
     }));
+
+    it('should show validations messages',()=>{
+        TestBed.overrideProvider( ActivatedRoute, 
+            {useValue: {snapshot: {params: {id: 1,mode:CrudCodes.INS}}}});
+        TestBed.compileComponents();
+        
+        fixture = TestBed.createComponent(AlumnoNew);
+        component = fixture.debugElement.componentInstance; // The component instantiation 
+        element = fixture.nativeElement; // The HTML reference
+        fixture.detectChanges();
+        expect(component).toBeTruthy();
+        const inputs = fixture.debugElement.query(By.css('input'));
+        console.log(inputs);
+        const el = fixture.debugElement.nativeElement;
+        let apellido = el.querySelector('input[formControlName=apellido]');
+        console.log(apellido);
+
+    })
 });
 
 
