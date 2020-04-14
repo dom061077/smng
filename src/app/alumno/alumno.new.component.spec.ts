@@ -299,7 +299,7 @@ describe('AlamnoNew, Alumno',()=>{
         expect(component.filteredLocalidades.length).toEqual(3);  
     }));
 
-    it('should raise validation messages',()=>{
+    it('should raise validation messages',fakeAsync(()=>{
         TestBed.overrideProvider( ActivatedRoute, 
             {useValue: {snapshot: {params: {id: 1,mode:CrudCodes.INS}}}});
         TestBed.compileComponents();
@@ -311,13 +311,50 @@ describe('AlamnoNew, Alumno',()=>{
 
         expect(component).toBeTruthy();
         const inputs = fixture.debugElement.query(By.css('input'));
-        console.log(inputs);
+        
         const el = fixture.debugElement.nativeElement;
-        let apellido = el.querySelector('input[formControlName=apellido]');
-        console.log(apellido);
+        let apellidoEl = el.querySelector('input[formControlName=apellido]');
+        let nombreEl = el.querySelector('input[formControlName=nombre]');
+        let fechaNacimientoEl = fixture.debugElement.query(By.css('p-calendar'));
+        
+        let inputFechaNacEl = fechaNacimientoEl.nativeElement.querySelector('input');
+
+        
+        apellidoEl.value = "Ch";
+        apellidoEl.dispatchEvent(new Event('keydown'));
+        apellidoEl.dispatchEvent(new Event('input'));
+        apellidoEl.dispatchEvent(new Event('keyup'));
+        tick(300);
+        apellidoEl.value = "";
+        apellidoEl.dispatchEvent(new Event('keydown'));
+        apellidoEl.dispatchEvent(new Event('input'));
+        apellidoEl.dispatchEvent(new Event('keyup'));      
+        expect(component.alumnoForm.get("apellido").errors.required).toBeTruthy();
+
+        nombreEl.value = "Ch";
+        nombreEl.dispatchEvent(new Event('keydown'));
+        nombreEl.dispatchEvent(new Event('input'));
+        nombreEl.dispatchEvent(new Event('keyup'));
+        tick(300);
+        nombreEl.value = "";
+        nombreEl.dispatchEvent(new Event('keydown'));
+        nombreEl.dispatchEvent(new Event('input'));
+        nombreEl.dispatchEvent(new Event('keyup'));      
+        expect(component.alumnoForm.get("nombre").errors.required).toBeTruthy();      
 
 
-});
+        inputFechaNacEl.value = "13/04/2020";
+        inputFechaNacEl.dispatchEvent(new Event('keydown'));
+        inputFechaNacEl.dispatchEvent(new Event('input'));
+        inputFechaNacEl.dispatchEvent(new Event('keyup'));
+        tick(300);
+        inputFechaNacEl.value = "";
+        inputFechaNacEl.dispatchEvent(new Event('keydown'));
+        inputFechaNacEl.dispatchEvent(new Event('input'));
+        inputFechaNacEl.dispatchEvent(new Event('keyup'));      
+        expect(component.alumnoForm.get("fechaNacimientoUnbinding").errors.required).toBeTruthy();
+
+}));
 
 });
 
