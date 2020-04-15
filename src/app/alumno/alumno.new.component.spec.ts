@@ -318,7 +318,11 @@ describe('AlamnoNew, Alumno',()=>{
         let fechaNacimientoEl = fixture.debugElement.query(By.css('p-calendar'));
         
         let inputFechaNacEl = fechaNacimientoEl.nativeElement.querySelector('input');
-
+        let direccionEl = el.querySelector('input[formControlName=direccion]');
+        let cuilEl = el.querySelector('p-inputMask[formControlName=cuil]');
+        let dniTutorEl = el.querySelector('p-inputMask[formControlName=dniTutor]');
+        console.log('dniTutor:');
+        console.log(dniTutorEl);
         
         apellidoEl.value = "Ch";
         apellidoEl.dispatchEvent(new Event('keydown'));
@@ -353,6 +357,34 @@ describe('AlamnoNew, Alumno',()=>{
         inputFechaNacEl.dispatchEvent(new Event('input'));
         inputFechaNacEl.dispatchEvent(new Event('keyup'));      
         expect(component.alumnoForm.get("fechaNacimientoUnbinding").errors.required).toBeTruthy();
+
+        direccionEl.value = "las piedras 530";
+        direccionEl.dispatchEvent(new Event('keydown'));
+        direccionEl.dispatchEvent(new Event('input'));
+        direccionEl.dispatchEvent(new Event('keyup'));
+        tick(300);
+        direccionEl.value = "";
+        direccionEl.dispatchEvent(new Event('keydown'));
+        direccionEl.dispatchEvent(new Event('input'));
+        direccionEl.dispatchEvent(new Event('keyup'));      
+        expect(component.alumnoForm.get("direccion").errors.required).toBeTruthy();
+
+
+        component.alumnoForm.get('cuil').setValue('');
+        expect(component.alumnoForm.get('cuil').errors.required).toBeTruthy();
+        component.alumnoForm.get('dniTutor').setValue('');
+        expect(component.alumnoForm.get('dniTutor').errors.required).toBeTruthy();
+        
+        /*component.alumnoForm.get('dniTutor').setValue('26');
+        dniTutorEl.dispatchEvent(new Event('keydown'));
+        dniTutorEl.dispatchEvent(new Event('input'));
+        dniTutorEl.dispatchEvent(new Event('keyup'));
+        tick(300);
+        dniTutorEl.dispatchEvent(new Event('keydown'));
+        dniTutorEl.dispatchEvent(new Event('input'));
+        dniTutorEl.dispatchEvent(new Event('keyup'));        
+        expect(component.alumnoForm.get('dniTutor').errors.required).toBeTruthy();
+        */
 
 }));
 
