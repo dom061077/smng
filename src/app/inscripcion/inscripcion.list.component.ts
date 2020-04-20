@@ -9,12 +9,12 @@ import {SelectItem} from 'primeng/api';
 
 @Component({
     //selector: 'ggg',
-    templateUrl: './usuario.list.component.html',
+    templateUrl: './inscripcion.list.component.html',
         //styles: [`        `]
     
 
 })
-export class UsuarioList implements OnInit{ 
+export class InscripcionList extends  implements OnInit{ 
     inscripciones : Inscripcion[];
     sortOptions:SelectItem[];
     totalLazyUsuariosLength:number;

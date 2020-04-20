@@ -4,12 +4,13 @@ import { BehaviorSubject, Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 
 import { RestDataSource, REST_URL } from "../services/rest.datasource";
+import { GenericService } from "../services/generic.service";
 
 import { User } from '../model/security/user.model';
 import { Authority } from './authority.model';
 
 @Injectable({ providedIn: 'root' })
-export class AuthenticationService extends RestDataSource {
+export class AuthenticationService extends GenericService {
     private currentUserSubject: BehaviorSubject<User>;
     public currentUser: Observable<User>;
     private currentRestError: BehaviorSubject<any>;

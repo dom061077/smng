@@ -1,0 +1,51 @@
+<div class="ui-grid ui-grid-responsive ui-grid-pad ui-fluid" style="margin: 10px 0px">        
+<p-panel header="Listado de Usuarios">
+<p-dataView  #dataView [value]="objects" [paginator]="true" [rows]="10"
+    [lazy]="true"  (onLazyLoad)="loadData($event)" paginatorPosition="both"
+     [totalRecords]="totalLazyObjectLength">
+    <p-header>
+        <div class="ui-helper-clearfix">
+            <div class="ui-g">
+                <div class="ui-g-12 ui-md-4" style="display: inline-flex">
+                    <p-dropdown [options]="sortOptions" [(ngModel)]="sortKey" placeholder="Ordenar Por" (onChange)="onSortChange($event)" [style]="{'min-width':'140px'}"></p-dropdown>
+                    <div style="position:relative"><p-toggleButton  onIcon="fa fa-sort-desc"
+                            (onChange)="onSortChange($event)"
+                            offIcon="fa fa-sort-asc" onLabel="" ofLabel=""  
+                            [(ngModel)]="ascSort"></p-toggleButton></div>
+                </div>
+                
+                    
+                
+                <div class="ui-g-6 ui-md-4 filter-container">
+                    <div style="position:relative">
+                        <input type="text"  [formControl]="searchControl"  placeholder="Filtrar por " />
+                        
+                    </div>
+                </div>
+                <div class="ui-g-6 ui-md-4" style="text-align:right">
+                    <p-dataViewLayoutOptions></p-dataViewLayoutOptions>
+                </div>
+            </div>
+        </div>
+    </p-header>
+    <p-footer>Seleccione uno de la lista.</p-footer>
+    <ng-template let-object pTemplate="listItem">
+        <div class="ui-g-12">
+            <detail-object></detail-object>
+            <!--div class="item-details">
+                <div>
+                <div class="ui-g">
+                    <div class="ui-g-12">Id: <b><a [routerLink]="['/user','edit',usuario?.id]" >{{usuario?.id}}</a></b></div>
+                    <div class="ui-g-12">Nombre de Usuario: <b>{{usuario.username}}</b></div>
+                    <div class="ui-g-12">Apellido: <b>{{usuario.apellido}}</b></div>
+                    <div class="ui-g-12">Nombre: <b>{{usuario.nombre}}</b></div>
+                    <div class="ui-g-12">Cambiar password:<a [routerLink]="['/changepass','edit',usuario?.id]"> <i class="fa fa-key"></i></a></div>
+                </div>    
+                </div>
+            </div-->
+        </div>
+    </ng-template>
+
+</p-dataView>
+</p-panel>
+</div>

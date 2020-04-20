@@ -76,7 +76,7 @@ export class AlumnoNew implements OnInit {
         constanciaCuilTutor:[false,[]],
         fechaNacimientoUnbinding:['',[Validators.required]]
 
-    },{validator:this.provinceEntryRequired}
+    }//,{validator:this.provinceEntryRequired}
     );
   
     console.log('Provincia: '+this.alumnoForm.get('provincia').value);
@@ -167,6 +167,7 @@ export class AlumnoNew implements OnInit {
           const formattedDate = new Date(this.datepipe.transform(fNacZ));
           this.alumnoForm.controls['fechaNacimientoUnbinding'].setValue(formattedDate);
         }
+        this.alumnoForm.controls["provincia"].setValue(data.localidad.provincia);
         this.alumnoForm.patchValue(data) ;        
         console.log('Id: '+this.alumnoForm.controls['id'].value);
         console.log('Fecha nacimiento: '+data.fechaNacimiento);
@@ -179,7 +180,7 @@ export class AlumnoNew implements OnInit {
 
     if(this.activeRoute.snapshot.params["mode"]==CrudCodes.EDIT){
         this.alumnoService.updateAlumno(valuesForm).subscribe(data=>{
-            console.log('Data: '+data);
+            console.log('Data Edit: '+data);
             if(data.success){
               this.messageService.add({severity:'info',summary:'Mensaje',detail:'Los datos fueron modificados correctamente'});
               this.router.navigateByUrl("/listalumno");
@@ -189,7 +190,7 @@ export class AlumnoNew implements OnInit {
     }else{
 
         this.alumnoService.saveAlumno(valuesForm).subscribe(data=>{
-            console.log("Resultado: "+data);   
+            console.log("Resultado INS: "+data);   
             if(data){
               this.messageService.add({severity:'info',summary:'Mensaje',detail:'Los datos fueron registrados correctamente'});
               this.router.navigateByUrl("/listalumno");

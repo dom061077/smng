@@ -24,6 +24,8 @@ import { map } from 'rxjs/operators';
 import {MessageService} from 'primeng/api';
 import {Validators,ValidationErrors,ValidatorFn,AbstractControl,FormControl,FormGroup,FormBuilder} from '@angular/forms';
 import { HttpClient, HttpHeaders } from "@angular/common/http";
+import { AlumnoList } from "./alumno.list.component";
+
 
 
 //import { BrowserDynamicTestingModule, platformBrowserDynamicTesting } from '@angular/platform-browser-dynamic/testing';
@@ -54,13 +56,13 @@ let mockAlumnoData = {
    "fichaInscripcion":false,
    "planSocial":false,
    "localidad":{
-      "id":1,
+      "id":10,
       "provincia":{
-         "id":3,
-         "nombre":"TUCUMAN"
+         "id":2,
+         "nombre":"CATAMARCA"
       },
       "codigoPostal":400,
-      "nombre":"SAN MIGUEL DE TUCUMAN"
+      "nombre":"SAN FERNANDO DEL VALLE DE CATAMARCA"
    },
    "telefono2":"6666-6666666",
    "nombre":"Rafael",
@@ -83,6 +85,12 @@ let mockLocalidadedData = [{id:1,nombre:'San Ferando del valle de Catamarca'}
 const provinceFilter={id:2,nombre:'Catamarca'};
 
 class MockAlumnoService  {
+
+  updateAlumno(form){
+      console.log('Update method on MockAlumnoService');
+      return of({success:true}).pipe(map(data=>{return data}));
+  }
+
   getAlumno(id:number) {
     return of(mockAlumnoData).toPromise();
   }
@@ -153,14 +161,23 @@ describe('AlamnoNew, Alumno',()=>{
             imports: [HttpClientTestingModule
                 ,FormsModule,ReactiveFormsModule,AutoCompleteModule
                 ,BrowserAnimationsModule
-                ,RouterTestingModule
+                ,RouterTestingModule.withRoutes([
+                        {   path:"alumno/:mode/:id",component: AlumnoNew
+                            //,canActivate:[RoleGuard]
+                            ,data:{role:'ROLE_USER'}
+                        },
+                        
+                        {path:"alumno",component:AlumnoNew},
+                        
+                        {path:"listalumno",component: AlumnoList}
+                    ])
                 ,CalendarModule
                 ,InputMaskModule
                 
                 ,KeyFilterModule,CheckboxModule,CommonModule
                 ,PanelModule
                 ],
-            declarations:[AlumnoNew],    
+            declarations:[AlumnoNew,AlumnoList],    
             providers: [ DatePipe,MessageService
                     ,FormBuilder
                     ,{
@@ -177,9 +194,6 @@ describe('AlamnoNew, Alumno',()=>{
 
     });     
 
-    it('',()=>{
-
-    });
 
 
     it('should create with INS Mode and NOT call assignFormValues',()=>{
@@ -374,19 +388,50 @@ describe('AlamnoNew, Alumno',()=>{
         expect(component.alumnoForm.get('cuil').errors.required).toBeTruthy();
         component.alumnoForm.get('dniTutor').setValue('');
         expect(component.alumnoForm.get('dniTutor').errors.required).toBeTruthy();
-        
-        /*component.alumnoForm.get('dniTutor').setValue('26');
-        dniTutorEl.dispatchEvent(new Event('keydown'));
-        dniTutorEl.dispatchEvent(new Event('input'));
-        dniTutorEl.dispatchEvent(new Event('keyup'));
-        tick(300);
-        dniTutorEl.dispatchEvent(new Event('keydown'));
-        dniTutorEl.dispatchEvent(new Event('input'));
-        dniTutorEl.dispatchEvent(new Event('keyup'));        
-        expect(component.alumnoForm.get('dniTutor').errors.required).toBeTruthy();
-        */
+        component.alumnoForm.get('provincia').setValue(null);
+        expect(component.alumnoForm.get('provincia').errors.required).toBeTruthy();
+        component.alumnoForm.get('localidad').setValue(null);
+        expect(component.alumnoForm.get('localidad').errors.required).toBeTruthy();
+        expect(component.alumnoForm.get('apellidoTutor').errors.required).toBeTruthy();
+        expect(component.alumnoForm.get('nombreTutor').errors.required).toBeTruthy();
+        expect(component.alumnoForm.get('telefono1').errors.required).toBeTruthy();
 
-}));
+    }));
+
+    it('should call onSubmit method',fakeAsync(()=>{
+        TestBed.overrideProvider( ActivatedRoute, 
+            {useValue: {snapshot: {params: {id: 1,mode:CrudCodes.EDIT}}}});
+        TestBed.compileComponents();
+        
+        fixture = TestBed.createComponent(AlumnoNew);
+        component = fixture.debugElement.componentInstance; // The component instantiation 
+        element = fixture.nativeElement; // The HTML reference
+        spyOn(component.alumnoService,'updateAlumno').and.callThrough();
+        fixture.detectChanges();
+
+        expect(component).toBeTruthy();
+        
+        
+        const buttonSubmit = fixture.debugElement.query(By.css('#buttonConfirmId')).nativeElement;
+        console.log('alumnoForm: ');
+        console.log(component.alumnoForm);
+        
+
+        expect(buttonSubmit).toBeTruthy();
+
+        
+        
+
+        tick(300);
+        
+        console.log('Despues del click');
+        fixture.detectChanges();
+        buttonSubmit.click();
+        expect(component.alumnoForm.valid).toBeTruthy();
+        expect(component.alumnoService.updateAlumno).toHaveBeenCalled();
+
+    }));
+
 
 });
 
