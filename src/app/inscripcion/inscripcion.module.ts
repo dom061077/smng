@@ -14,16 +14,20 @@ import {AutoCompleteModule} from 'primeng/autocomplete';
 import {CheckboxModule} from 'primeng/checkbox';
 import {CalendarModule} from 'primeng/calendar';
 import {ProgressSpinnerModule} from 'primeng/progressspinner';
+import {DataViewModule} from 'primeng/dataview';
+import {DropdownModule} from 'primeng/dropdown';
+import {ToggleButtonModule} from 'primeng/togglebutton';
 
 
 import { InscripcionNew } from './inscripcion.new.component';
+import { InscripcionList } from './inscripcion.list.component';
 import { InscripcionService } from './inscripcion.service';
 
 let routing=RouterModule.forChild([
  
-    {path:"inscripcion",component:InscripcionNew}//,
+    {path:"inscripcion",component:InscripcionNew},
     
-    //{path:"listalumno",component: AlumnoList}
+    {path:"listinsc",component: InscripcionList}
 ]);
 
 @NgModule({
@@ -36,12 +40,15 @@ let routing=RouterModule.forChild([
         ,CalendarModule
         ,BrowserAnimationsModule
         ,ProgressSpinnerModule
+        ,DataViewModule
+        ,DropdownModule
+        ,ToggleButtonModule
 
     ],
     providers: [
         InscripcionService
     ],
-    declarations: [InscripcionNew]
+    declarations: [InscripcionNew,InscripcionList]
 })
 
 export class InscripcionModule{

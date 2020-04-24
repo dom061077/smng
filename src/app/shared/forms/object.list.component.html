@@ -29,23 +29,25 @@
         </div>
     </p-header>
     <p-footer>Seleccione uno de la lista.</p-footer>
-    <ng-template let-object pTemplate="listItem">
+    <ng-template let-objeto pTemplate="listItem">
         <div class="ui-g-12">
-            <detail-object></detail-object>
-            <!--div class="item-details">
+            <div class="item-details">
                 <div>
                 <div class="ui-g">
-                    <div class="ui-g-12">Id: <b><a [routerLink]="['/user','edit',usuario?.id]" >{{usuario?.id}}</a></b></div>
-                    <div class="ui-g-12">Nombre de Usuario: <b>{{usuario.username}}</b></div>
-                    <div class="ui-g-12">Apellido: <b>{{usuario.apellido}}</b></div>
-                    <div class="ui-g-12">Nombre: <b>{{usuario.nombre}}</b></div>
-                    <div class="ui-g-12">Cambiar password:<a [routerLink]="['/changepass','edit',usuario?.id]"> <i class="fa fa-key"></i></a></div>
+                    <div class="ui-g-12">Id: <b><a [routerLink]="['/user','edit',objeto?.id]" >{{objeto?.id}}</a></b></div>
+                    <div class="ui-g-12">Nombre de Usuario: <b>{{objeto.username}}</b></div>
+                    <div class="ui-g-12">Apellido: <b>{{objeto.apellido}}</b></div>
+                    <div class="ui-g-12">Nombre: <b>{{objeto.nombre}}</b></div>
+                    <div class="ui-g-12">Cambiar password:<a [routerLink]="['/changepass','edit',objeto?.id]"> <i class="fa fa-key"></i></a></div>
                 </div>    
                 </div>
-            </div-->
+            </div>           
         </div>
     </ng-template>
 
 </p-dataView>
 </p-panel>
+
+    
+
 </div>

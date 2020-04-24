@@ -1,9 +1,9 @@
 <div class="ui-grid ui-grid-responsive ui-grid-pad ui-fluid" style="margin: 10px 0px">        
 
-<p-panel header="Listado de Usuarios">
-<p-dataView  #dataView [value]="usuarios" [paginator]="true" [rows]="10"
+<p-panel header="Listado de Inscripciones">
+<p-dataView  #dataView [value]="inscripciones" [paginator]="true" [rows]="10"
     [lazy]="true"  (onLazyLoad)="loadData($event)" paginatorPosition="both"
-     [totalRecords]="totalLazyUsuariosLength">
+     [totalRecords]="totalLazyInscripcionesLength">
     <p-header>
         <div class="ui-helper-clearfix">
             <div class="ui-g">
@@ -23,38 +23,38 @@
                         
                     </div>
                 </div>
-                <div class="ui-g-6 ui-md-4" style="text-align:right">
+                <!--div class="ui-g-6 ui-md-4" style="text-align:right">
                     <p-dataViewLayoutOptions></p-dataViewLayoutOptions>
-                </div>
+                </div-->
             </div>
         </div>
     </p-header>
     <p-footer>Seleccione uno de la lista.</p-footer>
-    <ng-template let-usuario pTemplate="listItem">
+    <ng-template let-insc pTemplate="listItem">
         <div class="ui-g-12">
             <div class="item-details">
                 <div>
                 <div class="ui-g">
-                    <div class="ui-g-12">Id: <b><a [routerLink]="['/user','edit',usuario?.id]" >{{usuario?.id}}</a></b></div>
-                    <div class="ui-g-12">Nombre de Usuario: <b>{{usuario.username}}</b></div>
-                    <div class="ui-g-12">Apellido: <b>{{usuario.apellido}}</b></div>
-                    <div class="ui-g-12">Nombre: <b>{{usuario.nombre}}</b></div>
-                    <div class="ui-g-12">Cambiar password:<a [routerLink]="['/changepass','edit',usuario?.id]"> <i class="fa fa-key"></i></a></div>
+                    <div class="ui-g-12">Id: <b><a [routerLink]="['/user','edit',insc?.id]" >{{insc?.id}}</a></b></div>
+                    
+                    <div class="ui-g-12">Apellido: <b>{{insc.apellido}}</b></div>
+                    <div class="ui-g-12">Nombre: <b>{{insc.nombre}}</b></div>
+                    
                 </div>    
                 </div>
             </div>
         </div>
     </ng-template>
-    <ng-template let-usuario pTemplate="gridItem">
+    <!--ng-template let-insc pTemplate="gridItem">
         <div style="padding:.5em" class="ui-g-12 ui-md-3">
-            <p-panel [header]="usuario.id" [style]="{'text-align':'center'}">
-                <div class="item-detail"><a [routerLink]="['/user','edit',usuario?.id]">{{usuario.id}}</a> - {{usuario.username}}</div>
-                <div class="item-detail">Cambiar password:<a [routerLink]="['/changepass','edit',usuario?.id]"> <i class="fa fa-key"></i></a></div>
+            <p-panel [header]="insc.id" [style]="{'text-align':'center'}">
+                <div class="item-detail"><a [routerLink]="['/user','edit',insc?.id]">{{insc.id}}</a> - {{insc.username}}</div>
+                
                 <hr class="ui-widget-content" style="border-top:0">
-                <!--button pButton type="button" icon="pi pi-search" (click)="selectCar($event, car)" style="margin-top:0"></button -->
+                
             </p-panel>
         </div>
-    </ng-template>
+    </ng-template-->
 </p-dataView>
 </p-panel>
 </div>    

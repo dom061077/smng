@@ -115,6 +115,7 @@ export class InscripcionNew implements OnInit {
         return this.inscripcionService.saveInscripcion(valuesForm).subscribe(data=>{
             if(data){
                 this.messageService.add({severity:'info',summary:'Mensaje',detail:'Los datos fueron registrados correctamente'});
+                this.router.navigateByUrl('/listinsc');
             }else
                 this.messageService.add({severity:'error',summary:'Error',detail:'Error al registrar la información'});
         });

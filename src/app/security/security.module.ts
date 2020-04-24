@@ -18,6 +18,7 @@ import { PerfilNew } from "./perfil.component";
 import { PerfilList } from "./perfil.list.component";
 import { PerfilNgUrl } from "./perfil.ngurl.component";
 import { UsuarioList } from "./usuario.list.component";
+import { UsuarioList2 } from "./usuario.list2.component";
 import { PerfilUsuario } from "./perfil.usuario.component";
 
 import {PanelModule} from 'primeng/panel';
@@ -37,6 +38,7 @@ let routing = RouterModule.forChild([
     {path:"changepass/:mode/:id",component:ChangePasswordComponent},
     {path:"user",component:UsuarioNew},
     {path:"userlist",component:UsuarioList},
+    {path:"userlist2",component:UsuarioList2},
     {path:"user/:mode/:id",component:UsuarioNew},
     {   path:"perfil/:mode/:id",component: PerfilNew
         //,canActivate:[RoleGuard]
@@ -59,6 +61,7 @@ let routing = RouterModule.forChild([
     declarations:[
         LoginComponent,ChangePasswordComponent,UsuarioNew
         ,PerfilNew,PerfilList,PerfilNgUrl,UsuarioList
+        ,UsuarioList2
         ,PerfilUsuario
     ]
 

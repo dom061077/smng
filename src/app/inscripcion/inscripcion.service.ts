@@ -58,7 +58,7 @@ export class InscripcionService extends RestDataSource{
             +filter+"&start="+start+"&limit="+limit+"&sortField="+sortField
                 +"&ascDesc="+ascDesc)
                 .toPromise().then(data=>{
-                    return data.usuarios;
+                    return data.inscripciones;
                     
                 });
     }    

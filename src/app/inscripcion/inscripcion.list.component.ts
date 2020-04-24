@@ -14,10 +14,10 @@ import {SelectItem} from 'primeng/api';
     
 
 })
-export class InscripcionList extends  implements OnInit{ 
+export class InscripcionList   implements OnInit{ 
     inscripciones : Inscripcion[];
     sortOptions:SelectItem[];
-    totalLazyUsuariosLength:number;
+    totalLazyInscripcionesLength:number;
     public searchControl : FormControl;
     private debounce: number = 400;
     ascSort:boolean;//true= orden ascendente, false= orden descendente
@@ -41,8 +41,8 @@ export class InscripcionList extends  implements OnInit{
 
         this.inscService.getCantidadInscripciones("").toPromise().then(data=>{
             
-            this.totalLazyUsuariosLength = data;
-            console.log("Total de registros: "+this.totalLazyUsuariosLength);
+            this.totalLazyInscripcionesLength = data;
+            console.log("Total de registros: "+this.totalLazyInscripcionesLength);
         });          
 
         this.searchControl = new FormControl('');
@@ -56,7 +56,7 @@ export class InscripcionList extends  implements OnInit{
 
             })
             this.inscService.getCantidadInscripciones(this.searchControl.value).toPromise().then(data=>{
-                this.totalLazyUsuariosLength = data;
+                this.totalLazyInscripcionesLength = data;
             });   
         });
      

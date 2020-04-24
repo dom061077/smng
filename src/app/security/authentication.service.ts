@@ -272,6 +272,14 @@ export class AuthenticationService extends GenericService {
 
     }
 
+    public getObjects(restApiStr:string,filter:string
+            ,start:number,limit:number,sortField:string,ascDesc:string){
+        
+       return super.getObjects(restApiStr,filter
+            ,start,limit,sortField,ascDesc).pipe(map((data:any)=>{
+                return data.usuarios;
+            }));
 
+    }
 
 }

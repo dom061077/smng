@@ -44,7 +44,9 @@ export class ObjectListForm implements OnInit{
         .pipe(debounceTime(this.debounce), distinctUntilChanged())
         .subscribe(query=>{
             
-            this.genericService.getObjects(this.apiObjectUrl,this.searchControl.value,0,10,this.sortKey,(this.ascSort?'asc':'desc')).then(data=>{
+            this.genericService.getObjects(this.apiObjectUrl
+                ,this.searchControl.value,0,10,this.sortKey
+                ,(this.ascSort?'asc':'desc')).subscribe(data=>{
                 this.objects = data;
 
 
@@ -61,7 +63,7 @@ export class ObjectListForm implements OnInit{
         console.log('SorKey: '+this.sortKey);
         this.first = event.first;
         this.rows = event.rows;
-        this.genericService.getObjects(this.apiObjectsUrl,"",event.first,event.rows
+        this.genericService.getObjects(this.apiObjectUrl,"",event.first,event.rows
             ,this.sortKey,(this.ascSort?'asc':'desc')).subscribe(data=>{
                 this.objects = data;
             });
@@ -71,7 +73,7 @@ export class ObjectListForm implements OnInit{
     onSortChange(event){
         console.log('Valor del campo seleccionado: '+event.value);
         
-        this.genericService.getObjects(this.apiUrl,this.searchControl.value
+        this.genericService.getObjects(this.apiObjectUrl,this.searchControl.value
             ,this.first,this.rows,this.sortKey,(this.ascSort?'asc':'desc'))
             .subscribe(data=>{
                 this.objects = data;
