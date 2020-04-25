@@ -6,8 +6,8 @@
      [totalRecords]="totalLazyInscripcionesLength">
     <p-header>
         <div class="ui-helper-clearfix">
-            <div class="ui-g">
-                <div class="ui-g-12 ui-md-4" style="display: inline-flex">
+            <div class="ui-grid-row">
+                <div class="ui-grid-col-3" style="display: inline-flex">
                     <p-dropdown [options]="sortOptions" [(ngModel)]="sortKey" placeholder="Ordenar Por" (onChange)="onSortChange($event)" [style]="{'min-width':'140px'}"></p-dropdown>
                     <div style="position:relative"><p-toggleButton  onIcon="fa fa-sort-desc"
                             (onChange)="onSortChange($event)"
@@ -15,11 +15,14 @@
                             [(ngModel)]="ascSort"></p-toggleButton></div>
                 </div>
                 
-                    
+                <div class="ui-grid-col-2" style="display: inline-flex">
+                    <p-dropdown [options]="filterOptions" [(ngModel)]="filterKey" placeholder="Filtrar Por" (onChange)="onSortChange($event)" ></p-dropdown>
+
+                </div>                    
                 
-                <div class="ui-g-6 ui-md-4 filter-container">
+                <div class="ui-grid-col-3">
                     <div style="position:relative">
-                        <input type="text"  [formControl]="searchControl"  placeholder="Filtrar por " />
+                        <input type="text"  [formControl]="searchControl"  placeholder="Filtro" />
                         
                     </div>
                 </div>

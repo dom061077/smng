@@ -17,11 +17,13 @@ import {SelectItem} from 'primeng/api';
 export class InscripcionList   implements OnInit{ 
     inscripciones : Inscripcion[];
     sortOptions:SelectItem[];
+    filterOptions:SelectItem[];
     totalLazyInscripcionesLength:number;
     public searchControl : FormControl;
     private debounce: number = 400;
     ascSort:boolean;//true= orden ascendente, false= orden descendente
     sortKey:string;
+    filterKey:string;
     first:number;
     rows:number;
 
@@ -35,8 +37,14 @@ export class InscripcionList   implements OnInit{
         this.ascSort=true;
         this.sortOptions = [
             {label: 'Apellido y nombre', value: 'apellidonombre'},
-            {label: 'Nombre de Usuario', value: 'username'},
             {label: 'Identificador',value:'id'}
+        ];
+
+        this.filterOptions = [
+            {label:'Apellido',value:'apellido'},
+            {label:'Nombre',value:'nombre'},
+            {label:'D.N.I',value:'dni'},
+            {label:'Fecha Insc.',value:'fechaInsc'}
         ];
 
         this.inscService.getCantidadInscripciones("").toPromise().then(data=>{
