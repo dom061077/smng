@@ -24,14 +24,28 @@
                 </div>                    
                 
                 <div class="ui-grid-col-3">
-                    <div  *ngIf="filterKey!='fecha' && filterKey!='dni'" class="ui-inputgroup">
+                    <div   class="ui-inputgroup">
                         <span class="ui-inputgroup-addon"><i class="fa fa-search" aria-hidden="true"></i></span>
-                        <input type="text" pInputText   [formControl]="searchControl"  placeholder="Filtro" />
+                        <input *ngIf="(filterKey=='apellido' || filterKey=='nombre' || filterKey==null)" 
+                            type="text" pInputText   [formControl]="searchControl"  
+                            placeholder="Ingrese texto" />
+
+                        <p-inputMask *ngIf="filterKey=='dni'" 
+                            placeholder="Ingrese número" 
+                            [formControl]="searchDniControl"  mask="99.999.999">
+                        </p-inputMask>    
+                        
+                        <p-calendar *ngIf="filterKey=='fecha'" [(ngModel)]="fechaFiltro"
+                            [formControl]="searchFechaControl"
+                            [locale]="es"  [monthNavigator]="true" [yearNavigator]="true" 
+                             dateFormat="dd/mm/yy"  
+                            [showIcon]="true">
+                        </p-calendar>    
+                        
                         
                     </div>
-                    <p-inputMask *ngIf="filterKey=='dni'"  [formControl]="searchDni"  mask="99.999.999" ></p-inputMask>
-                    <p-inputMask *ngIf="filterKey=='dni'"  [formControl]="searchFecha"  mask="99.999.999" ></p-inputMask>
-                </div>
+                    
+                </div>            
                 <!--div class="ui-g-6 ui-md-4" style="text-align:right">
                     <p-dataViewLayoutOptions></p-dataViewLayoutOptions>
                 </div-->

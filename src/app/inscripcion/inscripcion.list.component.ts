@@ -5,6 +5,8 @@ import { FormControl } from '@angular/forms';
 import { debounceTime,distinctUntilChanged } from 'rxjs/operators';
 
 
+
+
 import {SelectItem} from 'primeng/api';
 
 @Component({
@@ -19,22 +21,37 @@ export class InscripcionList   implements OnInit{
     sortOptions:SelectItem[];
     filterOptions:SelectItem[];
     totalLazyInscripcionesLength:number;
-    public searchControl : FormControl;
-    public searchFechaControl : FormControl;
+    searchControl : FormControl;
+    searchFechaControl : FormControl;
+    searchDniControl : FormControl;
     private debounce: number = 400;
     ascSort:boolean;//true= orden ascendente, false= orden descendente
     sortKey:string;
     filterKey:string;
     first:number;
     rows:number;
+    es:any;
+    fechaFiltro:Date=new Date();
 
     
 
-    constructor(private inscService:InscripcionService){
+    constructor(private inscService:InscripcionService ){
 
     }
 
     ngOnInit(){
+        this.es = {
+            firstDayOfWeek: 0,
+            dayNames: ["Domingo", "Lunes", "Martes", "Miércoles", "Jueves", "Viernes", "Sábado"],
+            dayNamesShort: ["Dom", "Lun", "Mar", "Mie", "Jue", "Vie", "Sab"],
+            dayNamesMin: ["Do","Lu","Ma","Mi","Ju","Vi","Sa"],
+            monthNames: [ "Enero","Febrero","Marzo","Abril","Mayo","Junio","Julio","Agosto","Septiembre","Octubre","Noviembre","Diciembre" ],
+            monthNamesShort: [ "Ene", "Feb", "Mar", "Abr", "May", "Jun","Jul", "Ago", "Sep", "Oct", "Nov", "Dic" ],
+            today: 'Hoy',
+            clear: 'Limpiar',
+            dateFormat: 'dd/mm/yy',
+            weekHeader: 'Semana'
+        };          
         this.ascSort=true;
         this.sortOptions = [
             {label: 'Apellido y nombre', value: 'apellidonombre'},
@@ -54,21 +71,25 @@ export class InscripcionList   implements OnInit{
             console.log("Total de registros: "+this.totalLazyInscripcionesLength);
         });          
 
+        this.searchDniControl = new FormControl('');
+        
+
         this.searchFechaControl = new FormControl('');
+        
         this.searchFechaControl.valueChanges
         .pipe(debounceTime(this.debounce), distinctUntilChanged())
-        .subscribe(query=>{
+        .subscribe((query:any)=>{
             this.inscService.getInscripciones(this.filterKey
-                    ,this.searchFechaControl.value,0,10
+                    ,query.toJSON(),0,10
                     ,this.sortKey,(this.ascSort?'asc':'desc')).then(data=>{
                 this.inscripciones = data;
 
 
             })
             this.inscService.getCantidadInscripciones(this.filterKey
-                    ,this.searchControl.value).toPromise().then(data=>{
+                    ,query.toJSON()).toPromise().then(data=>{
                 this.totalLazyInscripcionesLength = data;
-            });   
+            });  
 
         });
 
