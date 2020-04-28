@@ -39,6 +39,26 @@ export class InscripcionList   implements OnInit{
 
     }
 
+    private filtrar(query){
+            let qJson;
+            if (query && query instanceof Object)
+                qJson=query.toJSON();
+            else
+                qJson=query.split('.').join('').split('_').join('');
+            this.inscService.getInscripciones(this.filterKey
+                    ,qJson,0,10
+                    ,this.sortKey,(this.ascSort?'asc':'desc')).then(data=>{
+                this.inscripciones = data;
+
+
+            })
+            this.inscService.getCantidadInscripciones(this.filterKey
+                    ,qJson).toPromise().then(data=>{
+                this.totalLazyInscripcionesLength = data;
+            });  
+
+    }
+
     ngOnInit(){
         this.es = {
             firstDayOfWeek: 0,
@@ -72,24 +92,18 @@ export class InscripcionList   implements OnInit{
         });          
 
         this.searchDniControl = new FormControl('');
-        
+        this.searchDniControl.valueChanges
+            .pipe(debounceTime(this.debounce),distinctUntilChanged())
+            .subscribe((query:any)=>{
+                this.filtrar(query);
+            });
 
         this.searchFechaControl = new FormControl('');
         
         this.searchFechaControl.valueChanges
         .pipe(debounceTime(this.debounce), distinctUntilChanged())
         .subscribe((query:any)=>{
-            this.inscService.getInscripciones(this.filterKey
-                    ,query.toJSON(),0,10
-                    ,this.sortKey,(this.ascSort?'asc':'desc')).then(data=>{
-                this.inscripciones = data;
-
-
-            })
-            this.inscService.getCantidadInscripciones(this.filterKey
-                    ,query.toJSON()).toPromise().then(data=>{
-                this.totalLazyInscripcionesLength = data;
-            });  
+            this.filtrar(query);
 
         });
 
@@ -97,18 +111,7 @@ export class InscripcionList   implements OnInit{
         this.searchControl.valueChanges
         .pipe(debounceTime(this.debounce), distinctUntilChanged())
         .subscribe(query=>{
-            
-            this.inscService.getInscripciones(this.filterKey
-                    ,this.searchControl.value,0,10
-                    ,this.sortKey,(this.ascSort?'asc':'desc')).then(data=>{
-                this.inscripciones = data;
-
-
-            })
-            this.inscService.getCantidadInscripciones(this.filterKey
-                    ,this.searchControl.value).toPromise().then(data=>{
-                this.totalLazyInscripcionesLength = data;
-            });   
+            this.filtrar(query);
         });
 
 
@@ -140,7 +143,10 @@ export class InscripcionList   implements OnInit{
     }
 
     onFilterChange(event){
-        console.log('Valor del campo seleccionado: '+event.value);
+        this.filtrar('');
+        this.searchControl.setValue('');
+        this.searchDniControl.setValue('');
+        this.searchFechaControl.setValue('');
     }
 
 

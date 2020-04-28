@@ -35,7 +35,7 @@
                             [formControl]="searchDniControl"  mask="99.999.999">
                         </p-inputMask>    
                         
-                        <p-calendar *ngIf="filterKey=='fecha'" [(ngModel)]="fechaFiltro"
+                        <p-calendar *ngIf="filterKey=='fecha'" 
                             [formControl]="searchFechaControl"
                             [locale]="es"  [monthNavigator]="true" [yearNavigator]="true" 
                              dateFormat="dd/mm/yy"  
