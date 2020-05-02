@@ -1,4 +1,4 @@
-import { Component,OnInit } from '@angular/core';
+import { Component,OnInit,ViewChild,ElementRef} from '@angular/core';
 import { Inscripcion } from './inscripcion.model';
 import { InscripcionService } from './inscripcion.service';
 import { FormControl } from '@angular/forms';
@@ -17,6 +17,9 @@ import {SelectItem} from 'primeng/api';
 
 })
 export class InscripcionList   implements OnInit{ 
+    @ViewChild('printInsc') printId: ElementRef;
+
+
     inscripciones : Inscripcion[];
     sortOptions:SelectItem[];
     filterOptions:SelectItem[];
@@ -126,6 +129,7 @@ export class InscripcionList   implements OnInit{
         this.inscService.getInscripciones("","",event.first,event.rows,this.sortKey,(this.ascSort?'asc':'desc'))
             .then(data=>{
                 this.inscripciones = data;
+                this.print();
             });
     }
     
@@ -149,5 +153,14 @@ export class InscripcionList   implements OnInit{
         this.searchFechaControl.setValue('');
     }
 
+    private print(){
+        const linkSource = 'data:application/pdf;base64,' + ' JVBERi0xLjQKJeLjz9MKMyAwIG9iago8PC9Db2xvclNwYWNlL0';
+        //const downloadLink = document.createElement("a");
+        const fileName = "sample.pdf";
+        //console.log('Print Id:'+this.printId);
+        this.printId.nativeElement.href = linkSource;
+        this.printId.nativeElement.download = fileName;
+        //this.printId.nativeElement.click();        
+    }
 
 }
