@@ -31,9 +31,9 @@ export class InscripcionService extends RestDataSource{
             }));
     }
 
-    getDivisiones(cursoId:number,turnoId:number){
+    getDivisiones(cursoId:number){
         return this.sendRequest<any>("GET",this.url+"/getdivisiones?cursoId="
-            +cursoId+"&turnoId="+turnoId)
+            +cursoId)
             .pipe(map(data=>{
                 return data.divisiones;
             }));
@@ -63,6 +63,25 @@ export class InscripcionService extends RestDataSource{
                     return data.inscripciones;
                     
                 });
-    }    
+    } 
+
+    getReporte(filterField:string, filter:string
+            ,sortField:string,ascDesc:string){
+        return this.sendRequest<any>("GET",this.url+"/reporteinsc?filterField="
+            +filterField+"&filter="+filter+"&start="
+            +"&sortField="+sortField
+                +"&ascDesc="+ascDesc        
+        )
+            .pipe(map(data=>{
+                return data.report;
+            }));
+    }   
+
+    getInscripcion(id:number){
+        return this.sendRequest<any>("GET",this.url+"/getinsc/"+id)
+            .pipe(map(data=>{
+                return data
+            }));
+    }
 
 }

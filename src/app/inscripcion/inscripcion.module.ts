@@ -22,12 +22,14 @@ import {ToggleButtonModule} from 'primeng/togglebutton';
 import { InscripcionNew } from './inscripcion.new.component';
 import { InscripcionList } from './inscripcion.list.component';
 import { InscripcionService } from './inscripcion.service';
+import { InscripcionView } from './inscripcion.view.component';
 
 let routing=RouterModule.forChild([
  
     {path:"inscripcion",component:InscripcionNew},
     
-    {path:"listinsc",component: InscripcionList}
+    {path:"listinsc",component: InscripcionList},
+    {path:"viewinsc/:id",component: InscripcionView}
 ]);
 
 @NgModule({
@@ -48,7 +50,7 @@ let routing=RouterModule.forChild([
     providers: [
         InscripcionService
     ],
-    declarations: [InscripcionNew,InscripcionList]
+    declarations: [InscripcionNew,InscripcionList,InscripcionView]
 })
 
 export class InscripcionModule{

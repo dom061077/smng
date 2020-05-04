@@ -106,7 +106,7 @@ export class InscripcionNew implements OnInit {
     }
 
     filterDivisiones(event){
-        this.inscripcionService.getDivisiones(this.inscripcionForm.get("curso").value.id,this.inscripcionForm.get("turno").value.id).subscribe(data=>{
+        this.inscripcionService.getDivisiones(this.inscripcionForm.get("curso").value.id).subscribe(data=>{
             this.filteredDivisiones = data;
         });
     }

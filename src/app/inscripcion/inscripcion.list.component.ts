@@ -31,6 +31,7 @@ export class InscripcionList   implements OnInit{
     ascSort:boolean;//true= orden ascendente, false= orden descendente
     sortKey:string;
     filterKey:string;
+    selfFilter:string;
     first:number;
     rows:number;
     es:any;
@@ -48,13 +49,9 @@ export class InscripcionList   implements OnInit{
                 qJson=query.toJSON();
             else
                 qJson=query.split('.').join('').split('_').join('');
-            this.inscService.getInscripciones(this.filterKey
-                    ,qJson,0,10
-                    ,this.sortKey,(this.ascSort?'asc':'desc')).then(data=>{
-                this.inscripciones = data;
+            this.selfFilter=qJson //sirve para lazyLoad de la grilla
+            this.cargarListInsc(this.filterKey,qJson,0,10,this.sortKey,(this.ascSort?'asc':'desc'));    
 
-
-            })
             this.inscService.getCantidadInscripciones(this.filterKey
                     ,qJson).toPromise().then(data=>{
                 this.totalLazyInscripcionesLength = data;
@@ -123,14 +120,11 @@ export class InscripcionList   implements OnInit{
     }
 
     loadData(event){
-        console.log('SorKey: '+this.sortKey);
+        console.log('Evento loadData ');
         this.first = event.first;
         this.rows = event.rows;
-        this.inscService.getInscripciones("","",event.first,event.rows,this.sortKey,(this.ascSort?'asc':'desc'))
-            .then(data=>{
-                this.inscripciones = data;
-                this.print();
-            });
+        this.cargarListInsc(this.filterKey, this.selfFilter,event.first,event.rows,this.sortKey,(this.ascSort?'asc':'desc'));
+
     }
     
     selectPerfil(event){
@@ -154,13 +148,42 @@ export class InscripcionList   implements OnInit{
     }
 
     private print(){
-        const linkSource = 'data:application/pdf;base64,' + ' JVBERi0xLjQKJeLjz9MKMyAwIG9iago8PC9Db2xvclNwYWNlL0';
-        //const downloadLink = document.createElement("a");
+        const linkSource = 'data:application/pdf;base64,' + 'JVBERi0xLjQKJeLjz9MKMyAwIG9iago8PC9Db2xvclNwYWNlL0';
+        const downloadLink = document.createElement("a");
         const fileName = "sample.pdf";
         //console.log('Print Id:'+this.printId);
         this.printId.nativeElement.href = linkSource;
         this.printId.nativeElement.download = fileName;
-        //this.printId.nativeElement.click();        
+        //this.printId.nativeElement.target='_blank';
+        //this.printId.nativeElement.click();    
+        
+    }
+
+    onPrintClick(){
+        window.open('data:application/pdf;' 
+            +'JVBERi0xLjQKJeLjz9MKMyAwIG9iago8PC9Db2xvclNwYWNlL0');            
+        return false;
+    }
+
+    private cargarListInsc(filterField:string, filter:string,start:number,limit:number,sortField:string,ascDesc:string){
+        this.inscService.getInscripciones(filterField,filter,start,limit
+                ,this.sortKey,(this.ascSort?'asc':'desc'))
+            .then(data=>{
+                this.inscripciones = data;
+                this.inscService.getReporte(filterField
+                    ,filter,this.sortKey,(this.ascSort?'asc':'desc'))
+                .subscribe(data=>{
+                    const linkSource = 'data:application/pdf;base64,' +data;
+                    const downloadLink = document.createElement("a");
+                    const fileName = "sample.pdf";
+                    //console.log('Print Id:'+this.printId);
+                    this.printId.nativeElement.href = linkSource;
+                    this.printId.nativeElement.download = fileName;
+                    //this.printId.nativeElement.target='_blank';
+                    //this.printId.nativeElement.click();                        
+                });
+            });
+        
     }
 
 }
