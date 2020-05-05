@@ -16,6 +16,7 @@ export class InscripcionView implements OnInit {
     }
 
     ngOnInit(){
+        console.log('OnInit');
         this.inscService.getInscripcion(1).subscribe(data=>{
             this.insc = data;
 
