@@ -30,8 +30,10 @@
               "node_modules/primeng/resources/primeng.min.css",
               "node_modules/font-awesome/css/font-awesome.css"
             ],
-            "scripts": ["node_modules/jquery/dist/jquery.min.js",
-              "node_modules/bootstrap/dist/js/bootstrap.min.js"],
+            "scripts": [
+              "node_modules/jquery/dist/jquery.min.js",
+              "node_modules/bootstrap/dist/js/bootstrap.min.js"
+            ],
             "es5BrowserSupport": true
           },
           "configurations": {
@@ -139,5 +141,8 @@
       }
     }
   },
-  "defaultProject": "smng"
+  "defaultProject": "smng",
+  "cli": {
+    "analytics": false
+  }
 }

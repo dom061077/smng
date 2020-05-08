@@ -17,6 +17,9 @@ import {ProgressSpinnerModule} from 'primeng/progressspinner';
 import {DataViewModule} from 'primeng/dataview';
 import {DropdownModule} from 'primeng/dropdown';
 import {ToggleButtonModule} from 'primeng/togglebutton';
+import {ConfirmDialogModule} from 'primeng/confirmdialog';
+import {ConfirmationService} from 'primeng/api';
+
 
 
 import { InscripcionNew } from './inscripcion.new.component';
@@ -45,10 +48,12 @@ let routing=RouterModule.forChild([
         ,DataViewModule
         ,DropdownModule
         ,ToggleButtonModule
+        ,ConfirmDialogModule
+
 
     ],
     providers: [
-        InscripcionService
+        InscripcionService,ConfirmationService
     ],
     declarations: [InscripcionNew,InscripcionList,InscripcionView]
 })
