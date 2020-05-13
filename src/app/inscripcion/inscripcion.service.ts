@@ -84,4 +84,9 @@ export class InscripcionService extends RestDataSource{
             }));
     }
 
+    invalidate(id:number){
+        return this.sendRequest<any>("PUT",
+            this.url+"/anular/"+id,{id:id});
+    }
+
 }

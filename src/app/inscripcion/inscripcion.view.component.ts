@@ -34,14 +34,21 @@ export class InscripcionView implements OnInit {
     onClickAnular(){
         console.log('Click anular');
         this.confirmationService.confirm({
-            message: 'Are you sure that you want to proceed?',
-            header: 'Confirmation',
-            icon: 'pi pi-exclamation-triangle',
+            message: '¿Está seguro que quiere anular esta inscripción?',
+            header: 'Confirmación',
+            icon: 'fa fa-question-circle-o',
             accept: () => {
-                this.messageService.add({severity:'info',summary:'Mensaje',detail:'La inscripción fue anulada correctamente'});
+                this.inscService.invalidate(this.insc.id)
+                    .subscribe(data=>{
+                        if(data.success)
+                            this.messageService.add({severity:'info'
+                                ,summary:'Mensaje'
+                                ,detail:'La inscripción fue anulada correctamente'});                        
+                    });
+                
             },
             reject: () => {
-                this.messageService.add({severity:'info',summary:'Mensaje',detail:'Los datos fueron registrados correctamente'});
+                //this.messageService.add({severity:'info',summary:'Mensaje',detail:'Los datos fueron registrados correctamente'});
             },
              key: "positionDialog"
         });        

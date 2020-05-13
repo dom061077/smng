@@ -20,6 +20,7 @@ export class AlumnoNew implements OnInit {
   filteredProvinces:any[]  ;
   filteredLocalidades:any[];
   filteredParentesco:any[];
+  estudioPrimarioTutor:[];
   //KeyFilter.DEFAULT_MASKS['currencyRegex'] =  /^-?(?:0|[1-9]\d{0,2}(?:,?\d{3})*)(?:\.\d+)?$/;
   noSpecial: RegExp = /^[^<>1234567890!"#%&/$()=?¡[._*{}!]+$/;
   es: any;
@@ -57,6 +58,7 @@ export class AlumnoNew implements OnInit {
         nombreTutor: ['',[Validators.required]],
         cuilTutor: ['',[Validators.required]],
         parentescoTutor: ['',[Validators.required]],
+        estudioPrimarioTutor:['',[Validators.required]],
         telefono1:['',[Validators.required]],
         telefono2:['',[]],
         fotoDni:[false,[]],

@@ -276,6 +276,28 @@
                                 </div>
                             </div>
                     </div>                      
+
+                    <div class="ui-grid ui-grid-responsive ui-grid-pad ui-fluid" style="margin: 10px 0px">
+                            <div class="ui-grid-row">
+                                <div class="ui-grid-col-2">
+                                    Estudio Primario *:
+                                </div>
+                            </div>
+                            <div class="ui-grid-row">    
+                                <div class="ui-grid-col-4">
+                                <p-autoComplete formControlName="estudioPrimarioTutor" [suggestions]="filteredEstudioPrimerio" 
+                                      [size]="30"
+                                    [minLength]="1" [dropdown]="true"></p-autoComplete>
+
+                                </div>
+                                <div class="ui-grid-col-4">
+                                    <p-message severity="error" text="Ingrese estudio primario del Tutor" 
+                                        *ngIf="alumnoForm.get('estudioPrimarioTutor').dirty && alumnoForm.get('estudioPrimarioTutor').errors && alumnoForm.get('estudioPrimarioTutor').errors.required"></p-message>
+                                </div>
+                            </div>
+
+
+                    </div>        
     
                     <div class="ui-grid ui-grid-responsive ui-grid-pad ui-fluid" style="margin: 10px 0px">
                             <div class="ui-grid-row">
