@@ -29,8 +29,42 @@
                         {{apellido}} - {{nombre}}
                     </div>    
                 </div>    
+
+
+
+
+
+
+
    
                 <div *ngIf="!inscripcionForm.get('alumnoId').errors">
+
+                <div class="ui-grid ui-grid-responsive ui-grid-pad ui-fluid" style="margin: 10px 0px">
+                    <div class="ui-grid-row">
+                        <div class="ui-grid-col-2">
+                            Escuela de la que Proviene:
+                        </div>
+                    </div>
+                    <div class="ui-grid-row">    
+                        <div class="ui-grid-col-3">
+                                <p-autoComplete formControlName="escuelaProviene" [suggestions]="filteredEscuelas" 
+                                    (completeMethod)="filterEscuelas($event)" field="descripcion" [size]="30"
+                                    
+                                    [minLength]="1" [dropdown]="true"></p-autoComplete>
+                        </div>
+                       
+                        <div class="ui-grid-col-4">
+                            <p-message severity="error" text="Ingrese un D.N.I válido" 
+                                *ngIf="inscripcionForm.get('escuelaProviene').dirty && inscripcionForm.get('escuelaProviene').errors?.required"></p-message>
+                        </div>
+ 
+                    </div>
+ 
+                </div>    
+
+
+
+
                         <div class="ui-grid ui-grid-responsive ui-grid-pad ui-fluid" style="margin: 10px 0px">
                             <div class="ui-grid-row">
                                 <div class="ui-grid-col-3">

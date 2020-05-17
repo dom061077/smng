@@ -40,10 +40,12 @@ export class InscripcionView implements OnInit {
             accept: () => {
                 this.inscService.invalidate(this.insc.id)
                     .subscribe(data=>{
-                        if(data.success)
+                        if(data.success){
                             this.messageService.add({severity:'info'
                                 ,summary:'Mensaje'
                                 ,detail:'La inscripción fue anulada correctamente'});                        
+                            this.router.navigateByUrl('/listinsc');    
+                        }
                     });
                 
             },

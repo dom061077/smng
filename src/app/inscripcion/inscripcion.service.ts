@@ -10,6 +10,13 @@ export class InscripcionService extends RestDataSource{
         super(http,url);
     }
 
+    getEscuelas(){
+        return this.sendRequest<any>("GET",this.url+"/getescuelas")
+            .pipe(map(data=>{
+                return data.escuelas;
+            }));
+    }
+
     getPeriodos(){
         return this.sendRequest<any>("GET",this.url+"/getperiodos")
             .pipe(map(data=>{

@@ -47,17 +47,26 @@ export class CustomValidators {
                 
       }
   }*/
-  static validateDniAlumno$(control: AbstractControl,alumnoService:AlumnoService)
+  static validateDniAlumno$(control: AbstractControl
+      ,alumnoService:AlumnoService,validaExiste:boolean)
       : Observable<ValidationErrors | null>{
         if(control)
           return alumnoService.getAlumnoByDni(control.value).pipe(map(
               response=>{
-               
-                if(!response){
-                  return {dniExist:'El D.N.I no existe'};
-                  
+                if(validaExiste){
+                    if(!response){
+                      return {dniExist:'El D.N.I no existe'};
+                      
+                    }else{
+                      return null;
+                    }
                 }else{
-                  return null;
+                    if(response){
+                      return {dniExist:'El D.N.I ya existe'};
+                      
+                    }else{
+                      return null;
+                    }
                 }
             }));
                    

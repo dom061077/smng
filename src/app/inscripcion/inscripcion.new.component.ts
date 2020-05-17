@@ -23,6 +23,7 @@ export class InscripcionNew implements OnInit {
     filteredTurnos:any[];
     filteredCursos:any[];
     filteredDivisiones:any[];
+    filteredEscuelas:any[];
 
     private apellido:string;
     private nombre:string;
@@ -45,13 +46,14 @@ export class InscripcionNew implements OnInit {
         dni:['',[Validators.required],
                 [(control: AbstractControl): Observable<ValidationErrors | null> => 
                 
-                        CustomValidators.validateDniAlumno$(control,this.alumnoService)]        
+                        CustomValidators.validateDniAlumno$(control,this.alumnoService,true)]        
         ],
         alumnoId:['',[Validators.required]],
         periodoLectivo:['',[Validators.required]],
         turno:['',[Validators.required]],
         curso:['',[Validators.required]],
-        division:['',[Validators.required]]
+        division:['',[Validators.required]],
+        escuelaProviene:['',[]]
 
 
       });
@@ -84,6 +86,12 @@ export class InscripcionNew implements OnInit {
 
       this.headerTitle='Alta de Inscripción';
 
+    }
+
+    filterEscuelas(event){
+        this.inscripcionService.getEscuelas().subscribe(data=>{
+            this.filteredEscuelas = data;
+        });
     }
 
     filterPeriodos(event){

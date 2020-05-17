@@ -19,6 +19,10 @@ import {CalendarModule} from 'primeng/calendar';
 import {VirtualScrollerModule} from 'primeng/virtualscroller';
 import {DatePipe} from '@angular/common';
 import {RoleGuard} from '../security/role-guard.service';
+import {DropdownModule} from 'primeng/dropdown';
+import {ProgressSpinnerModule} from 'primeng/progressspinner';
+
+
 
 
 
@@ -41,8 +45,8 @@ let routing=RouterModule.forChild([
         ,ButtonModule,KeyFilterModule,TabViewModule
         ,AutoCompleteModule,CheckboxModule
         ,CalendarModule, VirtualScrollerModule
-        ,BrowserAnimationsModule
-        
+        ,BrowserAnimationsModule,DropdownModule
+        ,ProgressSpinnerModule
         
     ],
     providers: [AlumnoService,DatePipe,RoleGuard],

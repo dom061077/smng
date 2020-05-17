@@ -92,6 +92,7 @@ export class AlumnoService extends RestDataSource{
     getAlumnoByDni(dni:any)/*: Observable<boolean>*/{
         if(!dni)
             dni='';
+        dni = dni+'';
         const dniInt = dni.split('.').join('').split('_').join('');
         console.log("dniInt: "+dniInt);
         return this.sendRequest<any>("GET"

@@ -5,7 +5,9 @@ import { AlumnoService  } from './alumno.service';
 import {Router,ActivatedRoute} from "@angular/router";
 import { CrudCodes } from "../util/crud.enum";
 import { DatePipe } from '@angular/common';
-
+import { Observable, BehaviorSubject } from 'rxjs';
+import {CustomValidators} from '../util/custom-validators';
+import { debounceTime,distinctUntilChanged } from 'rxjs/operators';
 
 
 @Component({
@@ -16,20 +18,29 @@ import { DatePipe } from '@angular/common';
 export class AlumnoNew implements OnInit {
   alumnoForm : FormGroup;
   headerTitle: string;
+  private debounce: number = 400;
   
   filteredProvinces:any[]  ;
   filteredLocalidades:any[];
   filteredParentesco:any[];
-  estudioPrimarioTutor:[];
+  estudiosTutor= [
+            {descripcion: 'Completo', code: 'ESTUDIO_COMPLETO'},
+            {descripcion: 'Incompleto', code: 'ESTUDIO_INCOMPLETO'}
+        ];
+
   //KeyFilter.DEFAULT_MASKS['currencyRegex'] =  /^-?(?:0|[1-9]\d{0,2}(?:,?\d{3})*)(?:\.\d+)?$/;
   noSpecial: RegExp = /^[^<>1234567890!"#%&/$()=?¡[._*{}!]+$/;
   es: any;
+
+  private showLoading$:BehaviorSubject<boolean>;
   
   constructor(private fb:FormBuilder, public alumnoService:AlumnoService
         , private messageService:MessageService,private router:Router
         , private activeRoute:ActivatedRoute
         , private datepipe:DatePipe
-        ) {}
+        ) {
+            this.showLoading$ = new BehaviorSubject(false);          
+        }
 
   ngOnInit(){
         this.es = {
@@ -46,7 +57,9 @@ export class AlumnoNew implements OnInit {
         };    
     this.alumnoForm = this.fb.group({
         id:[null,[]],
-        dni:['',[Validators.required]],
+        dni:['',[Validators.required],
+                [(control: AbstractControl): Observable<ValidationErrors | null> => 
+                        CustomValidators.validateDniAlumno$(control,this.alumnoService,false)]],        
         apellido:['',[Validators.required]],
         nombre: ['',[Validators.required]],
         provincia: [{id:24,nombre:'TUCUMAN'},[Validators.required]],
@@ -58,7 +71,9 @@ export class AlumnoNew implements OnInit {
         nombreTutor: ['',[Validators.required]],
         cuilTutor: ['',[Validators.required]],
         parentescoTutor: ['',[Validators.required]],
-        estudioPrimarioTutor:['',[Validators.required]],
+        estudioPrimarioTutor_parm:[ {descripcion: 'Completo', code: 'ESTUDIO_INCOMPLETO'},[Validators.required]],
+        estudioSecundarioTutor_parm:[ {descripcion: 'Completo', code: 'ESTUDIO_COMPLETO'},[Validators.required]],
+        estudioUniversitarioTutor_parm:[ {descripcion: 'Completo', code: 'ESTUDIO_COMPLETO'},[Validators.required]],
         telefono1:['',[Validators.required]],
         telefono2:['',[]],
         fotoDni:[false,[]],
@@ -88,75 +103,32 @@ export class AlumnoNew implements OnInit {
     this.headerTitle="Alta de Alumno";
     if(this.activeRoute.snapshot.params["mode"]==CrudCodes.EDIT){
        this.assignFormValues(this.activeRoute.snapshot.params["id"]);
+       this.alumnoForm.controls['dni'].clearAsyncValidators();
+       this.alumnoForm.controls['dni'].disable();
+
        this.headerTitle="Modificación de Alumno";
+    }else{
+
+      this.alumnoForm.get('dni').valueChanges
+      .pipe(debounceTime(this.debounce), distinctUntilChanged())
+      .subscribe(query=>{
+
+
+              this.showLoading$.next(true);
+              setTimeout(() => {
+                    this.showLoading$.next(false);
+              }, 1000);              
+
+
+      });
     }
+    
   }
 
   assignFormValues(id:number){
-        /*dni:['',[Validators.required]],
-        apellido:['',[Validators.required]],
-        nombre: ['',[Validators.required]],
-        provincia: [{id:24,nombre:'TUCUMAN'},[Validators.required]],
-        localidad:['',[Validators.required]],
-        direccion:['',[Validators.required]],
-        cuil: ['',[Validators.required]],
-        dniTutor: ['',[Validators.required]],
-        apellidoTutor: ['',[Validators.required]],
-        nombreTutor: ['',[Validators.required]],
-        cuilTutor: ['',[Validators.required]],
-        parentescoTutor: ['',[Validators.required]],
-        telefono1:['',[Validators.required]],
-        telefono2:['',[]],
-        fotoDni:[false,[]],
-        constanciaCuil:[false,[]],
-        constancia6grado:[false,[]],
-        actaNacimiento:[false,[]],
-        constaciaRegular:[false,[]],
-        foto4x4:[false,[]],
-        fotoCarnetVac:[false,[]],
-        fichaMedica:[false,[]],
-        aptitudFisica:[false,[]],
-        grupoSanguineo:[false,[]],
-        fichaInscripcion:[false,[]],
-        libreta6grado:[false,[]],
-        fotocopiaLibroMatriz:[false,[]],
-        fotocopiaDniTutor:[false,[]],
-        constanciaCuilTutor:[false,[]],
-        fechaNacimientoUnbinding:['',[Validators.required]]*/
-        //this.alumnoForm.controls[''].setValue();
     
     this.alumnoService.getAlumno(id).then(data=>{
         
-        /*this.alumnoForm.controls['fechaNacimientoUnbinding'].setValue(data.fechaNacimiento);        
-        this.alumnoForm.controls['apellido'].setValue(data.apellido);
-        this.alumnoForm.controls['nombre'].setValue(data.apellido);
-        this.alumnoForm.controls['direccion'].setValue(data.direccion);
-        this.alumnoForm.controls['cuil'].setValue(data.cuil);  
-        if(data.localidad!=null){
-          this.alumnoForm.controls['provincia'].setValue(data.localidad.provincia);                      
-          this.alumnoForm.controls['localidad'].setValue(data.localidad);                      
-        }
-
-        /*this.alumnoForm.controls['dniTutor'].setValue(data.dniTutor);  
-        this.alumnoForm.controls['apellidoTutor'].setValue(data.apellidoTutor);  
-        this.alumnoForm.controls['dniTutor'].setValue(data.dniTutor);  
-        this.alumnoForm.controls['apellidoTutor'].setValue(data.apellidoTutor);  
-        this.alumnoForm.controls['nombreTutor'].setValue(data.nombreTutor);                  
-        this.alumnoForm.controls['parentescoTutor'].setValue(data.parentescoTutor);       
-        
-        this.alumnoForm.controls['telefono1'].setValue(data.telefono1);                  
-        this.alumnoForm.controls['telefono2'].setValue(data.telefono2);     
-        
-        this.alumnoForm.controls['fotoDni'].setValue(data.fotoDni);                  
-        this.alumnoForm.controls['constanciaCuil'].setValue(data.constanciaCuil);                          
-        this.alumnoForm.controls['constacia6grado'].setValue(data.constancia6grado);        
-        
-        this.alumnoForm.controls['actaNacimiento'].setValue(data.actaNacimiento);                  
-        this.alumnoForm.controls['constanciaRegular'].setValue(data.constanciaRegular);                          
-        this.alumnoForm.controls['constanciaRegular'].setValue(data.constanciaRegular); */ 
-        //this.alumnoForm.controls['fechaNacimientoUnbinding'].setValue('31/01/1978');     
-           
-        //this.alumnoForm.controls['fechaNacimientoUnbinding'].setValue(this.datepipe.transform(data.fechaNacimiento,'dd/MM/yyyy'));
         console.log(data);
         if(data.dniTutor){
           if(data.dniTutor.toString().length<8)
@@ -173,6 +145,8 @@ export class AlumnoNew implements OnInit {
         this.alumnoForm.patchValue(data) ;        
         console.log('Id: '+this.alumnoForm.controls['id'].value);
         console.log('Fecha nacimiento: '+data.fechaNacimiento);
+
+        
         
     });      
   }
