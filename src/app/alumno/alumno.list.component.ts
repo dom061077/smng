@@ -3,79 +3,91 @@ import { Alumno  } from './alumno.model';
 import { AlumnoService } from './alumno.service';
 import { FormControl } from '@angular/forms';
 import { debounceTime,distinctUntilChanged } from 'rxjs/operators';
+import { CrudCodes } from "../util/crud.enum";
 
-
-
+import {SelectItem} from 'primeng/api';
 
 @Component({
     //selector: 'ggg',
-    templateUrl: './alumno.list.component.html',
-    styles: [`
-        .car-item .ui-md-3 {
-            text-align: center;
-        }
-        
-        .car-item .ui-g-10 {
-            font-weight: bold;
-        }
-
-        .empty-car-item-index {
-            background-color: #f1f1f1;
-            width: 60px;
-            height: 60px;
-            margin: 36px auto 0 auto;
-            animation: pulse 1s infinite ease-in-out;
-        }
-
-        .empty-car-item-image {
-            background-color: #f1f1f1;
-            width: 120px;
-            height: 120px;
-            animation: pulse 1s infinite ease-in-out;
-        }
-
-        .empty-car-item-text {
-            background-color: #f1f1f1;
-            height: 18px;
-            animation: pulse 1s infinite ease-in-out;
-        }
-
-
-        .title-container {
-            padding: 1em;
-            text-align: right;
-        }
-
-        .sort-container {
-            text-align: left;
-        }
-
-        @media (max-width: 40em) {
-            .car-item {
-                text-align: center;
-            }
-        }
-    `]
-    
-
+    templateUrl: './alumno.list.component.html'
 })
 export class AlumnoList implements OnInit{ 
     alumnos: Alumno[];
-    
+    editOpt:any;
     totalLazyAlumnoLength:number;
     public searchControl: FormControl;
     private debounce: number = 400;
+    filterOptions:SelectItem[];
+
+    sortOptions:SelectItem[];
+    ascSort:boolean;
+    sortKey:string;
+    filterKey:string;
+    selfFilter:string;
+    first:number;
+    rows:number;    
 
     constructor(private alumnoService:AlumnoService){
         this.totalLazyAlumnoLength=3;
     }
 
+    private filtrar(query){
+            let qJson;
+            if (query && query instanceof Object)
+                qJson=query.toJSON();
+            else
+                qJson=query.split('.').join('').split('_').join('');
+            this.selfFilter=qJson //sirve para lazyLoad de la grilla
+            this.cargarListInsc(this.filterKey,qJson,0,10,this.sortKey,(this.ascSort?'asc':'desc'));    
+
+            this.inscService.getCantidadInscripciones(this.filterKey
+                    ,qJson).toPromise().then(data=>{
+                this.totalLazyInscripcionesLength = data;
+            });  
+
+    }
+
+    private cargarListInsc(filterField:string, filter:string,start:number,limit:number,sortField:string,ascDesc:string){
+        this.alumnoService.getAlumnos(filterField,filter,start,limit
+                ,this.sortKey,(this.ascSort?'asc':'desc'))
+            .then(data=>{
+                this.alumnos = data;
+                this.alumnoService.getReporte(filterField
+                    ,filter,this.sortKey,(this.ascSort?'asc':'desc'))
+                .subscribe(data=>{
+                    const linkSource = 'data:application/pdf;base64,' +data;
+                    const downloadLink = document.createElement("a");
+                    const fileName = "sample.pdf";
+                    //console.log('Print Id:'+this.printId);
+                    this.printId.nativeElement.href = linkSource;
+                    this.printId.nativeElement.download = fileName;
+                    //this.printId.nativeElement.target='_blank';
+                    //this.printId.nativeElement.click();                        
+                });
+            });
+        
+    }
+    
 
     ngOnInit(){
+        this.editOpt=CrudCodes.EDIT;
         this.alumnoService.getCantidad("").toPromise().then(data=>{
             console.log("Cantidad de alumnos "+data);
             this.totalLazyAlumnoLength = data;
         });
+
+        this.ascSort=true;
+        this.sortOptions = [
+            {label: 'Apellido y nombre', value: 'apellidonombre'},
+            {label: 'Identificador',value:'id'}
+        ];
+
+        this.filterOptions = [
+            {label:'Apellido',value:'apellido'},
+            {label:'Nombre',value:'nombre'},
+            {label:'D.N.I',value:'dni'}
+            //{label:'Fecha Insc.',value:'fecha'}
+        ];        
         /*this.alumnoService.getAlumnos('',0
                 ,20).then(data=>
             {   this.alumnos=data;
