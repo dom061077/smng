@@ -1,4 +1,4 @@
-import { Component,OnInit } from '@angular/core';
+import { Component,OnInit,ViewChild,ElementRef } from '@angular/core';
 import { Alumno  } from './alumno.model';
 import { AlumnoService } from './alumno.service';
 import { FormControl } from '@angular/forms';
@@ -12,10 +12,12 @@ import {SelectItem} from 'primeng/api';
     templateUrl: './alumno.list.component.html'
 })
 export class AlumnoList implements OnInit{ 
+    @ViewChild('printInsc') printId: ElementRef;
     alumnos: Alumno[];
     editOpt:any;
     totalLazyAlumnoLength:number;
     public searchControl: FormControl;
+    searchDniControl : FormControl;
     private debounce: number = 400;
     filterOptions:SelectItem[];
 
@@ -38,16 +40,16 @@ export class AlumnoList implements OnInit{
             else
                 qJson=query.split('.').join('').split('_').join('');
             this.selfFilter=qJson //sirve para lazyLoad de la grilla
-            this.cargarListInsc(this.filterKey,qJson,0,10,this.sortKey,(this.ascSort?'asc':'desc'));    
+            this.cargarListAlumnos(this.filterKey,qJson,0,10,this.sortKey,(this.ascSort?'asc':'desc'));    
 
-            this.inscService.getCantidadInscripciones(this.filterKey
+            this.alumnoService.getCantidad(this.filterKey
                     ,qJson).toPromise().then(data=>{
-                this.totalLazyInscripcionesLength = data;
+                this.totalLazyAlumnoLength = data;
             });  
 
     }
 
-    private cargarListInsc(filterField:string, filter:string,start:number,limit:number,sortField:string,ascDesc:string){
+    private cargarListAlumnos(filterField:string, filter:string,start:number,limit:number,sortField:string,ascDesc:string){
         this.alumnoService.getAlumnos(filterField,filter,start,limit
                 ,this.sortKey,(this.ascSort?'asc':'desc'))
             .then(data=>{
@@ -71,62 +73,47 @@ export class AlumnoList implements OnInit{
 
     ngOnInit(){
         this.editOpt=CrudCodes.EDIT;
-        this.alumnoService.getCantidad("").toPromise().then(data=>{
+        this.alumnoService.getCantidad("","").toPromise().then(data=>{
             console.log("Cantidad de alumnos "+data);
             this.totalLazyAlumnoLength = data;
         });
 
         this.ascSort=true;
         this.sortOptions = [
-            {label: 'Apellido y nombre', value: 'apellidonombre'},
+            {label: 'Apellido y nombre', value: 'apellidoNombre'},
             {label: 'Identificador',value:'id'}
         ];
 
         this.filterOptions = [
-            {label:'Apellido',value:'apellido'},
-            {label:'Nombre',value:'nombre'},
+            {label:'Apellido',value:'apellidoNombre'},
+            
             {label:'D.N.I',value:'dni'}
             //{label:'Fecha Insc.',value:'fecha'}
         ];        
-        /*this.alumnoService.getAlumnos('',0
-                ,20).then(data=>
-            {   this.alumnos=data;
-                console.log("Probando");
-                console.log("Alumnos:  "+this.alumnos.length);
 
+        this.searchDniControl = new FormControl('');
+        this.searchDniControl.valueChanges
+            .pipe(debounceTime(this.debounce),distinctUntilChanged())
+            .subscribe((query:any)=>{
+                this.filtrar(query);
+            });
+        this.searchControl = new FormControl('');
+        this.searchControl.valueChanges
+        .pipe(debounceTime(this.debounce), distinctUntilChanged())
+        .subscribe(query=>{
+            this.filtrar(query);
+        });
 
-            });*/
-            this.searchControl = new FormControl('');
-            this.searchControl.valueChanges
-              .pipe(debounceTime(this.debounce), distinctUntilChanged())
-              .subscribe(query => {
-                this.alumnoService.getAlumnos(this.searchControl.value,0,20).then(data=>
-                    {   this.alumnos=data;
-                        console.log("Probando");
-                        console.log("Alumnos:  "+this.alumnos.length);
         
-        
-                    });   
-                this.alumnoService.getCantidad(this.searchControl.value).toPromise().then(data=>{
-                        console.log("Cantidad de alumnos");
-                        this.totalLazyAlumnoLength = data;
-                    });                    
-              });            
         
     }
 
     loadData(event) {
-        //event.first = First row offset
-        //event.rows = Number of rows per page
-        //this.lazyCars = load new chunk between first index and (first + rows) last index
-        this.alumnoService.getAlumnos(this.searchControl.value,event.first,event.rows).then(data=>
-            {   this.alumnos=data;
-                console.log("Probando");
-                console.log("Alumnos:  "+this.alumnos.length);
+        this.first = event.first;
+        this.rows = event.rows;
+        this.cargarListAlumnos(this.filterKey, this.selfFilter,event.first,event.rows,this.sortKey,(this.ascSort?'asc':'desc'));
+        console.log("Loaddata");
 
-
-            });        
-        console.log('Evento: first: '+event.first+' numero de filas: '+event.rows);
     }    
 
     selectAlumno(event:Event){
@@ -135,5 +122,22 @@ export class AlumnoList implements OnInit{
     onChange(a){
         console.log(a);
     }
+
+    onSortChange(event){
+        
+        
+        this.alumnoService.getAlumnos(this.sortKey,this.searchControl.value,this.first,this.rows,this.sortKey,(this.ascSort?'asc':'desc'))
+            .then(data=>{
+                this.alumnos = data;
+            });
+    }
+
+    onFilterChange(event){
+        this.filtrar('');
+        this.searchControl.setValue('');
+        this.searchDniControl.setValue('');
+        //this.searchFechaControl.setValue('');
+    }
+
 
 }

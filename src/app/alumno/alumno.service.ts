@@ -49,8 +49,9 @@ export class AlumnoService extends RestDataSource{
     }
 
 
-    getCantidad(filter:string ){
-        return this.sendRequest<any>("GET",this.url+"/alumnocount?filter="+filter)
+    getCantidad(filterField:string,filter: string){
+        return this.sendRequest<any>("GET",this.url
+            +"/alumnocount?filter="+filter+"&filterField="+filterField)
         .pipe(map(data=>{
             return data.count;
         }));
@@ -58,10 +59,15 @@ export class AlumnoService extends RestDataSource{
     }
     
 
-    getAlumnos(filter:string,start:number,limit:number){
+    getAlumnos(filterField:string, filter:string,start:number,limit:number
+            ,sortField:string,ascDesc:string){
+        
         return this.sendRequest<any>("GET"
-                ,this.url+"/getalumnos?filter="+filter
-                    +"&start="+start+"&limit="+limit)
+                ,this.url+"/getalumnos?filterField="+filterField
+                    +"&filter="+filter
+                    +"&start="+start+"&limit="+limit
+                    +"&sortField="+sortField
+                    +"&ascDesc="+ascDesc)
                 .toPromise().then(data=>{
                     
                     return data.alumnos;
@@ -99,4 +105,16 @@ export class AlumnoService extends RestDataSource{
                 ,this.url+"/getalumnobydni?dni="+dniInt)
                 ;
     }
+
+    getReporte(filterField:string, filter:string
+            ,sortField:string,ascDesc:string){
+        return this.sendRequest<any>("GET",this.url+"/reporteinsc?filterField="
+            +filterField+"&filter="+filter+"&start="
+            +"&sortField="+sortField
+                +"&ascDesc="+ascDesc        
+        )
+            .pipe(map(data=>{
+                return data.report;
+            }));
+    }     
 }

@@ -79,8 +79,7 @@ export class InscripcionList   implements OnInit{
         ];
 
         this.filterOptions = [
-            {label:'Apellido',value:'apellido'},
-            {label:'Nombre',value:'nombre'},
+            {label:'Apellido y Nombre',value:'apellidoNombre'},
             {label:'D.N.I',value:'dni'},
             {label:'Fecha Insc.',value:'fecha'}
         ];
