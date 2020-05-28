@@ -72,7 +72,7 @@ export class InscripcionService extends RestDataSource{
                 });
     } 
 
-    getReporte(filterField:string, filter:string
+    getReporteBase64(filterField:string, filter:string
             ,sortField:string,ascDesc:string){
         return this.sendRequest<any>("GET",this.url+"/reporteinsc?filterField="
             +filterField+"&filter="+filter+"&start="
@@ -83,6 +83,19 @@ export class InscripcionService extends RestDataSource{
                 return data.report;
             }));
     }   
+
+    getXlsBase64(filterField:string,filter:string
+        ,sortField:string,ascDesc:string){
+        return this.sendRequest<any>("POST",this.url+"/inscexportxls"
+            ,{  filterField:filterField
+                ,filter:filter
+                ,sortField:sortField
+                ,ascDesc:ascDesc
+            })
+            .pipe(map(data=>{
+                return data.report;
+            }));
+    }
 
     getInscripcion(id:number){
         return this.sendRequest<any>("GET",this.url+"/getinsc/"+id)
