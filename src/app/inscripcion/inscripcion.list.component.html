@@ -5,30 +5,40 @@
     [lazy]="true"  (onLazyLoad)="loadData($event)" paginatorPosition="both"
      [totalRecords]="totalLazyInscripcionesLength">
     <p-header>
-        <div class="ui-helper-clearfix">
-            <div class="ui-grid-row">
-                <div class="ui-grid-col-3" style="display: inline-flex">
+        <div class="container">
+            <div class="input-group form-group">
+                <div class="col-xs-12 col-sm-6 col-md-4 col-log-3 col-xl-3" 
+                    style="display: inline-flex">
                     <p-dropdown [options]="sortOptions" [(ngModel)]="sortKey" placeholder="Ordenar Por" (onChange)="onSortChange($event)" [style]="{'min-width':'140px'}"></p-dropdown>
                     <div style="position:relative"><p-toggleButton  onIcon="fa fa-sort-desc"
                             (onChange)="onSortChange($event)"
                             offIcon="fa fa-sort-asc" onLabel="" ofLabel=""  
                             [(ngModel)]="ascSort"></p-toggleButton></div>
                 </div>
-                
-                <div class="ui-grid-col-2" style="display: inline-flex">
+            </div>
+
+            <div class="input-group form-group">
+                <div class="col-xs-12 col-sm-6 col-md-4 col-log-3 col-xl-3">
                     <p-dropdown [options]="filterOptions" [(ngModel)]="filterKey" placeholder="Filtrar Por" 
                         (onChange)="onFilterChange($event)">
-                    
+                                                                                                                                                                               
                     </p-dropdown>
 
                 </div>                    
-                
-                <div class="ui-grid-col-3">
-                    <div   class="ui-inputgroup">
-                        <span class="ui-inputgroup-addon"><i class="fa fa-search" aria-hidden="true"></i></span>
+                <div class="col-xs-12 col-sm-6 col-md-4 col-log-3 col-xl-3">
+                    <div  class="input-group-prepend" >
+                        <span class="input-group-text" *ngIf="(filterKey=='apellidoNombre' || filterKey==null)"><i class="fa fa-search" 
+                            aria-hidden="true"></i></span>
+
+                        
                         <input *ngIf="(filterKey=='apellidoNombre' || filterKey==null)" 
                             type="text" pInputText   [formControl]="searchControl"  
                             placeholder="Ingrese texto" />
+
+                        <p-spinner size="15"  *ngIf="filterKey=='periodoLectivo'" 
+                            (onChange)='onPeriodoChange($event)'
+                            [(ngModel)]="searchPeriodo" [min]="2019" >
+                        </p-spinner>
 
                         <p-inputMask *ngIf="filterKey=='dni'" 
                             placeholder="Ingrese número" 
@@ -42,41 +52,56 @@
                             [showIcon]="true">
                         </p-calendar>    
                     </div>    
-  
+                </div>    
+            </div>     
 
-                    
-                </div>   
-                <div class="ui-grid-col-3">
-                        <a href="#" #printInsc > <i class="fa fa-print fa-2x"></i></a>
-                
-                    
-                </div>                           
-                <div class="ui-grid-col-3">
-                        <a href="#" (click)="onExportXlsClick()" > <i class="fa fa-print fa-2x"></i></a>
-                
-                    
+            <div class="row">        
+                <div class="col-xs-1 col-sm-1 col-md-1 col-log-1 col-xl-1">
+                        <a href="#" #printInsc (click)="onPrintClick()" > 
+                            <i class="fa fa-print fa-2x"></i>
+                        </a>
                 </div>                           
 
+                <div class="col-xs-1 col-sm-1 col-md-1 col-log-1 col-xl-1">
+                        <a href="#" (click)="onExportXlsClick()" > <i class="fa fa-file-excel-o fa-2x"></i></a>
+                </div>                           
+            </div>    
                 <!--div class="ui-g-6 ui-md-4" style="text-align:right">
                     <p-dataViewLayoutOptions></p-dataViewLayoutOptions>
                 </div-->
-            </div>
-        </div>
+         </div>
     </p-header>
     <p-footer>Seleccione uno de la lista.</p-footer>
     <ng-template let-insc pTemplate="listItem">
-        <div class="ui-g-12">
-            <div class="item-details">
-                <div>
-                <div class="ui-g">
-                    <div class="ui-g-12">Id: <b><a [routerLink]="['/viewinsc',insc?.id]" >{{insc?.id}}</a></b></div>
-                    
-                    <div class="ui-g-12">Apellido: <b>{{insc.apellido}}</b></div>
-                    <div class="ui-g-12">Nombre: <b>{{insc.nombre}}</b></div>
-                    
-                </div>    
+        <div class="container">
+            
+                <div class="row">
+                    <div class="col-xs-3 col-sm-3 col-md-4 col-log-3 col-xl-3">
+                        Id: 
+                    </div>
+                    <div class="col-xs-3 col-sm-2 col-md-4 col-log-3 col-xl-2">    
+                        <b><a [routerLink]="['/viewinsc',insc?.id]" >{{insc?.id}}</a></b>
+                    </div>
                 </div>
-            </div>
+                <div class="row">                    
+                    <div class="col-xs-3 col-sm-3 col-md-4 col-log-3 col-xl-3">
+                        Apellido: 
+                    </div>        
+                    <div class="col-xs-3 col-sm-2 col-md-4 col-log-3 col-xl-2">
+                        <b>{{insc.apellido}}</b>
+                    </div>
+                </div>
+                <div class="row">    
+                    <div class="col-xs-3 col-sm-2 col-md-4 col-log-3 col-xl-3">
+                        Nombre: 
+                    </div>    
+                    <div class="col-xs-3 col-sm-2 col-md-4 col-log-3 col-xl-2">
+                        <b>{{insc.nombre}}</b>
+                    </div>
+                </div>    
+
+            
+            <hr class="mt-2 mb-3"/>
         </div>
     </ng-template>
     <!--ng-template let-insc pTemplate="gridItem">

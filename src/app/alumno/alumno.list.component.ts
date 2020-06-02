@@ -85,7 +85,7 @@ export class AlumnoList implements OnInit{
         ];
 
         this.filterOptions = [
-            {label:'Apellido',value:'apellidoNombre'},
+            {label:'Apellido y nombre',value:'apellidoNombre'},
             
             {label:'D.N.I',value:'dni'}
             //{label:'Fecha Insc.',value:'fecha'}

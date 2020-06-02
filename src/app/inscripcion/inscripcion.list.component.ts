@@ -27,6 +27,7 @@ export class InscripcionList   implements OnInit{
     searchControl : FormControl;
     searchFechaControl : FormControl;
     searchDniControl : FormControl;
+    
     private debounce: number = 400;
     ascSort:boolean;//true= orden ascendente, false= orden descendente
     sortKey:string;
@@ -36,7 +37,7 @@ export class InscripcionList   implements OnInit{
     rows:number;
     es:any;
     fechaFiltro:Date=new Date();
-
+    searchPeriodo:number;
     
 
     constructor(private inscService:InscripcionService ){
@@ -81,7 +82,8 @@ export class InscripcionList   implements OnInit{
         this.filterOptions = [
             {label:'Apellido y Nombre',value:'apellidoNombre'},
             {label:'D.N.I',value:'dni'},
-            {label:'Fecha Insc.',value:'fecha'}
+            {label:'Fecha Insc.',value:'fecha'},
+            {label:'Periodo',value:'periodoLectivo'}
         ];
 
         this.inscService.getCantidadInscripciones("","").toPromise().then(data=>{
@@ -89,6 +91,13 @@ export class InscripcionList   implements OnInit{
             this.totalLazyInscripcionesLength = data;
             console.log("Total de registros: "+this.totalLazyInscripcionesLength);
         });          
+
+        /*this.searchPeriodo = new FormControl('');
+        this.searchPeriodo.valueChanges
+            .pipe(debounceTime(this.debounce),distinctUntilChanged())
+            .subscribe((query:any)=>{
+                this.filtrar(query);
+            });*/
 
         this.searchDniControl = new FormControl('');
         this.searchDniControl.valueChanges
@@ -146,22 +155,19 @@ export class InscripcionList   implements OnInit{
         this.searchFechaControl.setValue('');
     }
 
-    private print(){
-        const linkSource = 'data:application/pdf;base64,' + 'JVBERi0xLjQKJeLjz9MKMyAwIG9iago8PC9Db2xvclNwYWNlL0';
-        const downloadLink = document.createElement("a");
-        const fileName = "sample.pdf";
-        //console.log('Print Id:'+this.printId);
-        this.printId.nativeElement.href = linkSource;
-        this.printId.nativeElement.download = fileName;
-        //this.printId.nativeElement.target='_blank';
-        //this.printId.nativeElement.click();    
-        
-    }
 
     onPrintClick(){
-        window.open('data:application/pdf;' 
-            +'JVBERi0xLjQKJeLjz9MKMyAwIG9iago8PC9Db2xvclNwYWNlL0');            
-        return false;
+        this.inscService.getReporteBase64(this.filterKey
+            ,this.selfFilter,this.sortKey,(this.ascSort?'asc':'desc'))
+        .subscribe(data=>{
+            const linkSource = 'data:application/pdf;base64,' +data;
+            window.open(linkSource);
+            //const downloadLink = document.createElement("a");
+            //const fileName = "sample.pdf";
+            //this.printId.nativeElement.href = linkSource;
+            //this.printId.nativeElement.download = fileName;
+        });   
+        return false;     
     }
 
     onExportXlsClick(){
@@ -179,24 +185,17 @@ export class InscripcionList   implements OnInit{
         return false;
     }
 
+    onPeriodoChange(event){
+        this.filtrar(this.searchPeriodo+'');
+    }
+
 
     private cargarListInsc(filterField:string, filter:string,start:number,limit:number,sortField:string,ascDesc:string){
         this.inscService.getInscripciones(filterField,filter,start,limit
                 ,this.sortKey,(this.ascSort?'asc':'desc'))
             .then(data=>{
                 this.inscripciones = data;
-                this.inscService.getReporteBase64(filterField
-                    ,filter,this.sortKey,(this.ascSort?'asc':'desc'))
-                .subscribe(data=>{
-                    const linkSource = 'data:application/pdf;base64,' +data;
-                    const downloadLink = document.createElement("a");
-                    const fileName = "sample.pdf";
-                    //console.log('Print Id:'+this.printId);
-                    this.printId.nativeElement.href = linkSource;
-                    this.printId.nativeElement.download = fileName;
-                    //this.printId.nativeElement.target='_blank';
-                    //this.printId.nativeElement.click();                        
-                });
+
             });
         
     }

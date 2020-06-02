@@ -18,6 +18,7 @@ import {DataViewModule} from 'primeng/dataview';
 import {DropdownModule} from 'primeng/dropdown';
 import {ToggleButtonModule} from 'primeng/togglebutton';
 import {ConfirmDialogModule} from 'primeng/confirmdialog';
+import {SpinnerModule} from 'primeng/spinner';
 import {ConfirmationService} from 'primeng/api';
 
 
@@ -49,7 +50,7 @@ let routing=RouterModule.forChild([
         ,DropdownModule
         ,ToggleButtonModule
         ,ConfirmDialogModule
-
+        ,SpinnerModule
 
     ],
     providers: [
