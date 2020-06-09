@@ -38,9 +38,9 @@ export class InscripcionService extends RestDataSource{
             }));
     }
 
-    getDivisiones(cursoId:number){
+    getDivisiones(cursoId:number,turnoId:number){
         return this.sendRequest<any>("GET",this.url+"/getdivisiones?cursoId="
-            +cursoId)
+            +cursoId+"&turnoId="+turnoId)
             .pipe(map(data=>{
                 return data.divisiones;
             }));
