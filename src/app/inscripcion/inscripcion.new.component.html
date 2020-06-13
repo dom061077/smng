@@ -137,7 +137,26 @@
                                             
                                         </div>    
                                     </div>                       
-                        </div>                                                                                       
+                        </div>   
+
+                        <div class="ui-grid ui-grid-responsive ui-grid-pad ui-fluid" style="margin: 10px 0px">
+                                <div class="ui-grid-row">
+                                    <div class="ui-grid-col-3">
+                                        Condición:
+                                    </div>    
+                                </div>    
+            
+                                <div class="ui-grid-row">
+                                        <div class="ui-grid-col-3">
+                                            <p-dropdown formControlName="condicion_param" [options]="condiciones" 
+                                                [autoDisplayFirst]="true"
+                                                optionLabel="descripcion"></p-dropdown>
+
+                                        </div>            
+                                            
+                                
+                                </div>                       
+                        </div>                                                                                                                                                                                                   
                 </div>                            
     </p-panel>    
     <div class="ui-grid ui-grid-responsive ui-grid-pad ui-fluid"  style="margin: 10px 0px">

@@ -25,6 +25,11 @@ export class InscripcionNew implements OnInit {
     filteredDivisiones:any[];
     filteredEscuelas:any[];
 
+    condiciones= [
+                {descripcion: 'Regular', code: 'CONDICION_REGULAR'},
+                {descripcion: 'Repitente', code: 'CONDICION_REPITENTE'}
+            ];
+
     private apellido:string;
     private nombre:string;
 
@@ -53,6 +58,7 @@ export class InscripcionNew implements OnInit {
         turno:['',[Validators.required]],
         curso:['',[Validators.required]],
         division:['',[Validators.required]],
+        condicion_param:[{descripcion:'Regular',code:'CONDICION_REGULAR'},[Validators.required]],
         escuelaProviene:['',[]]
 
 
