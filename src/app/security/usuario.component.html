@@ -88,6 +88,61 @@
                     </div>
                 
                 </div>  
+
+                <div class="ui-grid ui-grid-responsive ui-grid-pad ui-fluid" style="margin: 10px 0px">   
+                    <div class="ui-grid-row">
+                        <div class="ui-grid-col-2">
+                            D.N.I:
+                        </div>
+                    </div>
+                    <div class="ui-grid-row">    
+                        <div class="ui-grid-col-4">
+                                <input class="form-control"  style="width:100%" type="text"  formControlName="dni"/>                                
+                        </div>
+                        <div class="ui-grid-col-4">
+                            <p-message severity="error" text="D.N.I es obligatorio" 
+                                *ngIf="usuarioForm.get('dni').dirty && usuarioForm.get('dni').errors && usuarioForm.get('dni').errors.required"></p-message>
+                        </div>
+                    </div>
+                
+                </div> 
+
+                <div class="ui-grid ui-grid-responsive ui-grid-pad ui-fluid" style="margin: 10px 0px">   
+                    <div class="ui-grid-row">
+                        <div class="ui-grid-col-2">
+                            Fecha Nacimiento:
+                        </div>
+                    </div>
+                    <div class="ui-grid-row">    
+                        <div class="ui-grid-col-4">
+                                <p-calendar  formControlName="fechaNacimientoUnbinding" [locale]="es"  [monthNavigator]="true" [yearNavigator]="true" yearRange="1990:2030" dateFormat="dd/mm/yy"  [showIcon]="true"></p-calendar>
+                        </div>
+                        <div class="ui-grid-col-4">
+                            <p-message severity="error" text="D.N.I es obligatorio" 
+                                *ngIf="usuarioForm.get('fechaNacimientoUnbinding').dirty && usuarioForm.get('fechaNacimientoUnbinding').errors && usuarioForm.get('fechaNacimientoUnbinding').errors.required"></p-message>
+                        </div>
+                    </div>
+                
+                </div>                 
+
+                <div class="ui-grid ui-grid-responsive ui-grid-pad ui-fluid" style="margin: 10px 0px">   
+                    <div class="ui-grid-row">
+                        <div class="ui-grid-col-2">
+                            Domicilio:
+                        </div>
+                    </div>
+                    <div class="ui-grid-row">    
+                        <div class="ui-grid-col-4">
+                                <input class="form-control"  style="width:100%" type="text"  formControlName="domicilio"/>                                
+                        </div>
+                        <div class="ui-grid-col-4">
+                            <p-message severity="error" text="Domicilio es obligatorio" 
+                                *ngIf="usuarioForm.get('domicilio').dirty && usuarioForm.get('domicilio').errors && usuarioForm.get('domicilio').errors.required"></p-message>
+                        </div>
+                    </div>
+                
+                </div>
+
                 <div class="ui-grid ui-grid-responsive ui-grid-pad ui-fluid" style="margin: 10px 0px"> 
                     <div class="ui-grid-row">
                         <p-pickList (onMoveToSource)="OnMoveTarget($event)" (onMoveToTarget)="OnMoveTarget($event)" [source]="perfiles" [target]="perfilesAdded" sourceHeader="Perfiles Disponibles" targetHeader="Perfiles Asignados" 

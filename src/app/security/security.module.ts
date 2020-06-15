@@ -20,6 +20,7 @@ import { PerfilNgUrl } from "./perfil.ngurl.component";
 import { UsuarioList } from "./usuario.list.component";
 import { UsuarioList2 } from "./usuario.list2.component";
 import { PerfilUsuario } from "./perfil.usuario.component";
+import { UsuarioAsignatura } from "./usuario.asignatura.component";
 
 import {PanelModule} from 'primeng/panel';
 import {ToastModule} from 'primeng/toast';
@@ -29,7 +30,7 @@ import {VirtualScrollerModule} from 'primeng/virtualscroller';
 import {DataViewModule} from 'primeng/dataview';
 import {DropdownModule} from 'primeng/dropdown';
 import {ToggleButtonModule} from 'primeng/togglebutton';
-
+import {CalendarModule} from 'primeng/calendar';
 
 let routing = RouterModule.forChild([
     {path:"login",component: LoginComponent},
@@ -47,7 +48,9 @@ let routing = RouterModule.forChild([
     {path:"perfil",component:PerfilNew},
     {path:"listperfil",component:PerfilList},
     {path:"perfilurl/:id",component:PerfilNgUrl},
-    {path:"perfilusuario/:id",component:PerfilUsuario}
+    {path:"perfilusuario/:id",component:PerfilUsuario},
+    {path:"usuarioasignatura/:id",component:UsuarioAsignatura}
+
     
 ]);
 
@@ -55,7 +58,7 @@ let routing = RouterModule.forChild([
     imports: [CommonModule, FormsModule,ReactiveFormsModule , ButtonModule
         ,routing,PanelModule,ToastModule,MessagesModule,MessageModule,KeyFilterModule
         ,PickListModule,VirtualScrollerModule,DataViewModule
-        ,DropdownModule,ToggleButtonModule
+        ,DropdownModule,ToggleButtonModule,CalendarModule   
         ],
     providers:[AuthenticationService,JwtInterceptor],
     declarations:[
@@ -63,6 +66,7 @@ let routing = RouterModule.forChild([
         ,PerfilNew,PerfilList,PerfilNgUrl,UsuarioList
         ,UsuarioList2
         ,PerfilUsuario
+        ,UsuarioAsignatura
     ]
 
 })

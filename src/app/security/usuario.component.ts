@@ -7,6 +7,7 @@ import { DatePipe } from '@angular/common';
 import { AuthenticationService } from './authentication.service';
 import { Perfil } from './perfil.model';
 
+
 @Component({
     selector:'usuario-page',
     templateUrl:'./usuario.component.html'
@@ -19,14 +20,27 @@ export class UsuarioNew implements OnInit{
     isPassword:boolean;
     typeInputPassword:string;
     mode:any;
+    es:any;
     constructor(private fb:FormBuilder,private authService:AuthenticationService
         ,private messageService:MessageService,private router:Router
-        ,private activeRoute:ActivatedRoute){
+        ,private activeRoute:ActivatedRoute,private datepipe:DatePipe){
         this.typeInputPassword='password';
         this.isPassword=true;
         this.perfilesAdded = [];
     }
     ngOnInit(){
+        this.es = {
+            firstDayOfWeek: 0,
+            dayNames: ["Domingo", "Lunes", "Martes", "Miércoles", "Jueves", "Viernes", "Sábado"],
+            dayNamesShort: ["Dom", "Lun", "Mar", "Mie", "Jue", "Vie", "Sab"],
+            dayNamesMin: ["Do","Lu","Ma","Mi","Ju","Vi","Sa"],
+            monthNames: [ "Enero","Febrero","Marzo","Abril","Mayo","Junio","Julio","Agosto","Septiembre","Octubre","Noviembre","Diciembre" ],
+            monthNamesShort: [ "Ene", "Feb", "Mar", "Abr", "May", "Jun","Jul", "Ago", "Sep", "Oct", "Nov", "Dic" ],
+            today: 'Hoy',
+            clear: 'Limpiar',
+            dateFormat: 'dd/mm/yy',
+            weekHeader: 'Semana'
+        };          
         this.headerTitle='Alta de Usuario';
         console.log("Mode: "+this.activeRoute.snapshot.params);
         this.mode=this.activeRoute.snapshot.params["mode"];
@@ -38,7 +52,10 @@ export class UsuarioNew implements OnInit{
                 username:['',[Validators.required]],
                 apellido:['',[(Validators.required)]],
                 nombre:['',[Validators.required]],
-                perfiles:[null,[Validators.required]]
+                perfiles:[null,[Validators.required]],
+                dni:['',[]],
+                domicilio:['',[]],
+                fechaNacimientoUnbinding:['',[]]                
             });
 
         }else{
@@ -48,7 +65,11 @@ export class UsuarioNew implements OnInit{
                 password:['',[Validators.required]],
                 apellido:['',[(Validators.required)]],
                 nombre:['',[Validators.required]],
-                perfiles:['',[Validators.required]]
+                perfiles:['',[Validators.required]],
+                dni:['',[]],
+                domicilio:['',[]],
+                fechaNacimientoUnbinding:['',[]],
+                
             });
         }
         if(this.activeRoute.snapshot.params["mode"]==CrudCodes.EDIT){
@@ -62,6 +83,13 @@ export class UsuarioNew implements OnInit{
     assignFormValues(id:number){
         this.authService.getUser(id).then(data=>{
             this.usuarioForm.patchValue(data);
+            if(data.fechaNacimiento){
+            const fNac = data.fechaNacimiento;
+            const fNacZ = fNac.substring(0,fNac.length - 1);
+            
+            const formattedDate = new Date(this.datepipe.transform(fNacZ));
+            this.usuarioForm.controls['fechaNacimientoUnbinding'].setValue(formattedDate);
+            }            
         });
         this.authService.getPerfilesByUser(id).then(data=>{
             this.perfilesAdded = data;
