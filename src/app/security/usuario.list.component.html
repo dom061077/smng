@@ -80,7 +80,7 @@
                     <div class="ui-g-12">Apellido: <b>{{usuario.apellido}}</b></div>
                     <div class="ui-g-12">Nombre: <b>{{usuario.nombre}}</b></div>
                     <div class="ui-g-12">Cambiar password:<a [routerLink]="['/changepass','edit',usuario?.id]"> <i class="fa fa-key"></i></a></div>
-                    <div class="ui-g-12">Asignar materias:<a [routerLink]="[]"></a></div>
+                    <div class="ui-g-12">Asignar materias:<a [routerLink]="['/usuarioasignatura',usuario?.id]"><i class="fa fa-book"></i> </a></div>
                 </div>    
                 </div>
             </div>

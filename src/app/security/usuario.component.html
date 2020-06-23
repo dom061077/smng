@@ -145,7 +145,10 @@
 
                 <div class="ui-grid ui-grid-responsive ui-grid-pad ui-fluid" style="margin: 10px 0px"> 
                     <div class="ui-grid-row">
-                        <p-pickList (onMoveToSource)="OnMoveTarget($event)" (onMoveToTarget)="OnMoveTarget($event)" [source]="perfiles" [target]="perfilesAdded" sourceHeader="Perfiles Disponibles" targetHeader="Perfiles Asignados" 
+                        <p-pickList (onMoveToSource)="OnMoveTarget($event)" 
+                                (onMoveToTarget)="OnMoveTarget($event)" [source]="perfiles" 
+                                [target]="perfilesAdded" sourceHeader="Perfiles Disponibles" 
+                                targetHeader="Perfiles Asignados" 
                             [responsive]="true" filterBy="descripcion" 
                             dragdrop="true" sourceFilterPlaceholder="Filtrar por Descripción" targetFilterPlaceholder="Filtrar por Descripción" 
                             [sourceStyle]="{'height':'300px'}" [targetStyle]="{'height':'300px'}">

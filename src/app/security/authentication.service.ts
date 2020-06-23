@@ -84,6 +84,11 @@ export class AuthenticationService extends GenericService {
             
     }
 
+    getUserAsignaturas(id:number){
+        return this.sendRequest<any>("GET",this.url+"/showuserasignaturas/"
+            +id);
+    }
+
 
     getUserInformation(username: string) {
 
@@ -219,6 +224,13 @@ export class AuthenticationService extends GenericService {
                 return data.perfiles;
             })
     }
+
+    getAllAsignaturas(){
+        return this.sendRequest<any>("GET",this.url
+            +"/getasignaturas").toPromise().then(data=>{
+                return data.asignaturas;
+            });
+    }
     
     getPerfiles(filter:string,start:number,limit:number){
         return this.sendRequest<any>("GET",this.url+"/getperfiles?filter="
@@ -279,6 +291,15 @@ export class AuthenticationService extends GenericService {
             ,start,limit,sortField,ascDesc).pipe(map((data:any)=>{
                 return data.usuarios;
             }));
+
+    }
+
+    public linkAsignaturaUsuarios(usuarioAsign){
+        return this.sendRequest<any>("POST",this.url+"/linkasignaturasusers"
+            ,usuarioAsign
+        ).pipe(map(data=>{
+            return data
+        }));
 
     }
 

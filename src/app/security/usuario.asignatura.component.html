@@ -1,10 +1,63 @@
-<form [formGroup]="usuarioAsigForm" (ngSubmit)="onSubmit(usuarioAsigForm)">
+
+
+<form  [style]="{'color':'#fff'}"  role="form" [formGroup]="usuarioAsigForm" (ngSubmit)="onSubmit(usuarioAsigForm.value)">
     <p-panel header="{{headerTitle}}">
-        <div class="container">
-            <div class="row">
-                <div>
-                </div>
+        
+            <div class="form-group">
+                <label for="usuarioId">
+                    Id Usuario:
+                </label>    
+
+               <div class="col-xs-12 col-sm-6 col-md-4 col-log-3 col-xl-3">
+                    <input class="form-control" disabled id="usuarioId" formControlName="id">
+               </div>
             </div>
-        </div>    
-    </p-panel>    
+
+            <div class="form-group">
+                <label for="apellidoId">
+                    Apellido:
+                </label>    
+
+                <div class="col-xs-12 col-sm-6 col-md-4 col-log-3 col-xl-3">
+                    <input class="form-control" id="apellidoId" disabled formControlName="apellido"> 
+                </div>
+            </div>    
+            <div class="form-group">
+                <label for="nombreId">
+                    Nombre:
+                </label>    
+
+                <div class="col-xs-12 col-sm-6 col-md-4 col-log-3 col-xl-3">
+                    <input class="form-control" id="nombreId" disabled formControlName="nombre">
+                </div>
+            </div>                     
+
+                    <div class="row">
+                        <p-pickList (onMoveToSource)="OnMoveTarget($event)" 
+                            (onMoveToTarget)="OnMoveTarget($event)" 
+                            [source]="asignaturas" [target]="asignaturasAdded" 
+                            sourceHeader="Asignaturas Disponibles" 
+                            targetHeader="Asignaturas Asignadas" 
+                            [responsive]="true" filterBy="descripcion" 
+                            dragdrop="true" sourceFilterPlaceholder="Filtrar por Descripción" 
+                            targetFilterPlaceholder="Filtrar por Descripción" 
+                            [sourceStyle]="{'height':'300px'}" [targetStyle]="{'height':'300px'}">
+                            <ng-template let-asignatura pTemplate="item">
+                                <div class="row">
+                                    
+                                    <div style="font-size:14px;float:left;margin:15px 5px 0 0">{{asignatura.id}} - {{asignatura.descripcion}}</div>
+                                </div>
+                            </ng-template>
+                        </p-pickList>   
+                        <div class="col-xs-12 col-sm-6 col-md-4 col-log-3 col-xl-3">
+                            <p-message severity="error" text="Agregue las Asignaturas" 
+                                *ngIf="usuarioAsigForm.get('asignaturas').errors &&  usuarioAsigForm.get('asignaturas').errors.required"></p-message>
+                        </div>                                         
+                    </div>                    
+
+
+    </p-panel>   
+    <div class="col-xs-12 col-sm-6 col-md-4 col-log-3 col-xl-3">
+        <button pButton style="width:100%"  type="submit" label="Confirmar" [disabled]="!usuarioAsigForm.valid"></button>     
+    </div>        
 </form>
