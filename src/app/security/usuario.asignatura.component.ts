@@ -25,7 +25,14 @@ export class UsuarioAsignatura implements OnInit{
 
     getAsignaturas(){
         this.authService.getAllAsignaturas().then(data=>{
-            this.asignaturas = data;
+            this.asignaturas = data.filter(asig=>{
+                var found=false;
+                for(var i=0;i<this.asignaturasAdded.length;i++){
+                    if(this.asignaturasAdded[i].id==asig.id)
+                        return found;
+                }
+                return !found;
+            });
         });
     }
 
@@ -40,8 +47,13 @@ export class UsuarioAsignatura implements OnInit{
         });
         this.authService.getUserAsignaturas(this.activeRoute
             .snapshot.params["id"]).subscribe(data=>{
-                console.log("Data getUserAsignaturas "+data);
-        }).su;
+                this.usuarioAsigForm.get('id').setValue(data.id);
+                this.usuarioAsigForm.get('apellido').setValue(data.apellido);
+                this.usuarioAsigForm.get('nombre').setValue(data.nombre);
+                this.usuarioAsigForm.get('asignaturas').setValue(data.asignaturas);
+                this.asignaturasAdded = data.asignaturas;
+                
+        });
         this.getAsignaturas()
     }
 
@@ -53,8 +65,18 @@ export class UsuarioAsignatura implements OnInit{
         console.log("userFormAsig: "+userFormAsig);
         this.authService.linkAsignaturaUsuarios(userFormAsig)
             .subscribe(data=>{
-                console.log("Resultado de linkear usuario con asignatura: "
-                    +data);
+                if(data.success){
+                    this.messageService.add({
+                        severity:'info',summary:'Mensaje'
+                        ,detail:'Los datos fueron registrados correctamente'
+                    });
+                    this.router.navigateByUrl("/userlist");
+                }else{
+                    this.messageService.add({
+                        severity:'error',summary:'Error'
+                        ,detail:'Error al registrar la información'                        
+                    });
+                }
             });
     }
 }

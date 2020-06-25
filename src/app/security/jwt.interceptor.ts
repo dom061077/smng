@@ -71,6 +71,7 @@ export class JwtInterceptor implements HttpInterceptor {
                          
                      }
                 }
+                //console.log("Error: "+error);
                 this.authenticationService.currentRestSubError.next(error);
 
                 return throwError (error);
