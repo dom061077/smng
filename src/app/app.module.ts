@@ -10,6 +10,7 @@ import { AppComponent } from './app.component';
 
 import { HomeModule } from "./home/home.module";
 import { AlumnoModule } from "./alumno/alumno.module";
+import { AcademicoModule } from "./academico/academico.module";
 import { InscripcionModule } from './inscripcion/inscripcion.module';
 import { HomeComponent } from "./home/home.component";
 import { HTTP_INTERCEPTORS } from "@angular/common/http";
@@ -76,6 +77,7 @@ const rootRouting: ModuleWithProviders =
     SecurityModule,
     AlumnoModule,
     InscripcionModule,
+    AcademicoModule,
     rootRouting,
     SharedModule,
     SidebarModule,

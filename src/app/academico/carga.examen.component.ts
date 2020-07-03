@@ -1,5 +1,5 @@
 import { Component,OnInit,ViewChild,ElementRef} from '@angular/core';
-//import { Inscripcion } from './inscripcion.model';
+import { CargaExamen } from './carga.examen.model';
 import { AcademicoService } from './academico.service';
 import { FormControl } from '@angular/forms';
 import { debounceTime,distinctUntilChanged } from 'rxjs/operators';
@@ -14,16 +14,16 @@ import {SelectItem} from 'primeng/api';
     templateUrl: './carga.examen.component.html',
         //styles: [`        `]
     
-
+ 
 })
-export class InscripcionList   implements OnInit{ 
+export class CargaExamenList   implements OnInit{ 
     @ViewChild('printInsc') printId: ElementRef;
 
 
-    //inscripciones : Inscripcion[];
+    examenes:CargaExamen[];//inscripciones : Inscripcion[];
     sortOptions:SelectItem[];
     filterOptions:SelectItem[];
-    totalLazyInscripcionesLength:number;
+    totalLazyExamenesLength:number;
     searchControl : FormControl;
     searchFechaControl : FormControl;
     searchDniControl : FormControl;
@@ -31,7 +31,7 @@ export class InscripcionList   implements OnInit{
     private debounce: number = 400;
     ascSort:boolean;//true= orden ascendente, false= orden descendente
     sortKey:string;
-    filterKey:string;
+    filterKey:number;
     selfFilter:string;
     first:number;
     rows:number;
@@ -51,16 +51,16 @@ export class InscripcionList   implements OnInit{
             else
                 qJson=query.split('.').join('').split('_').join('');
             this.selfFilter=qJson //sirve para lazyLoad de la grilla
-            this.cargarListInsc(this.filterKey,qJson,0,10,this.sortKey,(this.ascSort?'asc':'desc'));    
+            this.cargarListExamenes(this.filterKey,'',0,10);    
 
-            this.acadService.getCantidadInscripciones(this.filterKey
-                    ,qJson).toPromise().then(data=>{
-                this.totalLazyInscripcionesLength = data;
-            });  
+            /*this.acadService.getCantidadExamenes(query).toPromise().then(data=>{
+                this.totalLazyExamenesLength = data;
+            });  */
 
     }
 
     ngOnInit(){
+        
         this.es = {
             firstDayOfWeek: 0,
             dayNames: ["Domingo", "Lunes", "Martes", "Miércoles", "Jueves", "Viernes", "Sábado"],
@@ -79,25 +79,23 @@ export class InscripcionList   implements OnInit{
             {label: 'Identificador',value:'id'}
         ];
 
-        this.filterOptions = [
+        this.acadService.getAsignaturasCurrentUser().subscribe(data=>{
+            this.filterOptions = data.asignaturas;
+        });
+
+        /*this.filterOptions = [
             {label:'Apellido y Nombre',value:'apellidoNombre'},
             {label:'D.N.I',value:'dni'},
             {label:'Fecha Insc.',value:'fecha'},
             {label:'Periodo',value:'periodoLectivo'}
-        ];
+        ];*/
 
-        this.inscService.getCantidadInscripciones("","").toPromise().then(data=>{
+        this.acadService.getCantidadExamenesAsig(this.filterKey,'').toPromise().then(data=>{
+            console.log("Cantidad de filas: "+data.count);
+            this.totalLazyExamenesLength = data.count;
             
-            this.totalLazyInscripcionesLength = data;
-            console.log("Total de registros: "+this.totalLazyInscripcionesLength);
-        });          
+        });    
 
-        /*this.searchPeriodo = new FormControl('');
-        this.searchPeriodo.valueChanges
-            .pipe(debounceTime(this.debounce),distinctUntilChanged())
-            .subscribe((query:any)=>{
-                this.filtrar(query);
-            });*/
 
         this.searchDniControl = new FormControl('');
         this.searchDniControl.valueChanges
@@ -127,14 +125,15 @@ export class InscripcionList   implements OnInit{
                  
     }
 
-    loadData(event){
+   loadData(event){
         console.log('Evento loadData ');
         this.first = event.first;
         this.rows = event.rows;
-        this.cargarListInsc(this.filterKey, this.selfFilter,event.first,event.rows,this.sortKey,(this.ascSort?'asc':'desc'));
+        this.cargarListExamenes(this.filterKey,'',event.first,event.rows);
+
 
     }
-    
+    /*
     selectPerfil(event){
         console.log("FilterKey: "+this.filterKey);
     }
@@ -146,16 +145,16 @@ export class InscripcionList   implements OnInit{
             .then(data=>{
                 this.inscripciones = data;
             });
-    }
+    }*/
 
     onFilterChange(event){
         this.filtrar('');
-        this.searchControl.setValue('');
-        this.searchDniControl.setValue('');
-        this.searchFechaControl.setValue('');
+        //this.searchControl.setValue('');
+        //this.searchDniControl.setValue('');
+        //this.searchFechaControl.setValue('');
     }
 
-
+    /*
     onPrintClick(){
         this.inscService.getReporteBase64(this.filterKey
             ,this.selfFilter,this.sortKey,(this.ascSort?'asc':'desc'))
@@ -185,16 +184,17 @@ export class InscripcionList   implements OnInit{
         return false;
     }
 
-    onPeriodoChange(event){
+    onPeriodoChange(event){totalLazyExamenesLength
         this.filtrar(this.searchPeriodo+'');
     }
+    */
 
 
-    private cargarListInsc(filterField:string, filter:string,start:number,limit:number,sortField:string,ascDesc:string){
-        this.inscService.getInscripciones(filterField,filter,start,limit
-                ,this.sortKey,(this.ascSort?'asc':'desc'))
-            .then(data=>{
-                this.inscripciones = data;
+    private cargarListExamenes(asigId:number,filter:string
+        ,start:number,limit:number){
+        this.acadService.getExamenesAsig(asigId,filter,start,limit)
+            .subscribe(data=>{
+                this.examenes = data.examenes;
 
             });
         

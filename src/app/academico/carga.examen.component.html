@@ -1,19 +1,10 @@
-<p-panel header="Listado de Inscripciones">
-<p-dataView  #dataView [value]="inscripciones" [paginator]="true" [rows]="10"
+<p-panel header="Listado de Exámenes">
+<p-dataView  #dataView [value]="examenes" [paginator]="true" [rows]="10"
     [lazy]="true"  (onLazyLoad)="loadData($event)" paginatorPosition="both"
-     [totalRecords]="totalLazyInscripcionesLength">
+     [totalRecords]="totalLazyExamenesLength">
     <p-header>
         <div class="container">
-            <div class="input-group form-group">
-                <div class="col-xs-12 col-sm-6 col-md-4 col-log-3 col-xl-3" 
-                    style="display: inline-flex">
-                    <p-dropdown [options]="sortOptions" [(ngModel)]="sortKey" placeholder="Ordenar Por" (onChange)="onSortChange($event)" [style]="{'min-width':'140px'}"></p-dropdown>
-                    <div style="position:relative"><p-toggleButton  onIcon="fa fa-sort-desc"
-                            (onChange)="onSortChange($event)"
-                            offIcon="fa fa-sort-asc" onLabel="" ofLabel=""  
-                            [(ngModel)]="ascSort"></p-toggleButton></div>
-                </div>
-            </div>
+
 
             <div class="input-group form-group">
                 <div class="col-xs-12 col-sm-6 col-md-4 col-log-3 col-xl-3">
@@ -23,34 +14,7 @@
                     </p-dropdown>
 
                 </div>                    
-                <div class="col-xs-12 col-sm-6 col-md-4 col-log-3 col-xl-3">
-                    <div  class="input-group-prepend" >
-                        <span class="input-group-text" *ngIf="(filterKey=='apellidoNombre' || filterKey==null)"><i class="fa fa-search" 
-                            aria-hidden="true"></i></span>
 
-                        
-                        <input *ngIf="(filterKey=='apellidoNombre' || filterKey==null)" 
-                            type="text" pInputText   [formControl]="searchControl"  
-                            placeholder="Ingrese texto" />
-
-                        <p-spinner size="15"  *ngIf="filterKey=='periodoLectivo'" 
-                            (onChange)='onPeriodoChange($event)'
-                            [(ngModel)]="searchPeriodo" [min]="2019" >
-                        </p-spinner>
-
-                        <p-inputMask *ngIf="filterKey=='dni'" 
-                            placeholder="Ingrese número" 
-                            [formControl]="searchDniControl"  mask="99.999.999">
-                        </p-inputMask>    
-                        
-                        <p-calendar *ngIf="filterKey=='fecha'" 
-                            [formControl]="searchFechaControl"
-                            [locale]="es"  [monthNavigator]="true" [yearNavigator]="true" 
-                             dateFormat="dd/mm/yy"  
-                            [showIcon]="true">
-                        </p-calendar>    
-                    </div>    
-                </div>    
             </div>     
 
             <div class="row">        
@@ -94,10 +58,17 @@
                         Nombre: 
                     </div>    
                     <div class="col-xs-3 col-sm-2 col-md-4 col-log-3 col-xl-2">
-                        <b>{{insc.nombre}}</b>
+                        <b>{{insc.cursoDivision}}</b>
                     </div>
                 </div>    
-
+                <div class="row">    
+                    <div class="col-xs-3 col-sm-2 col-md-4 col-log-3 col-xl-3">
+                        Inscripción: 
+                    </div>    
+                    <div class="col-xs-3 col-sm-2 col-md-4 col-log-3 col-xl-2">
+                        <b>{{insc.nombre}}</b>
+                    </div>
+                </div>  
             
             <hr class="mt-2 mb-3"/>
         </div>
@@ -114,4 +85,3 @@
     </ng-template-->
 </p-dataView>
 </p-panel>
-</div>    

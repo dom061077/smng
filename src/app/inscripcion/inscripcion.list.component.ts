@@ -45,6 +45,7 @@ export class InscripcionList   implements OnInit{
     }
 
     private filtrar(query){
+            console.log("Llamando a filtrar");
             let qJson;
             if (query && query instanceof Object)
                 qJson=query.toJSON();

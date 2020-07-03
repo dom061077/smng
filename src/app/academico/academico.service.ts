@@ -11,4 +11,26 @@ export class AcademicoService extends RestDataSource{
         super(http,url);
     }
 
+    getCantidadExamenesAsig(asigId:number,filter:string){
+        return this.sendRequest<any>("GET",this.url+"/countExamenesAsig"
+            +"?&asigId="+asigId+"&filter="+filter);
+    }
+
+    getExamenesAsig(asigId:number,filter:string
+            ,start:number,limit:number){
+        return this.sendRequest<any>("GET",this.url+"/getalumnoexamenes"
+            +"?asigId="+asigId+"&filter="+filter
+            +"&start="+start+"&limit="+limit
+            );
+    }
+
+    getAsignaturasCurrentUser(){
+        return this.sendRequest<any>("GET",this.url+"/getasignaturascurrentuser");
+    }
+
+    getTurnosPorCurso(cursoId:number){
+        return this.sendRequest<any>("GET",this.url+"/getasignaturaturnos/cursoId="
+            +cursoId);
+    }
+
 }
