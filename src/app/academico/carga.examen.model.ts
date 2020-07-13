@@ -5,6 +5,7 @@ export class CargaExamen extends Object{
         ,nombre:string,curso:string,division:string
         ,periodoEvaluacion:string,promedio:number
         ,complementario:number
+        ,asignatura:string
         ){
             super();
     }

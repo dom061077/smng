@@ -36,10 +36,17 @@
     <p-footer>Seleccione uno de la lista.</p-footer>
     <ng-template let-exam pTemplate="listItem">
         <div class="container">
-            
                 <div class="row">
                     <div class="col-xs-6 col-sm-3 col-md-4 col-log-3 col-xl-3">
-                        Id: 
+                        Asignatura: 
+                    </div>
+                    <div class="col-xs-3 col-sm-2 col-md-4 col-log-3 col-xl-2">    
+                        <b>{{exam?.asignatura}}</b>
+                    </div>
+                </div>            
+                <div class="row">
+                    <div class="col-xs-6 col-sm-3 col-md-4 col-log-3 col-xl-3">
+                        Id Alumno: 
                     </div>
                     <div class="col-xs-3 col-sm-2 col-md-4 col-log-3 col-xl-2">    
                         <b><a [routerLink]="['/viewinsc',exam?.id]" >{{exam?.id}}</a></b>

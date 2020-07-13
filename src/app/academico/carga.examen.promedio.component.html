@@ -1,0 +1,49 @@
+<form [formGroup]="examenesForm" (ngSubmit)="onSubmit(examenesForm.value)">
+    <p-panel header="Carga de Notas">
+        <p-fieldset>
+            <p-header *ngIf="examenes">{{examenes[0].asignatura}} - {{examenes[0].apellido+' '+examenes[0].nombre}}</p-header>
+            <div class="row">
+                <div class="col-xs-12 col-sm-6 col-md-4 col-log-3 col-xl-2">
+                    Periodo Lectivo:
+                </div>    
+                <div *ngIf="examenes" class="col-xs-12 col-sm-6 col-md-4 col-log-3 col-xl-2">
+                    {{examenes[0].periodoLectivo}}
+                </div>    
+                <div class="col-xs-12 col-sm-6 col-md-4 col-log-3 col-xl-2">
+                    Curso y División:
+                </div>    
+                <div *ngIf="examenes" class="col-xs-12 col-sm-6 col-md-4 col-log-3 col-xl-2">
+                    {{examenes[0].curso +' '+examenes[0].division}}
+                </div>                   
+            </div>    
+        </p-fieldset>    
+        <div class="container">
+            <div class="row" *ngFor="let exam of examenes">
+                <div class="col-xs-12 col-sm-6 col-md-4 col-log-3 col-xl-3">
+                    {{exam?.periodoEval + ' '+exam?.tipoExamen}}:
+                </div>    
+
+                <div class="col-xs-12 col-sm-6 col-md-4 col-log-3 col-xl-2">
+                    <p-spinner  style="width:100%"  
+                     formControlName="{{'exam'+exam.id}}"
+                     > 
+                    </p-spinner>
+                </div>    
+            </div>        
+        </div>
+
+                <!-- div *ngIf="alumnoForm.get('id').value!=null" class="ui-grid ui-grid-responsive ui-grid-pad ui-fluid" style="margin: 10px 0px">
+                    <div class="ui-grid-row">
+                            <div class="ui-grid-col-2">
+                                Id:
+                            </div>
+                            <div class="ui-grid-row">    
+                                    <div class="ui-grid-col-4">
+                                        <input class="form-control" style="width:100%"   formControlName="id" disabled />
+                                    </div>
+
+                            </div>    
+                    </div>                    
+                </div -->            
+    </p-panel>    
+</form>    
