@@ -5,11 +5,16 @@ import {AcademicoService} from './academico.service';
 import {Router,ActivatedRoute} from "@angular/router";
 import {Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
+import {CustomValidators} from '../util/custom-validators';
+
+
 
 @Component({
     templateUrl:'./carga.examen.promedio.component.html'
 })
 export class CargaExamenPromedio implements OnInit{
+     promRegex:RegExp =/^\s*(?=.*[1-9])\d*(?:\.\d{1,2})?\s*$/;
+    ccRegex= new RegExp ('/[0-9]{4}-[0-9]{4}-[0-9]{4}-[0-9]{4}$/'); 
     examenesForm:FormGroup;
     examenes:any;//Observable <Array<any>>;
     constructor(private fb:FormBuilder,private acadService:AcademicoService
@@ -30,7 +35,11 @@ export class CargaExamenPromedio implements OnInit{
                 for(let exam of data.examenes){
                     
                     this.examenesForm.addControl('exam'+exam.id
-                        ,new FormControl('',Validators.required));
+                        ,new FormControl('',[Validators.required],
+                            [(control: AbstractControl): Observable<ValidationErrors | null> => 
+                            
+                                    CustomValidators.validatePromedio(control)]  )      
+                             );
                     //this.myForm.addControl('newControl', new FormControl('', Validators.required));
                 }
             });

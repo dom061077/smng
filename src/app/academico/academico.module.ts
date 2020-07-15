@@ -9,8 +9,9 @@ import {DropdownModule} from 'primeng/dropdown';
 import {ToggleButtonModule} from 'primeng/togglebutton';
 import {PanelModule} from 'primeng/panel';
 import {MessagesModule} from 'primeng/messages';
+import {MessageModule} from 'primeng/message';
 import {FieldsetModule} from 'primeng/fieldset';
-import {SpinnerModule} from 'primeng/spinner';
+import {KeyFilterModule} from 'primeng/keyfilter';
 
 import {AcademicoService} from './academico.service';
 import {CargaExamenList} from './carga.examen.component';
@@ -34,7 +35,9 @@ let routing=RouterModule.forChild([
         ,PanelModule
         ,MessagesModule
         ,FieldsetModule
-        ,SpinnerModule
+        ,KeyFilterModule
+        ,MessagesModule
+        ,MessageModule
     ],
     providers:[
         AcademicoService

@@ -1,7 +1,7 @@
 import { ValidationErrors, ValidatorFn, AbstractControl } from '@angular/forms';
 import { AuthenticationService  } from '../security/authentication.service';
 import { AlumnoService } from '../alumno/alumno.service';
-import { Observable } from 'rxjs';
+import { Observable,of } from 'rxjs';
 import { map } from 'rxjs/operators';
 
 export class CustomValidators {
@@ -47,6 +47,17 @@ export class CustomValidators {
                 
       }
   }*/
+  static validatePromedio(control:AbstractControl)
+    : Observable<ValidationErrors | null>{
+      let val = control.value;
+      if(val === null || val === '')
+        return of(null);
+      if(!val.toString().match(/^\s*(?=.*[1-9])\d*(?:\.\d{1,2})?\s*$/)
+          || val<0 || val>10)  
+        return of({'invalidPromedio':true});
+      return of(null);  
+  }
+
   static validateDniAlumno$(control: AbstractControl
       ,alumnoService:AlumnoService,validaExiste:boolean)
       : Observable<ValidationErrors | null>{

@@ -1,3 +1,4 @@
+<input type="text" pInputText pKeyFilter="num" placeholder="Numbers">
 <form [formGroup]="examenesForm" (ngSubmit)="onSubmit(examenesForm.value)">
     <p-panel header="Carga de Notas">
         <p-fieldset>
@@ -14,7 +15,8 @@
                 </div>    
                 <div *ngIf="examenes" class="col-xs-12 col-sm-6 col-md-4 col-log-3 col-xl-2">
                     {{examenes[0].curso +' '+examenes[0].division}}
-                </div>                   
+                </div>            
+                       
             </div>    
         </p-fieldset>    
         <div class="container">
@@ -24,11 +26,18 @@
                 </div>    
 
                 <div class="col-xs-12 col-sm-6 col-md-4 col-log-3 col-xl-2">
-                    <p-spinner  style="width:100%"  
-                     formControlName="{{'exam'+exam.id}}"
-                     > 
-                    </p-spinner>
-                </div>    
+                    <input  style="width:100%"  
+                        pInputText pKeyFilter="num"
+                        type="text" 
+                        formControlName="{{'exam'+exam.id}}"> 
+                    
+                </div>  
+                <div class="col-xs-12 col-sm-6 col-md-4 col-log-3 col-xl-2">
+                    <p-message severity="error" text="Ingrese un valor entre 0 y 10"
+                        *ngIf="examenesForm.get('exam'+exam.id).dirty && examenesForm.get('exam'+exam.id).errors"
+                        >
+                    </p-message>                        
+                </div>      
             </div>        
         </div>
 
