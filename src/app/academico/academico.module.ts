@@ -12,6 +12,7 @@ import {MessagesModule} from 'primeng/messages';
 import {MessageModule} from 'primeng/message';
 import {FieldsetModule} from 'primeng/fieldset';
 import {KeyFilterModule} from 'primeng/keyfilter';
+import {ButtonModule} from 'primeng/button';
 
 import {AcademicoService} from './academico.service';
 import {CargaExamenList} from './carga.examen.component';
@@ -38,6 +39,7 @@ let routing=RouterModule.forChild([
         ,KeyFilterModule
         ,MessagesModule
         ,MessageModule
+        ,ButtonModule
     ],
     providers:[
         AcademicoService

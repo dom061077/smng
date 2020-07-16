@@ -1,4 +1,4 @@
-<input type="text" pInputText pKeyFilter="num" placeholder="Numbers">
+
 <form [formGroup]="examenesForm" (ngSubmit)="onSubmit(examenesForm.value)">
     <p-panel header="Carga de Notas">
         <p-fieldset>
@@ -40,6 +40,11 @@
                 </div>      
             </div>        
         </div>
+        <div class="row">
+             <button id="buttonConfirmId" pButton style="width:100%"  
+                    type="submit" label="Confirmar" [disabled]="!examenesForm.valid">
+             </button>
+        </div>    
 
                 <!-- div *ngIf="alumnoForm.get('id').value!=null" class="ui-grid ui-grid-responsive ui-grid-pad ui-fluid" style="margin: 10px 0px">
                     <div class="ui-grid-row">

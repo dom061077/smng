@@ -35,7 +35,7 @@ export class CargaExamenPromedio implements OnInit{
                 for(let exam of data.examenes){
                     
                     this.examenesForm.addControl('exam'+exam.id
-                        ,new FormControl('',[Validators.required],
+                        ,new FormControl(exam.puntuacion,[Validators.required],
                             [(control: AbstractControl): Observable<ValidationErrors | null> => 
                             
                                     CustomValidators.validatePromedio(control)]  )      
@@ -48,6 +48,12 @@ export class CargaExamenPromedio implements OnInit{
 
     onSubmit(valuesForm){
         console.log("Valor fomrulario: "+valuesForm);
+        this.acadService.savePromedios(valuesForm).subscribe(data=>{
+            if(data.success){
+              this.messageService.add({severity:'info',summary:'Mensaje',detail:'Los datos fueron registrados correctamente'});
+              this.router.navigateByUrl("/listalumno");                
+            }
+        });
     }
 
 }

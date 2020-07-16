@@ -38,4 +38,9 @@ export class AcademicoService extends RestDataSource{
             +alumnoId+"&asigId="+asigId);
     }
 
+    savePromedios(promedios){
+        return this.sendRequest<any>("POST",this.url+"/savepromedios"
+            ,promedios);
+    }
+
 }
