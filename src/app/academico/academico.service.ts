@@ -34,7 +34,7 @@ export class AcademicoService extends RestDataSource{
     }
 
     getAlumnoExamenes(asigId:number,alumnoId:number){
-        return this.sendRequest<any>("GET",this.url+"/getalumnoexamenes?alumnoId="
+        return this.sendRequest<any>("GET",this.url+"/showalumnoexamenes?alumnoId="
             +alumnoId+"&asigId="+asigId);
     }
 

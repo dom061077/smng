@@ -51,7 +51,7 @@ export class CargaExamenPromedio implements OnInit{
         this.acadService.savePromedios(valuesForm).subscribe(data=>{
             if(data.success){
               this.messageService.add({severity:'info',summary:'Mensaje',detail:'Los datos fueron registrados correctamente'});
-              this.router.navigateByUrl("/listalumno");                
+              this.router.navigateByUrl("/cargaexamen");                
             }
         });
     }

@@ -20,13 +20,13 @@
             </div>    
         </p-fieldset>    
         <div class="container">
-            <div class="row" *ngFor="let exam of examenes">
-                <div class="col-xs-12 col-sm-6 col-md-4 col-log-3 col-xl-3">
+            <div  class="row" *ngFor="let exam of examenes">
+                <div  class="align-middle m-1 col-xs-12 col-sm-6 col-md-4 col-log-3 col-xl-3">
                     {{exam?.periodoEval + ' '+exam?.tipoExamen}}:
                 </div>    
 
-                <div class="col-xs-12 col-sm-6 col-md-4 col-log-3 col-xl-2">
-                    <input  style="width:100%"  
+                <div  class="m-1 col-xs-12 col-sm-6 col-md-4 col-log-3 col-xl-2">
+                    <input class=" form-control"  style="width:100%"  
                         pInputText pKeyFilter="num"
                         type="text" 
                         formControlName="{{'exam'+exam.id}}"> 
