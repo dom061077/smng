@@ -100,6 +100,25 @@
                     </div>
                 </div>    
 
+                <div class="row">    
+                    <div class="col-xs-3 col-sm-2 col-md-4 col-log-3 col-xl-3">
+                        Periodo Lectivo: 
+                    </div>    
+                    <div class="col-xs-3 col-sm-2 col-md-4 col-log-3 col-xl-2">
+                        <b>{{insc.periodoLectivo}}</b>
+                    </div>
+                </div> 
+
+                <div class="row">    
+                    <div class="col-xs-3 col-sm-2 col-md-4 col-log-3 col-xl-3">
+                        Compendio: 
+                    </div>    
+                    <div class="col-xs-3 col-sm-2 col-md-4 col-log-3 col-xl-2">
+                        <a href="#" (click)='onClickCompendio(insc?.id)'> 
+                            <i class="fa fa-list-alt fa-2x" aria-hidden="true"></i>
+                        </a>
+                    </div>
+                </div>                 
             
             <hr class="mt-2 mb-3"/>
         </div>

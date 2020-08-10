@@ -97,6 +97,14 @@ export class InscripcionService extends RestDataSource{
             }));
     }
 
+    getXlsCompendio(inscId:number){
+        return this.sendRequest<any>("POST",this.url+"/compendio"
+                ,{  inscId:inscId })
+                .pipe(map(data=>{
+                    return data.report
+                }));
+    }
+
     getInscripcion(id:number){
         return this.sendRequest<any>("GET",this.url+"/getinsc/"+id)
             .pipe(map(data=>{

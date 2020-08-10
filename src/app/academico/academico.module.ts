@@ -17,6 +17,7 @@ import {ButtonModule} from 'primeng/button';
 import {AcademicoService} from './academico.service';
 import {CargaExamenList} from './carga.examen.component';
 import {CargaExamenPromedio} from './carga.examen.promedio.component';
+import {DialogModule} from 'primeng/dialog';
 
 let routing=RouterModule.forChild([
  
@@ -40,6 +41,7 @@ let routing=RouterModule.forChild([
         ,MessagesModule
         ,MessageModule
         ,ButtonModule
+        ,DialogModule
     ],
     providers:[
         AcademicoService

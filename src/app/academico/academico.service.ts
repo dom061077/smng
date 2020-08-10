@@ -5,6 +5,7 @@ import { map } from 'rxjs/operators';
 //import { Alumno } from './alumno.model';
 import { Observable } from 'rxjs';
 
+
 @Injectable()
 export class AcademicoService extends RestDataSource{
     constructor (public http:HttpClient,@Inject(REST_URL) public url: string)  {
@@ -41,6 +42,15 @@ export class AcademicoService extends RestDataSource{
     savePromedios(promedios){
         return this.sendRequest<any>("POST",this.url+"/savepromedios"
             ,promedios);
+    }
+
+    getPromedioPorPeriodo(inscId:number,asigId:number){
+        return this.sendRequest<any[]>("GET",this.url+"/getpromediosperi?inscId="
+            +inscId+"&asigId="+asigId).pipe(map(data=>{
+                let prom:any;//Observable<any[]>;
+                prom = data.promedios;
+                return prom;
+            }));
     }
 
 }

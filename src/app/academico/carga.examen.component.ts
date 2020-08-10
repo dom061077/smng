@@ -4,10 +4,11 @@ import { AcademicoService } from './academico.service';
 import { FormControl } from '@angular/forms';
 import { debounceTime,distinctUntilChanged } from 'rxjs/operators';
 
-
+import {ConfirmationService} from 'primeng/api';
 
 
 import {SelectItem} from 'primeng/api';
+import { Observable } from 'rxjs';
 
 @Component({
     //selector: 'ggg',
@@ -38,9 +39,11 @@ export class CargaExamenList   implements OnInit{
     es:any;
     fechaFiltro:Date=new Date();
     searchPeriodo:number;
-    
+    displayPeriodos:boolean=false;
+    promPorPeriodos$:Observable<any[]>;
 
-    constructor(private acadService:AcademicoService ){
+    constructor(private acadService:AcademicoService
+        ){
 
     }
 
@@ -60,6 +63,7 @@ export class CargaExamenList   implements OnInit{
     }
 
     ngOnInit(){
+        console.log("Trayendo promedios");
         
         this.es = {
             firstDayOfWeek: 0,
@@ -199,5 +203,16 @@ export class CargaExamenList   implements OnInit{
             });
         
     }
+
+    onClickPromedio(inscId:number,asigId:number){
+        console.log("Click promedio");
+        this.promPorPeriodos$ = this.acadService
+            .getPromedioPorPeriodo(inscId,asigId);
+        
+        this.displayPeriodos=true;
+        
+
+        return false;      
+    }    
 
 }

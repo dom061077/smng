@@ -201,4 +201,16 @@ export class InscripcionList   implements OnInit{
         
     }
 
+    onClickCompendio(inscId:number){
+        this.inscService.getXlsCompendio(
+                inscId
+        ).subscribe(data=>{
+            window.open('data:application/vnd.openxmlformats-officedocument.spreadsheetml.sheet;base64,' 
+                +data
+             );
+
+        })
+        return false;        
+    }
+
 }

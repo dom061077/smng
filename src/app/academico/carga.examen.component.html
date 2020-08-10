@@ -1,4 +1,21 @@
-<p-panel header="Listado de Exámenes">
+<p-dialog header="Promedios por Periodo" [(visible)]="displayPeriodos">
+    <div *ngFor="let item of promPorPeriodos$  | async" class="row">
+        <div class="col-xs-6 col-sm-3 col-md-4 col-log-3 col-xl-6">
+            {{item.periodoEval }}:
+        </div>    
+        <div class="col-xs-6 col-sm-3 col-md-4 col-log-3 col-xl-6">
+            {{item.promedio }}
+        </div>    
+        
+    </div>  
+    <p-footer>
+        <button type="button" pButton icon="fa fa-times" style="width:100%"
+                (click)="displayPeriodos=false" label="Cerrar"></button>
+        
+    </p-footer>      
+</p-dialog>
+
+<p-panel header="Listado de Promedios">
 <p-dataView  #dataView [value]="examenes" [paginator]="true" [rows]="10"
     [lazy]="true"  (onLazyLoad)="loadData($event)" paginatorPosition="both"
      [totalRecords]="totalLazyExamenesLength">
@@ -25,7 +42,7 @@
                 </div>                           
 
                 <div class="col-xs-1 col-sm-1 col-md-1 col-log-1 col-xl-1">
-                        <a href="#" (click)="onExportXlsClick()" > <i class="fa fa-file-excel-o fa-2x"></i></a>
+                        <a href="#" (click)="onExportXlsClick(exam?.id,exam?.asignaturaId)" > <i class="fa fa-file-excel-o fa-2x"></i></a>
                 </div>                           
             </div>    
                 <!--div class="ui-g-6 ui-md-4" style="text-align:right">
@@ -104,7 +121,19 @@
                                 <a [routerLink]="['/cargaexamenpromedio/'+exam?.asignaturaId,exam?.alumnoId]"> <i class="fa fa-pencil fa-2x" aria-hidden="true"></i></a>
                             </div>
                         
-                </div>                  
+                </div>    
+                <div class="row">          
+                            <div class="col-xs-6 col-sm-2 col-md-4 col-log-3 col-xl-3">
+                                Promedios detallados: 
+                            </div>    
+                            <div class="clearfix col-xs-3 col-sm-2 col-md-4 col-log-3 col-xl-2">
+                                
+                                <a href="#" (click)='onClickPromedio(exam?.id,exam?.asignaturaId)'> 
+                                    <i class="fa fa-server fa-2x" aria-hidden="true"></i>
+                                </a>
+                            </div>
+                        
+                </div>                               
             <hr class="mt-2 mb-3"/>
         </div> <!-- end div container -->
     </ng-template>
