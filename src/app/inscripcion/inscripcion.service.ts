@@ -97,9 +97,10 @@ export class InscripcionService extends RestDataSource{
             }));
     }
 
-    getXlsCompendio(inscId:number){
+    getXlsCompendio(asignaturaId:number,periLectivoId:number
+            ,turnoId:number){
         return this.sendRequest<any>("POST",this.url+"/compendio"
-                ,{  inscId:inscId })
+                ,{  asigId:asignaturaId, periLectivoId:periLectivoId })
                 .pipe(map(data=>{
                     return data.report
                 }));

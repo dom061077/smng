@@ -32,7 +32,7 @@ export class JwtInterceptor implements HttpInterceptor {
                     error.msgobj = {title:'Error',msg:'No posee permisos para esta opción'} 
                 }
 
-                if (error.status == 401){
+                if (error.status == 401 || error.status == 400){
                     // msg = 'Usuario o Contraseña incorrectos';
                     // title = 'Error';
                     // if(currentUser && currentUser.access_token){

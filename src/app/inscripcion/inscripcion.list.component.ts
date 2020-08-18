@@ -201,9 +201,10 @@ export class InscripcionList   implements OnInit{
         
     }
 
-    onClickCompendio(inscId:number){
+    onClickCompendio(asignaturaId:number,periLectivoId:number
+            ,turnoId:number){
         this.inscService.getXlsCompendio(
-                inscId
+                asignaturaId,periLectivoId,turnoId
         ).subscribe(data=>{
             window.open('data:application/vnd.openxmlformats-officedocument.spreadsheetml.sheet;base64,' 
                 +data

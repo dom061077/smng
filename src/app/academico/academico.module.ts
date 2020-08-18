@@ -18,11 +18,15 @@ import {AcademicoService} from './academico.service';
 import {CargaExamenList} from './carga.examen.component';
 import {CargaExamenPromedio} from './carga.examen.promedio.component';
 import {DialogModule} from 'primeng/dialog';
+import {Compendio} from './compendio.component';
+import {AutoCompleteModule} from 'primeng/autocomplete';
+import {InscripcionService} from '../inscripcion/inscripcion.service';
 
 let routing=RouterModule.forChild([
  
     {path:"cargaexamen",component:CargaExamenList},
-    {path:"cargaexamenpromedio/:asigId/:alumnoId",component:CargaExamenPromedio}
+    {path:"cargaexamenpromedio/:asigId/:alumnoId",component:CargaExamenPromedio},
+    {path:"compendio",component:Compendio}
     
 ]);
 
@@ -42,13 +46,17 @@ let routing=RouterModule.forChild([
         ,MessageModule
         ,ButtonModule
         ,DialogModule
+        ,AutoCompleteModule
+        
     ],
     providers:[
-        AcademicoService
+        AcademicoService,
+        InscripcionService
     ],
     declarations:[
         CargaExamenList,
-        CargaExamenPromedio
+        CargaExamenPromedio,
+        Compendio
     ]
 
 })
