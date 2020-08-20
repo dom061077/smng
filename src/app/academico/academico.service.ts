@@ -53,4 +53,25 @@ export class AcademicoService extends RestDataSource{
             }));
     }
 
+    getAsignaturas(filter:string){
+        if(!filter)
+            filter="";
+        return this.sendRequest<any[]>("GET",this.url+"/getasignaturas?filter="
+            +filter)
+            .pipe(map(data=>{
+                return data.asignaturas;
+            }));
+    }
+
+    getXlsCompendio(asignaturaId:number,periLectivoId:number
+            ,turnoId:number,cursoId:number,divisionId:number){
+        return this.sendRequest<any>("POST",this.url+"/compendio"
+                ,{  asigId:asignaturaId, periLectivoId:periLectivoId 
+                    ,turnoId:turnoId,cursoId:cursoId,divisionId:divisionId
+                })
+                .pipe(map(data=>{
+                    return data.report
+                }));
+    }    
+
 }

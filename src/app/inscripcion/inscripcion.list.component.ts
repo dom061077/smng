@@ -203,14 +203,14 @@ export class InscripcionList   implements OnInit{
 
     onClickCompendio(asignaturaId:number,periLectivoId:number
             ,turnoId:number){
-        this.inscService.getXlsCompendio(
+        /*this.inscService.getXlsCompendio(
                 asignaturaId,periLectivoId,turnoId
         ).subscribe(data=>{
             window.open('data:application/vnd.openxmlformats-officedocument.spreadsheetml.sheet;base64,' 
                 +data
              );
 
-        })
+        })*/
         return false;        
     }
 

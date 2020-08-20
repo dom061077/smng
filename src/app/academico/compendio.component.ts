@@ -39,9 +39,7 @@ export class Compendio   implements OnInit{
 
     }
 
-    filterAsignaturas(event){
-        this.acadService.getAsignaturasCurrentUser
-    }
+
 
     filterTurnos(event){
         this.inscService.getTurnos().subscribe(data=>{
@@ -61,4 +59,28 @@ export class Compendio   implements OnInit{
             this.filteredDivisiones = data;
         });
     }    
+
+    filterAsignaturas(event){
+        this.acadService.getAsignaturas(event.query).subscribe(data=>{
+            this.filteredAsignaturas = data;
+        });
+    }
+
+    onSubmit(valuesForm){
+        console.log("onSubmit "+valuesForm);
+        this.acadService.getXlsCompendio(
+                valuesForm.asignatura.id
+                ,valuesForm.periodoLectivo.id
+                ,valuesForm.turno.id
+                ,valuesForm.curso.id
+                ,valuesForm.division.id
+        ).subscribe(data=>{
+            window.open('data:application/vnd.openxmlformats-officedocument.spreadsheetml.sheet;base64,' 
+                +data
+             );
+
+        })
+        return false; 
+    }
+    
 }
