@@ -65,6 +65,8 @@ export class AcademicoService extends RestDataSource{
 
     getXlsCompendio(asignaturaId:number,periLectivoId:number
             ,turnoId:number,cursoId:number,divisionId:number){
+                 
+        console.log("Division: "+divisionId);
         return this.sendRequest<any>("POST",this.url+"/compendio"
                 ,{  asigId:asignaturaId, periLectivoId:periLectivoId 
                     ,turnoId:turnoId,cursoId:cursoId,divisionId:divisionId

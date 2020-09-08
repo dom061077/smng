@@ -65,7 +65,7 @@ export class Compendio   implements OnInit{
             this.filteredAsignaturas = data;
         });
     }
-
+ 
     onSubmit(valuesForm){
         console.log("onSubmit "+valuesForm);
         this.acadService.getXlsCompendio(
