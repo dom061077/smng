@@ -2,26 +2,27 @@
 <form [formGroup]="examenesForm" (ngSubmit)="onSubmit(examenesForm.value)">
     <p-panel header="Carga de Notas">
         <p-fieldset>
-            <p-header *ngIf="alumno && periodosEval">{{asignatura.descripcion}} - {{alumno.apellido+' '+alumno.nombre}}</p-header>
+            <p-header *ngIf="alumno && periodosEval">{{(asignatura | async).descripcion}} - {{(alumno | async).apellido+' '+(alumno | async).nombre}}</p-header>
             <div class="row">
                 <div class="col-xs-12 col-sm-6 col-md-4 col-log-3 col-xl-2">
                     Periodo Lectivo:
                 </div>    
-                <div *ngIf="periodosEval"  class="col-xs-12 col-sm-6 col-md-4 col-log-3 col-xl-2">
-                    {{periodosEval.periodos[0].descripcion}}
+                <div *ngIf="periodoLectivo"  class="col-xs-12 col-sm-6 col-md-4 col-log-3 col-xl-2">
+                    {{periodoLectivo.value}}
                 </div>    
                 <div *ngIf="periodosEval" class="col-xs-12 col-sm-6 col-md-4 col-log-3 col-xl-2">
                     Curso y División:
                 </div>    
-                <div *ngIf="periodosEval"  class="col-xs-12 col-sm-6 col-md-4 col-log-3 col-xl-2">
-                    {{periodosEval.periodos[0].inscripcion.detalleInsc}}
+                <div *ngIf="cursoDivision"  class="col-xs-12 col-sm-6 col-md-4 col-log-3 col-xl-2">
+                    {{cursoDivision.value}}
                 </div>            
                        
             </div>    
         </p-fieldset>    
         <div *ngIf="periodosEval" class="container">
-            <p-fieldset  *ngFor="let peri of periodosEval.periodos">
-                <p-header>{{asignatura.descripcion}} - {{alumno.apellido+' '+alumno.nombre}}</p-header>
+            <p-fieldset  *ngFor="let peri of (periodosEval | async).periodos">
+                <p-header>{{peri.descripcion}}</p-header>
+                
                 <div class="row" *ngFor="let keyFormControl of peri.keyFormControls;let i=index">    
 
                     <div   
