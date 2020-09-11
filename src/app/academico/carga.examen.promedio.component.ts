@@ -70,7 +70,7 @@ export class CargaExamenPromedio implements OnInit{
                                     +per.id+'_'+'exam'
                                 );                                
                         
-                        labelArray.push(per.descripcion+' '+exam.descripcion+':');
+                        labelArray.push(exam.descripcion+':');
 
 
                         examId=exam.id;
@@ -87,7 +87,7 @@ export class CargaExamenPromedio implements OnInit{
                                 +per.id+'_'+'inas'
                             );                                
                     
-                    labelArray.push(per.descripcion+' Inasistencias:');
+                    labelArray.push(' Inasistencias:');
                     per.keyFormControls = keyFormControls;
                     per.labelArray=labelArray;
 
