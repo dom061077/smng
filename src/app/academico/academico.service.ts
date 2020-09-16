@@ -53,6 +53,14 @@ export class AcademicoService extends RestDataSource{
             }));
     }
 
+    saveExamen(examId:number,puntuacion:number){
+        return this.sendRequest<any>("POST",this.url+"/saveexam"
+                ,{
+                    examId:examId,
+                    puntuacion:puntuacion
+                })
+    }
+
     getAsignaturas(filter:string){
         if(!filter)
             filter="";
