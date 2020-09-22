@@ -41,7 +41,8 @@
                         
                         <input class="form-control"  style="width:100%"  
                             pInputText pKeyFilter="num"
-                            type="text" formControlName="{{keyFormControl}}"> 
+                            type="text" formControlName="{{keyFormControl}}"
+                            > 
                         
                     </div>  
                     <div *ngIf="keyFormControl.indexOf('inas')!=-1" class="m-1 col-xs-12 col-sm-6 col-md-4 col-log-3 col-xl-2">
@@ -53,14 +54,27 @@
                     </div>                      
                     <div 
                         class="col-xs-12 col-sm-6 col-md-4 col-log-3 col-xl-2">
-                        <p-message severity="error" text="Ingrese un valor 0 o mayor"
-                            *ngIf="examenesForm.controls[keyFormControl].dirty && examenesForm.controls[keyFormControl].errors">
+                        <p-message severity="error" text="Ingrese un valor mayor a Cero"
+                            *ngIf="keyFormControl.indexOf('inas')!=-1 && examenesForm.controls[keyFormControl].dirty && examenesForm.controls[keyFormControl].errors">
                         </p-message>                        
                     </div>      
+
+                    <div 
+                        class="col-xs-12 col-sm-6 col-md-4 col-log-3 col-xl-2">
+                        <p-message severity="error" text="Ingrese un valor Cero o mayor"
+                            *ngIf="keyFormControl.indexOf('inas')==-1 && examenesForm.controls[keyFormControl].dirty && examenesForm.controls[keyFormControl].errors?.required">
+                        </p-message>  
+                        <p-message severity="error" text="El promedio en el periodo es mayor a 6, por lo tanto, debe ingresar Cero como nota complementaria"
+                            *ngIf="keyFormControl.indexOf('inas')==-1 && examenesForm.controls[keyFormControl].errors?.invalidComplementario">
+                        </p-message>                                              
+                    </div>                      
                 
                 </div>    
 
-             
+                <button pButton style="width:100%"
+                    label="Cerrar Periodo" >
+
+                </button>    
             </p-fieldset>   
         </div> 
         <div class="row">

@@ -34,9 +34,9 @@ export class AcademicoService extends RestDataSource{
             +cursoId);
     }
 
-    getAlumnoExamenes(asigId:number,alumnoId:number){
+    getAlumnoExamenes(asigId:number,alumnoId:number,perId:number){
         return this.sendRequest<any>("GET",this.url+"/showalumnoexamenes?alumnoId="
-            +alumnoId+"&asigId="+asigId);
+            +alumnoId+"&asigId="+asigId+"&perId="+perId);
     }
 
     savePromedios(promedios){
@@ -82,6 +82,15 @@ export class AcademicoService extends RestDataSource{
                 .pipe(map(data=>{
                     return data.report
                 }));
-    }    
+    }   
+
+    isComplementarioValid(perId:number,puntuacion:number){
+        return this.sendRequest<boolean>("GET"
+            ,this.url+"/invalidcomp?perId="+perId
+                +"&puntuacion="+puntuacion)
+            .pipe(map(data=>{
+                return data.success;
+            }));
+    } 
 
 }

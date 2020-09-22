@@ -42,11 +42,14 @@ export class CargaExamenPromedio implements OnInit{
     private addExamValueChanges(control,examId:number,perIndex:number){
         control.valueChanges.pipe(debounceTime(this.debounce), distinctUntilChanged())
             .subscribe(query=>{
+               if(query=='-')
+                    return;
                this.acadService.saveExamen(examId,query).subscribe(data=>{
                     console.log('Salida de saveExamen: '+data);
                     var promedios = this.$promedios.value;
                     promedios[perIndex]=data.promedio;
                     this.$promedios.next(promedios);
+                    this.validateAll();
                });
                
                
@@ -62,7 +65,7 @@ export class CargaExamenPromedio implements OnInit{
         const alumnoId=this.activateRoute.snapshot.params["alumnoId"]
         //this.examenes = this.acadService.getAlumnoExamenes(asigId,alumnoId)
         //        .pipe(map(data=>{ return data.examenes;}));
-        this.acadService.getAlumnoExamenes(asigId,alumnoId)
+        this.acadService.getAlumnoExamenes(asigId,alumnoId,0)
             .subscribe(data=>{
                 console.log('Retornarno examenes');
                 //this.examenes=data.examenes;
@@ -85,16 +88,37 @@ export class CargaExamenPromedio implements OnInit{
                     let control ;
                     
                     for(let exam of per.examenes){
-                        control = new FormControl(exam.puntuacion,[Validators.required],
-                                [(control: AbstractControl): Observable<ValidationErrors | null> => 
-                                  CustomValidators.validatePromedio(control)]);
+                        let asyncValidation;
 
+                        
+                        let strExamEnding;
+                        if(exam.promediable)
+                            strExamEnding='exam';
+                        else
+                            if(exam.complementario)    
+                                strExamEnding='comp';
+                            else
+                                strExamEnding='diag';
+                        if(strExamEnding=='exam')
+                            asyncValidation=[(control: AbstractControl): Observable<ValidationErrors | null> => 
+                                  CustomValidators.validatePromedio(control)];
+                        else{
+                            asyncValidation=[(control: AbstractControl): Observable<ValidationErrors | null> => 
+                                  CustomValidators.validateComplementario(control
+                                    //,i+'_exam_'+exam.id+'_'+per.id+'_'+strExamEnding
+                                    ,per.id
+                                    ,this.$promedios,this.acadService)];
+                            console.log("PerIndex: "+perIndex);
+                        }
+
+                        control = new FormControl(exam.puntuacion,[Validators.required],
+                                    asyncValidation);                                
                         this.examenesForm.addControl(i+'_exam_'+exam.id+'_'
-                                +per.id+'_'+'exam'
+                                +per.id+'_'+strExamEnding
                             ,control);
                         this.addExamValueChanges(control,exam.id,perIndex);    
                         keyFormControls.push(i+'_exam_'+exam.id+'_'
-                                    +per.id+'_'+'exam'
+                                    +per.id+'_'+strExamEnding
                                 );                                
                         
                         labelArray.push(exam.descripcion+':');
@@ -142,14 +166,27 @@ export class CargaExamenPromedio implements OnInit{
             //console.log('Periodos: '+this.periodosEval.periodos);
     }
 
-    onSubmit(valuesForm){
-        console.log("Valor fomrulario: "+valuesForm);
-        this.acadService.savePromedios(valuesForm).subscribe(data=>{
-            if(data.success){
-              this.messageService.add({severity:'info',summary:'Mensaje',detail:'Los datos fueron registrados correctamente'});
-              this.router.navigateByUrl("/cargaexamen");                
+    validateAll(){
+        Object.keys(this.examenesForm.controls).forEach(field => {  //{2}
+            const control = this.examenesForm.get(field);             //{3}
+            if (control instanceof FormControl) {             //{4}
+                control.updateValueAndValidity({ onlySelf: true });
             }
         });
+
+    }
+
+    onSubmit(valuesForm){
+        console.log("Valor fomrulario: "+valuesForm);
+        if(this.examenesForm.valid){
+            this.acadService.savePromedios(valuesForm).subscribe(data=>{
+                if(data.success){
+                this.messageService.add({severity:'info',summary:'Mensaje',detail:'Los datos fueron registrados correctamente'});
+                this.router.navigateByUrl("/cargaexamen");                
+                }
+            });
+        }
+            
     }
 
 }

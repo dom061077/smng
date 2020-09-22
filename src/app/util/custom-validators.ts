@@ -1,8 +1,10 @@
 import { ValidationErrors, ValidatorFn, AbstractControl } from '@angular/forms';
 import { AuthenticationService  } from '../security/authentication.service';
 import { AlumnoService } from '../alumno/alumno.service';
+import { AcademicoService } from '../academico/academico.service';
 import { Observable,of } from 'rxjs';
 import { map } from 'rxjs/operators';
+import { BehaviorSubject } from 'rxjs';
 
 export class CustomValidators {
   static patternValidator(regex: RegExp, error: ValidationErrors): ValidatorFn {
@@ -56,6 +58,28 @@ export class CustomValidators {
           || val<0 || val>10)  
         return of({'invalidPromedio':true});
       return of(null);  
+  }
+
+  static validateComplementario(control:AbstractControl
+      ,perId:number,$promedios:BehaviorSubject<any>
+      ,acadService:AcademicoService)
+    : Observable<ValidationErrors | null>{
+      let val = control.value;
+      if(val === null || val==='')
+        return of(null);
+      
+      
+      return acadService.isComplementarioValid(perId,val).pipe(map(data=>{
+          if(data)
+            return {invalidComplementario:'La puntuación es incorrecta'};
+          else
+            return null;  
+      }));
+      /*if(/*!val.toString().match(/^\s*(?=.*[0-9])\d*(?:\.\d{1,2})?\s*$/)
+          || validComp==false)
+        return of({'invalidComplementario':true});
+        
+      return of(null)  ;*/
   }
 
   static validateDniAlumno$(control: AbstractControl
