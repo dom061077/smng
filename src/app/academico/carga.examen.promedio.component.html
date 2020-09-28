@@ -2,7 +2,7 @@
 <form [formGroup]="examenesForm" (ngSubmit)="onSubmit(examenesForm.value)">
     <p-panel header="Carga de Notas">
         
-        <p-fieldset>
+        <p-fieldset  >
             <p-header *ngIf="alumno && periodosEval">
                 {{(asignatura | async).descripcion}} - {{(alumno | async).apellido+' '+(alumno | async).nombre}}
                 
@@ -23,13 +23,13 @@
                        
             </div>    
         </p-fieldset>    
-        <div *ngIf="periodosEval" class="container">
+        <div  *ngIf="periodosEval" class="container" >
             <p-fieldset  *ngFor="let peri of (periodosEval | async).periodos;let j=index ">
-                <p-header>{{peri.descripcion}}  - Promedio: {{($promedios | async)[j]}}
+                <p-header>{{peri.id}} {{peri.descripcion}}  - Promedio: {{($promedios | async)[j]}}
 
                 </p-header>
                  
-                <div class="row" *ngFor="let keyFormControl of peri.keyFormControls;let i=index">    
+                <div [appDisable]="peri.cerrado" class="row" *ngFor="let keyFormControl of peri.keyFormControls;let i=index">    
 
                     <div   
                         class="align-middle m-1 col-xs-12 col-sm-6 col-md-4 col-log-3 col-xl-3">
@@ -37,11 +37,12 @@
                         {{peri.labelArray[i]}}
                     </div>    
 
-                    <div *ngIf="keyFormControl.indexOf('inas')==-1" class="m-1 col-xs-12 col-sm-6 col-md-4 col-log-3 col-xl-2">
+                    <div  *ngIf="keyFormControl.indexOf('inas')==-1" class="m-1 col-xs-12 col-sm-6 col-md-4 col-log-3 col-xl-2">
                         
                         <input class="form-control"  style="width:100%"  
                             pInputText pKeyFilter="num"
                             type="text" formControlName="{{keyFormControl}}"
+                            
                             > 
                         
                     </div>  
@@ -64,22 +65,24 @@
                         <p-message severity="error" text="Ingrese un valor Cero o mayor"
                             *ngIf="keyFormControl.indexOf('inas')==-1 && examenesForm.controls[keyFormControl].dirty && examenesForm.controls[keyFormControl].errors?.required">
                         </p-message>  
-                        <p-message severity="error" text="El promedio en el periodo es mayor a 6, por lo tanto, debe ingresar Cero como nota complementaria"
-                            *ngIf="keyFormControl.indexOf('inas')==-1 && examenesForm.controls[keyFormControl].errors?.invalidComplementario">
+                        <p-message severity="error" text="{{examenesForm.controls[keyFormControl].errors?.invalidComplementario}}"
+                            *ngIf="keyFormControl.indexOf('comp')!=-1 && examenesForm.controls[keyFormControl].errors?.invalidComplementario">
                         </p-message>                                              
                     </div>                      
                 
                 </div>    
-
-                <button pButton style="width:100%"
-                    label="Cerrar Periodo" >
-
-                </button>    
             </p-fieldset>   
         </div> 
         <div class="row">
-             <button id="buttonConfirmId" pButton style="width:100%"  
-                    type="submit" label="Confirmar" [disabled]="!examenesForm.valid">
+            
+             <button id="buttonCancelarId" class="btn btn-primary" style="width:45%;margin:5px"  
+                    type="button"  (click)="onVolver()">
+                    Volver
+             </button>            
+            
+             <button id="buttonConfirmId" class="btn btn-primary"  style="width:45%;margin:5px"  
+                    type="submit"  [disabled]="!examenesForm.valid">
+                    Cerrar Periodo
              </button>
         </div>    
 

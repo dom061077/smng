@@ -21,11 +21,12 @@ import {DialogModule} from 'primeng/dialog';
 import {Compendio} from './compendio.component';
 import {AutoCompleteModule} from 'primeng/autocomplete';
 import {InscripcionService} from '../inscripcion/inscripcion.service';
+import {DisableDirective} from '../util/disable.directive';
 
 let routing=RouterModule.forChild([
  
     {path:"cargaexamen",component:CargaExamenList},
-    {path:"cargaexamenpromedio/:asigId/:alumnoId",component:CargaExamenPromedio},
+    {path:"cargaexamenpromedio/:asigId/:alumnoId/:perId",component:CargaExamenPromedio},
     {path:"compendio",component:Compendio}
     
 ]);
@@ -54,6 +55,7 @@ let routing=RouterModule.forChild([
         InscripcionService
     ],
     declarations:[
+        DisableDirective,
         CargaExamenList,
         CargaExamenPromedio,
         Compendio

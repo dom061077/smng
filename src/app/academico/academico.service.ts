@@ -87,10 +87,7 @@ export class AcademicoService extends RestDataSource{
     isComplementarioValid(perId:number,puntuacion:number){
         return this.sendRequest<boolean>("GET"
             ,this.url+"/invalidcomp?perId="+perId
-                +"&puntuacion="+puntuacion)
-            .pipe(map(data=>{
-                return data.success;
-            }));
+                +"&puntuacion="+puntuacion).pipe(map(data=>data));
     } 
 
 }

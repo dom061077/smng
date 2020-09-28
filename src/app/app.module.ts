@@ -36,6 +36,7 @@ import {
 import { ButtonModule } from 'primeng/button';
 import { JwtInterceptor } from './security/jwt.interceptor';
 import { MessageService } from 'primeng/api';
+
 //import {PasswordModule} from 'primeng/button';
 
 const rootRouting: ModuleWithProviders =
@@ -60,6 +61,7 @@ const rootRouting: ModuleWithProviders =
 @NgModule({
   
   declarations: [
+    
     AppComponent,
     FooterComponent,
     HeaderComponent
@@ -100,6 +102,7 @@ const rootRouting: ModuleWithProviders =
       ,MessageService
       
   ],
+  
   bootstrap: [AppComponent]
 })
 export class AppModule { }

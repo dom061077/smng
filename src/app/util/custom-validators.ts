@@ -68,10 +68,10 @@ export class CustomValidators {
       if(val === null || val==='')
         return of(null);
       
-      
+      console.log("validando complementario");
       return acadService.isComplementarioValid(perId,val).pipe(map(data=>{
-          if(data)
-            return {invalidComplementario:'La puntuación es incorrecta'};
+          if(data.success)
+            return {invalidComplementario:data.msg};
           else
             return null;  
       }));

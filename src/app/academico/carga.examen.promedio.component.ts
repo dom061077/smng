@@ -63,9 +63,10 @@ export class CargaExamenPromedio implements OnInit{
         this.examenesForm = this.fb.group({});
         const asigId=this.activateRoute.snapshot.params["asigId"];
         const alumnoId=this.activateRoute.snapshot.params["alumnoId"]
+        const periId = this.activateRoute.snapshot.params["perId"];
         //this.examenes = this.acadService.getAlumnoExamenes(asigId,alumnoId)
         //        .pipe(map(data=>{ return data.examenes;}));
-        this.acadService.getAlumnoExamenes(asigId,alumnoId,0)
+        this.acadService.getAlumnoExamenes(asigId,alumnoId,periId)
             .subscribe(data=>{
                 console.log('Retornarno examenes');
                 //this.examenes=data.examenes;
@@ -102,7 +103,7 @@ export class CargaExamenPromedio implements OnInit{
                         if(strExamEnding=='exam')
                             asyncValidation=[(control: AbstractControl): Observable<ValidationErrors | null> => 
                                   CustomValidators.validatePromedio(control)];
-                        else{
+                        if(strExamEnding=='comp'){
                             asyncValidation=[(control: AbstractControl): Observable<ValidationErrors | null> => 
                                   CustomValidators.validateComplementario(control
                                     //,i+'_exam_'+exam.id+'_'+per.id+'_'+strExamEnding
@@ -110,6 +111,8 @@ export class CargaExamenPromedio implements OnInit{
                                     ,this.$promedios,this.acadService)];
                             console.log("PerIndex: "+perIndex);
                         }
+                        if(strExamEnding=='diag')
+                            asyncValidation=[];
 
                         control = new FormControl(exam.puntuacion,[Validators.required],
                                     asyncValidation);                                
@@ -177,7 +180,7 @@ export class CargaExamenPromedio implements OnInit{
     }
 
     onSubmit(valuesForm){
-        console.log("Valor fomrulario: "+valuesForm);
+        console.log("Valor formulario: "+valuesForm);
         if(this.examenesForm.valid){
             this.acadService.savePromedios(valuesForm).subscribe(data=>{
                 if(data.success){
@@ -187,6 +190,10 @@ export class CargaExamenPromedio implements OnInit{
             });
         }
             
+    }
+
+    onVolver(){
+        this.router.navigateByUrl("/cargaexamen")
     }
 
 }
